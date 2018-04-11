@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Welcome to Sophiroth, Please Login!
+{% endblock %}
+
+{% block forms %}
+<form action="" method="POST" align="center" >
+    <table align="center">
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        </table>
+        <input type="submit" value="Login" class="green_btn">
+
+</form>
+       <a href="http://baidu.com" target="_blank"> <button class="green_btn" > Register</button> </a>
+
+{% endblock %}
