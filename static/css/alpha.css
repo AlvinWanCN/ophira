@@ -1,0 +1,46 @@
+
+body{
+    /*color:red;*/
+    background: black;
+}
+
+p{
+    text-indent: 0px;
+    color: #95de0c;
+    line-height: 0px;
+    align: center;
+}
+a{
+    text-decoration: none;
+}
+.green_btn {
+    height: 35px;
+    width: 277px;
+    background-color: #2cc64d;
+    font-size: 16px;
+    margin-top: 13px;
+    color: #ffffff;
+    font-weight: bold;
+    border: 1px solid #2ab949;
+    align: "right";
+}
+.alien {
+    width: 255px;
+}
+input{
+    text-indent: 0px;
+}
+
+td{
+    color: #95de0c;
+}
+textarea {
+    width: 168px;
+    height: 59px;
+    max-width: 168px;
+    max-height: 100px;
+
+}
+#alien {
+    width: 255px;
+}
