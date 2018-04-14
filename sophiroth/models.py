@@ -1,3 +1,4 @@
+#coding:utf-8
 from django.db import models
 import time
 # Create your models here.
@@ -18,3 +19,5 @@ class Account(models.Model):
     comment = models.CharField(max_length=254)
     createDate = models.DateTimeField(auto_now_add=True)
     updateDate = models.DateTimeField(auto_now=True)
+
+

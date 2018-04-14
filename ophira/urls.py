@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^$', main_page),
     url(r'^base/', base),
     url(r'^main/', main_page),
-
+    url(r'^reqTest/',reqTest),
+    url(r'^ip', ip),
 ]
