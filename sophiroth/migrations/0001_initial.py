@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
             name='User',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=32)),
-                ('passwors', models.CharField(max_length=50)),
+                ('username', models.CharField(max_length=32)),
+                ('password', models.CharField(max_length=50)),
                 ('email', models.CharField(max_length=50)),
                 ('createDate', models.DateTimeField(auto_now_add=True)),
                 ('updateDate', models.DateTimeField(auto_now=True)),

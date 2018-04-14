@@ -6,8 +6,8 @@ import time
 
 
 class User(models.Model):
-    name = models.CharField(max_length=32)
-    passwors = models.CharField(max_length=50)
+    username = models.CharField(max_length=32)
+    password = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     createDate = models.DateTimeField(auto_now_add=True)
     updateDate = models.DateTimeField(auto_now=True)
