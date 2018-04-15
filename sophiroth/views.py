@@ -90,10 +90,19 @@ def reqTest(request):
     return render_to_response('reqTest.html',locals())
 
 def ip(request):
-    if request.META.has_key('HTTP_X_FORWARDED_FOR'):
-        ip = request.META['HTTP_X_FORWARDED_FOR']
-    else:
-        ip = request.META['REMOTE_ADDR']
+    # if request.META.has_key('HTTP_X_FORWARDED_FOR'):
+    #     ip = request.META['HTTP_X_FORWARDED_FOR']
+    # else:
+    #     ip = request.META['REMOTE_ADDR']
+    # return render_to_response('ip.html',locals())
+    try:
+        real_ip = request.META['HTTP_X_FORWARDED_FOR']
+        ip = real_ip.split(",")[0]
+    except:
+        try:
+            ip = request.META['REMOTE_ADDR']
+        except:
+            ip = ""
     return render_to_response('ip.html',locals())
 
 
