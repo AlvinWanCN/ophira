@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^reqTest/',reqTest),
     url(r'^ip', ip),
     url(r'^register',register),
-    url(r'^testcookie',testcokie)
+    url(r'^testcookie',testcokie),
+    url(r'^na',new_account)
 ]

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    New Acount addition.
+{% endblock %}
+
+{% block forms %}
+<form action="" method="POST" align="center" style="color: white">
+    <table align="center">
+           <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" ></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+           <tr>
+                <td>Application:</td>
+                <td><input type="text" name="application" ></td>
+            </tr>
+           <tr>
+                <td>Comment:</td>
+                <td><input type="text" name="comment" ></td>
+            </tr>
+
+    </table>
+    <input type="submit" value="Submit" class="green_btn">
+</form>
+
+{% endblock %}

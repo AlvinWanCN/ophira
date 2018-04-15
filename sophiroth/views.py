@@ -5,6 +5,8 @@ import hashlib
 import sophiroth.modules.get_weather as  get_weather
 from django.http import JsonResponse
 from sophiroth.forms import *
+from django.http import HttpResponseRedirect
+
 # Create your views here.
 
 
@@ -32,6 +34,19 @@ def main_content(request):
     response.set_cookie("name", "alvin", 3600)
     return response
 
+def new_account_content(request):
+    if request.method == 'POST' and request.POST:
+        username = request.POST['username']  #username为我们前端html里面的name的值
+        password = request.POST['password']
+        application = request.POST['application']
+        comment = request.POST['comment']
+        u = Account()
+        u.username = username
+        u.password = password
+        u.application = application
+        u.comment = comment
+        u.save()
+    return render_to_response("new_account.html", locals())
 def noRightCookie(request):
     if request.method == "POST" and request.POST:
         username = request.POST['username']  # username为我们前端html里面的name的值
@@ -43,16 +58,28 @@ def noRightCookie(request):
             response = main_content(request)
             return response
         else:
-            response = render_to_response('main.html', locals())
+            response = render_to_response('login.html', locals())
             return response
     else:
         login = Login()
-        response = render_to_response('main.html', locals())
+        response = render_to_response('login.html', locals())
         return response
+
+def check_cookie(request,content):
+    if request.COOKIES:
+        if request.COOKIES['name'] == 'alvin':
+            response = content
+            return response
+        else:
+            return noRightCookie(request)
+    else:
+        return HttpResponseRedirect('/')
+       # return noRightCookie(request)
+
 def main_page(request):
     if request.COOKIES:
         if request.COOKIES['name'] == 'alvin':
-            response = response = main_content(request)
+            response = main_content(request)
             return response
         else:
             return noRightCookie(request)
@@ -96,3 +123,6 @@ def testcokie(request):
     response = render_to_response('testCookie.html',locals())
     response.set_cookie("name","alvin",3600)
     return response
+
+def new_account(request):
+    return check_cookie(request,new_account_content(request))
