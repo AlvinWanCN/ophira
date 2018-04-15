@@ -10,6 +10,16 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 
 
+def client_ip(request):
+    try:
+        real_ip = request.META['HTTP_X_FORWARDED_FOR']
+        regip = real_ip.split(",")[0]
+    except:
+        try:
+            regip = request.META['REMOTE_ADDR']
+        except:
+            regip = ""
+    return regip
 
 def auth(Username,Password):
     try:
@@ -25,6 +35,7 @@ def base(request):
     return render_to_response('base.html',locals())
 
 def main_content(request):
+    ip = client_ip(request)
     nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
     weatherStatus = get_weather.get_status()
     weatherMax = get_weather.get_max_temperature()
@@ -89,20 +100,9 @@ def main_page(request):
 def reqTest(request):
     return render_to_response('reqTest.html',locals())
 
+
 def ip(request):
-    # if request.META.has_key('HTTP_X_FORWARDED_FOR'):
-    #     ip = request.META['HTTP_X_FORWARDED_FOR']
-    # else:
-    #     ip = request.META['REMOTE_ADDR']
-    # return render_to_response('ip.html',locals())
-    try:
-        real_ip = request.META['HTTP_X_FORWARDED_FOR']
-        ip = real_ip.split(",")[0]
-    except:
-        try:
-            ip = request.META['REMOTE_ADDR']
-        except:
-            ip = ""
+    ip = client_ip(request)
     return render_to_response('ip.html',locals())
 
 
