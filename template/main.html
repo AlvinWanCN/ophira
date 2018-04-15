@@ -7,7 +7,14 @@
 {% block forms %}
 <form action="" method="POST" align="center" style="color: white">
     <table align="center">
-        {{ login }}
+           <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
 
     </table>
     <input type="submit" value="Login" class="green_btn">
