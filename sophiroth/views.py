@@ -89,10 +89,13 @@ def check_cookie(request,content):
 
 def main_page(request):
     if request.COOKIES:
-        if request.COOKIES['name'] == 'alvin':
-            response = main_content(request)
-            return response
-        else:
+        try:
+            if request.COOKIES['name'] == 'alvin':
+                response = main_content(request)
+                return response
+            else:
+                return noRightCookie(request)
+        except:
             return noRightCookie(request)
     else:
         return noRightCookie(request)
