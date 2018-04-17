@@ -19,12 +19,13 @@ from sophiroth.views import *
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', main_page),
+    url(r'^$', index),
     url(r'^base/', base),
-    url(r'^main/', main_page),
     url(r'^reqTest/',reqTest),
     url(r'^ip', ip),
     url(r'^register',register),
-    url(r'^testcookie',testcokie),
-    url(r'^na',new_account)
+    url(r'^testcookie',testcookie),
+    url(r'^testsission', testsission),
+    url(r'^na',new_account),
+    url(r'login',login)
 ]
