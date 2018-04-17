@@ -5,31 +5,13 @@
 {% endblock %}
 
 {% block forms %}
-<form action="" method="POST" align="center" style="color: white;">
-    <table align="center">
-           <tr>
-                <td>Username:</td>
-                <td><input type="text" name="username"></td>
-            </tr>
-           <tr>
-                <td>Nickname:</td>
-                <td><input type="text" name="nickname"></td>
-            </tr>
-          <tr>
-                <td>Email:</td>
-                <td><input type="text" name="email"></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr>
-                <td>Birthday:</td>
-                <td><input type="date" name="birthday" style="width: 170px"></td>
-            </tr>
-        </table>
-
- <input type="submit" value="Submit" class="green_btn"  >
+        <div  class="form1">
+<form action="" method="POST"  ">
+    {% for i in register %}
+    <p>{{ i.label }} {{ i }} </p>
+    {% endfor %}
+    <input type="submit" value="Register" class="green_btn">
 </form>
+        </div>
 
 {% endblock %}

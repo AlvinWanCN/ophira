@@ -66,9 +66,13 @@ def auth(Username,Password):
 
 
 def login(request):
+    Login = loginForm()
     if request.method == "POST" and request.POST:
         username = request.POST['username']  # username为我们前端html里面的name的值
         password = hashpassword(request.POST['password'])
+        Login = loginForm(request.POST)
+        if Login.is_valid(): #判断是否校验是否成功
+            data = Login.cleaned_data #将校验成功的数据以字典的形式返回
         if auth(username, password):
             request.session['user_id'] = User.objects.filter(username=username)[0].id
             return HttpResponseRedirect("/")

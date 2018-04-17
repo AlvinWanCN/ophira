@@ -35,6 +35,7 @@
     border-style: groove;
     height: 650px;
     width: 100%;
+
 }
 .tail{
     position: absolute;
@@ -42,4 +43,62 @@
     top: 755px;
     bottom: 0;
     width: 100%;
+}
+.middle p{
+    position: relative;
+    left:100px;
+    top: 50px;
+    line-height: 25px;
+
+}
+
+.middle input{
+    position: absolute;
+    left:107px;
+    height: 18px;
+}
+
+
+
+
+.green_btn {
+    height: 23px;
+    width: 175px;
+    background-color: #ab7643;
+    font-size: 16px;
+    margin-top: 13px;
+    color: #ffffff;
+    font-weight: bold;
+    border: 1px solid #2ab949;
+}
+.alien {
+    width: 255px;
+}
+.td{
+    color: #95de0c;
+}
+
+.form1{
+    /*border-style: dashed;*/
+    position: absolute;
+    left:0px;
+    width: 300px;
+    height: 300px;
+    left: 0px;
+    text-align:left;
+
+}
+.form1 p{
+    position: relative;
+    top:20px;
+}
+
+.form1 input{
+    position: absolute;
+    left: 95px;
+}
+.form1 a{
+    position: absolute;
+    top: 130px;
+    left: 95px;
 }

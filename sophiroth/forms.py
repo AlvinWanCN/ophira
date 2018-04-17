@@ -3,10 +3,11 @@
 from django import forms
 
 class Register(forms.Form):
-    user = forms.CharField(max_length=32,label='Username',required=True)
-    password = forms.CharField(max_length=32,label='Password',required=True)
-    phone = forms.CharField(max_length=15,label='Phone',required=False)
-    email = forms.EmailField(max_length=40,label='Email',required=False)
+    username = forms.CharField(max_length=32,label='Username:',required=True)
+    nickname = forms.CharField(max_length=32,label='Nickname:',required=True)
+    email = forms.EmailField(max_length=40,label='Email:',required=False)
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput,label='Password:',required=True)
+    birthday = forms.DateField(widget=forms.DateInput,label='Birthday:',required=False)
 
     def clean_password(self): #命名必须是clean_字段名称
         password = self.cleaned_data['password']
@@ -14,6 +15,6 @@ class Register(forms.Form):
             raise forms.ValidationError("First can't be number")
         return password
 
-class Login(forms.Form):
-    user = forms.CharField(max_length=32,label='Username',required=True)
-    password = forms.CharField(max_length=32,label='Password',required=True)
+class loginForm(forms.Form):
+    username = forms.CharField(max_length=32,label='Username',required=True)
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput,label='Password',required=True)
