@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+            {% block title %}
+            {% endblock %}
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+    <div class="head" align="center">
+    <h1>
+        {% block H1 %}
+            Welcome to sophiroth technology web center.
+        {% endblock %}
+    </h1>
+         <p class="logout"><a href="/logout" class="logout">退出登录</a> </p>
+        <img src="/static/img/etlucency.png" class="titlealien">
+
+    </div>
+    <div class="middle">
+
+    {% block middle_content %}
+
+    {% endblock %}
+
+    </div>
+    <div class="tail">
+        {% block tail %}
+        <p>友情链接</p>
+        {% endblock %}
+    </div>
+</body>
+</html>

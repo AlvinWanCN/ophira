@@ -1,0 +1,45 @@
+
+.head{
+    border-style: dashed;
+    /*border-top-width: 15px;*/
+    /*border-right-width: 5px;*/
+    /*border-bottom-width: 15px;*/
+    /*border-left-width: 5px;*/
+    top:0;
+    height: 85px;
+    width: 100%;
+    color: white;
+    background-color: #0c1927;
+
+}
+.titlealien{
+    top:13px;
+    width: 80px;
+    position: absolute;
+    left: 20px;
+}
+.headTitel{
+    position: absolute;
+    top: 50%;
+}
+
+.logout{
+    position: absolute;
+    right: 5px;
+    top:-2px;
+    color: red;
+}
+
+.middle{
+    position: absolute;
+    border-style: groove;
+    height: 650px;
+    width: 100%;
+}
+.tail{
+    position: absolute;
+    border-style: double;
+    top: 755px;
+    bottom: 0;
+    width: 100%;
+}

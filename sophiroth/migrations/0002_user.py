@@ -18,10 +18,11 @@ class Migration(migrations.Migration):
                 ('username', models.CharField(max_length=32)),
                 ('nickname', models.CharField(max_length=32)),
                 ('password', models.CharField(max_length=50)),
-                ('email', models.CharField(max_length=50)),
+                ('email', models.CharField(max_length=50, null=True)),
                 ('brithday', models.DateField(null=True)),
                 ('createDate', models.DateTimeField(auto_now_add=True)),
                 ('updateDate', models.DateTimeField(auto_now=True)),
+                ('role', models.IntegerField(default=0, max_length=3)),
             ],
         ),
     ]

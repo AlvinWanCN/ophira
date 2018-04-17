@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
+
+
+{% extends 'content_template.html' %}
 
 {% block title %}
-    New Acount addition.
+         New Acount addition.
 {% endblock %}
 
-{% block forms %}
-<form action="" method="POST" align="center" style="color: white">
+{% block middle_content %}
+<form action="" method="POST" align="center" style="color: black">
     <table align="center">
            <tr>
                 <td>Username:</td>
@@ -27,5 +29,12 @@
     </table>
     <input type="submit" value="Submit" class="green_btn">
 </form>
+{% endblock %}
 
+{% block tail %}
+<p>友情链接</p>
+{% endblock %}
+
+{% block H1 %}
+Welcome to account addition center
 {% endblock %}

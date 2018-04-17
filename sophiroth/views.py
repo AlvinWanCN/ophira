@@ -74,14 +74,10 @@ def login(request):
             return HttpResponseRedirect("/")
         else:
             return render_to_response('login.html', locals())
-
     else:
         return render_to_response('login.html', locals())
 
 
-
-def base(request):
-    return render_to_response('base.html',locals())
 
 @loginValid
 def index(request):
@@ -90,8 +86,9 @@ def index(request):
     weatherStatus = get_weather.get_status()
     weatherMax = get_weather.get_max_temperature()
     weatherMin = get_weather.get_min_temperature()
+    role = User.objects.filter(id=request.session['user_id'])[0].role
     #login = Login(request.POST)
-    nickname = User.objects.filter(username=request.session['name'])[0].nickname
+    nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
     return render_to_response('index.html', locals())
 
 
@@ -120,12 +117,11 @@ def logout(request):
 
 def reqTest(request):
     try:
-        cname=request.COOKIES["name"]
-        sname=request.session['name']
+        cname=request.COOKIES["idname"]
     except:
         pass
     try:
-        sname=request.session['name']
+        id=request.session['id']
     except:
         pass
     return render_to_response('reqTest.html',locals())
