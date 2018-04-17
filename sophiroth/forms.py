@@ -16,5 +16,5 @@ class Register(forms.Form):
         return password
 
 class loginForm(forms.Form):
-    username = forms.CharField(max_length=32,label='Username',required=True)
-    password = forms.CharField(max_length=32, widget=forms.PasswordInput,label='Password',required=True)
+    username = forms.CharField(max_length=32,label='Username:',required=True)
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput,label='Password:',required=True)

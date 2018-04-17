@@ -13,7 +13,7 @@ class User(models.Model):
     brithday = models.DateField(null=True)
     createDate = models.DateTimeField(auto_now_add=True)
     updateDate = models.DateTimeField(auto_now=True)
-    role = models.IntegerField(max_length=3,default=0)
+    role = models.IntegerField(default=0)
 
 class Account(models.Model):
     username = models.CharField(max_length=50)
