@@ -71,7 +71,6 @@ def login(request):
         password = hashpassword(request.POST['password'])
         if auth(username, password):
             request.session['name'] = username
-            #response = index(request)
             return HttpResponseRedirect("/")
         else:
             return render_to_response('login.html', locals())
@@ -92,7 +91,7 @@ def index(request):
     weatherMax = get_weather.get_max_temperature()
     weatherMin = get_weather.get_min_temperature()
     #login = Login(request.POST)
-    name = request.session['name']
+    nickname = User.objects.filter(username=request.session['name'])[0].nickname
     return render_to_response('index.html', locals())
 
 
@@ -110,51 +109,9 @@ def new_account_content(request):
         u.comment = comment
         u.save()
     return render_to_response("new_account.html", locals())
-def noRightCookie(request):
-    if request.method == "POST" and request.POST:
-        username = request.POST['username']  # username为我们前端html里面的name的值
-        password = hashpassword(request.POST['password'])
-        if auth(username, password):
 
-            response = index(request)
-            return response
-        else:
-            return login(request)
-    else:
-        return login(request)
 
-def check_cookie(request,content):
-    if request.COOKIES:
-        if request.COOKIES['name'] == 'alvin':
-            response = content
-            return response
-        else:
-            return noRightCookie(request)
-    else:
-        return HttpResponseRedirect('/')
-       # return noRightCookie(request)
-def check_session(request,content):
-    if request.session:
-        if request.session['name'] == 'diana':
-            response = content
-            return response
-        else:
-            return noRightCookie(request)
-    else:
-        return HttpResponseRedirect('/')
 
-def main_page(request):
-    if request.COOKIES:
-        try:
-            if request.COOKIES['name'] == 'alvin':
-                response = index(request)
-                return response
-            else:
-                return noRightCookie(request)
-        except:
-            return noRightCookie(request)
-    else:
-        return noRightCookie(request)
 
 def reqTest(request):
     try:
@@ -179,16 +136,12 @@ def register(request):
         register = Register(request.POST)
         if register.is_valid(): #判断是否校验是否成功
             data = register.cleaned_data #将校验成功的数据以字典的形式返回
-        username = request.POST['username']  #username为我们前端html里面的name的值
-        password = request.POST['password']
-        email = request.POST['email']
-        hash = hashlib.md5()
-        hash.update(password)
-        password = hash.hexdigest()
         u = User()
-        u.username = username
-        u.password = password
-        u.email = email
+        u.username = request.POST['username']
+        u.password = hashpassword(request.POST['password'])
+        u.email = request.POST['email']
+        u.nickname = request.POST['nickname']
+        u.birthday = request.POST['birthday']
         u.save()
     else:
         register = Register()
