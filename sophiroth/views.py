@@ -21,7 +21,7 @@ def loginValid(fun):
     :return:
     """
     def inner(request,*args,**kwargs):
-        if not request.session.get("name"):
+        if not request.session.get("user_id"):
             return HttpResponseRedirect("/login/")
         return fun(request,*args,**kwargs)
     return inner
@@ -70,7 +70,7 @@ def login(request):
         username = request.POST['username']  # username为我们前端html里面的name的值
         password = hashpassword(request.POST['password'])
         if auth(username, password):
-            request.session['name'] = username
+            request.session['user_id'] = User.objects.filter(username=username)[0].id
             return HttpResponseRedirect("/")
         else:
             return render_to_response('login.html', locals())
@@ -95,8 +95,8 @@ def index(request):
     return render_to_response('index.html', locals())
 
 
-
-def new_account_content(request):
+@loginValid
+def new_account(request):
     if request.method == 'POST' and request.POST:
         username = request.POST['username']  #username为我们前端html里面的name的值
         password = request.POST['password']
@@ -111,7 +111,12 @@ def new_account_content(request):
     return render_to_response("new_account.html", locals())
 
 
-
+def logout(request):
+    try:
+        del request.session['user_id']
+    except:
+        pass
+    return HttpResponseRedirect("/login")
 
 def reqTest(request):
     try:
@@ -161,6 +166,4 @@ def testsission(request):
     request.session['name'] = 'diana'
     return render_to_response('testSession.html',locals())
 
-def new_account(request):
-    return check_cookie(request,new_account_content(request))
 

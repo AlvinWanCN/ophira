@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^testcookie',testcookie),
     url(r'^testsission', testsission),
     url(r'^na',new_account),
-    url(r'login',login)
+    url(r'login',login),
+    url(r'logout',logout)
 ]
