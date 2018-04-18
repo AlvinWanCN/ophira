@@ -9,8 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/iview.css">
-    <script type="text/javascript" src="/static/js/vue.min.js"></script>
-    <script type="text/javascript" src="/static/js/iview.min.js"></script>
+    <script type="text/javascript" src="/static/js/vue.js"></script>
+    <script type="text/javascript" src="/static/js/iview.js"></script>
 </head>
 <body>
 
@@ -21,26 +21,53 @@
 
             {% endblock %}
         </h1>
-        <p><p class="topic">个人主页</p> <div class="logout">欢迎, {{ nickname }}，本次登录IP:{{ ip }}, 当前时间:{{ nowTime }} <Icon type="clock"></Icon>     <a href="/logout" >注销</a></div></p>
+        <p>
+            <p class="topic" >个人主页</p>
+            <div class="logout">
+                欢迎, {{ nickname }}，本次登录IP:{{ ip }},  <Icon type="clock"></Icon> 当前时间:{{ nowTime }}
+
+            </div>
+        </p>
         <a href="" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
      </div>
+<div class="personal_center">
+    <dropdown style="margin-left: 20px">
+    <i-button type="primary">
+    个人中心
+    <icon type="arrow-down-b"></icon>
+    </i-button>
+        <dropdown-menu slot="list">
+        <dropdown-item>修改资料</dropdown-item>
+        <dropdown-item>修改密码</dropdown-item>
+        <dropdown-item>应用中心</dropdown-item>
+        <dropdown-item disabled>冰糖葫芦</dropdown-item>
+        <dropdown-item divided><a href="/logout" >退出登录</a></dropdown-item>
+    </dropdown-menu>
+    </dropdown>
+</div>
     <div class="middle">
         <div class="middlep" >
             {% block middle_content %}
             {% endblock %}
         </div>
 
+
     </div>
-    <i-button type="primary" size="large">Large</i-button>
-  <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-    <i-button type="primary" icon="ios-search">Search</i-button>
     <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>
-<Icon type="arrow-left-a"></Icon> <i class="ivu-icon ivu-icon-checkmark"></i>
 
 
-    {% include 'blogroll.html' %}
+    <div class="tail">
+        {% block tail %}
+            <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
+            <a href="https://github.com/alvinwancn" target="_blank">alvin的github</a>
+            <a href="https://www.elastic.co/" target="_blank">ELK Stack</a>
+            <a href="https://baidu.com" target="_blank">baidu.com</a>
+            <a href="https://www.iviewui.com/docs/guide/install" target="_blank">iView</a>
+        {% endblock %}
+    </div>
     <i-button @click="show">Click me!</i-button>
     <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
+
 
 </div>
 
