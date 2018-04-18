@@ -12,5 +12,9 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = ['application','username','password','comment']
     search_fields = ['application','username']
 
+class AppAdmin(admin.ModelAdmin):
+    list_display = ['name','path','updateDate']
+    search_fields = ['name','path']
 admin.site.register(User,UserAdmin)
 admin.site.register(Account,AccountAdmin)
+admin.site.register(Apps,AppAdmin)

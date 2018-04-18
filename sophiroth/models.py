@@ -23,4 +23,10 @@ class Account(models.Model):
     createDate = models.DateTimeField(auto_now_add=True)
     updateDate = models.DateTimeField(auto_now=True)
 
+class Apps(models.Model):
+    path = models.CharField(max_length=32,null=False)
+    name = models.CharField(max_length=32,null=False)
+    createDate = models.DateTimeField(auto_now_add=True)
+    updateDate = models.DateTimeField(auto_now=True)
+    comment = models.CharField(max_length=254)
 

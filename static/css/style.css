@@ -4,22 +4,26 @@
     /*color: white;*/
 /*}*/
 
-.head{
-    border-style: dashed;
+.top{
+    /*border-style: dashed;*/
     /*border-top-width: 15px;*/
     /*border-right-width: 5px;*/
     /*border-bottom-width: 15px;*/
     /*border-left-width: 5px;*/
-    top:0;
-    height: 85px;
-    width: 100%;
+    /*top:0;*/
+    height: 50px;
+    /*width: 100%;*/
     color: white;
-    background-color: #0c1927;
+    background-color: #417690;
 
 }
+.top h1{
+    position: relative;
+    top: 20px;
+}
 .titlealien{
-    top:13px;
-    width: 80px;
+    top:0px;
+    width: 50px;
     position: absolute;
     left: 20px;
 }
@@ -30,24 +34,46 @@
 
 .logout{
     position: absolute;
-    right: 5px;
-    top:-2px;
-    color: red;
+    right: 0px;
+    top:15px;
+    color: #e4e5e7;
+    font-size:15px;
+}
+.logout a{
+    position: relative;
+    margin:60px;    /*距离左边的距离*/
+    right: -35px;
+}
+.topic{
+
+    position: absolute;
+    left: 85px;
+    top:15px;
+    font-size:15px;
+    text-align:left;
+    font-weight: bold ;    /*加粗*/
+
 }
 
+
 .middle{
-    position: absolute;
+    /*position: relative;*/
     border-style: groove;
     height: 650px;
     width: 100%;
 
 }
 .tail{
-    position: absolute;
-    border-style: double;
-    top: 755px;
-    bottom: 0;
+    border-style: outset;
+    height: 163px;
     width: 100%;
+}
+.tail a{
+    position: relative;
+    left:100px;
+    top:20px;
+    /*height: 50px;*/
+    margin:10px;    /*距离左边的距离*/
 }
 .middle p{
     position: relative;
@@ -123,7 +149,20 @@
 }
 
 a{
-    color: #0c8b13;
-    font-weight: bold ;
-    font-family: 微软雅黑;
+    color: #8e1b1b;
+    font-weight: bold ;    /*加粗*/
+
+    font-family: "微软雅黑";
+    /*border-style: groove;*/
+
 }
+
+.func button{
+    height: 23px;
+    width: 175px;
+    background-color: black;
+    font-size: 16px;
+    margin-top: 13px;
+    color: #ffffff;
+    font-weight: bold;
+    border: 1px solid #2ab949;}

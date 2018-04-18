@@ -167,3 +167,11 @@ def testsission(request):
     return render_to_response('testSession.html',locals())
 
 
+def blogroll(request):
+    return render_to_response('blogroll.html',locals())
+
+def frame_test(request):
+    return render_to_response('frame_test.html',locals())
+
+def iview_test(request):
+    return render_to_response('iview_test.html',locals())

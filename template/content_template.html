@@ -8,28 +8,55 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/iview.css">
+    <script type="text/javascript" src="/static/js/vue.min.js"></script>
+    <script type="text/javascript" src="/static/js/iview.min.js"></script>
 </head>
 <body>
-    <div class="head" align="center">
-    <h1>
-        {% block H1 %}
-            Welcome to sophiroth technology web center.
-        {% endblock %}
-    </h1>
-         <p class="logout"><a href="/logout" class="logout">退出登录</a> </p>
-        <img src="/static/img/etlucency.png" class="titlealien">
 
-    </div>
+<div id="app" >
+    <div class="top" align="center">
+        <h1 >
+            {% block H1 %}
+
+            {% endblock %}
+        </h1>
+        <p><p class="topic">个人主页</p> <div class="logout">欢迎, {{ nickname }}，本次登录IP:{{ ip }}, 当前时间:{{ nowTime }} <Icon type="clock"></Icon>     <a href="/logout" >注销</a></div></p>
+        <a href="" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
+     </div>
     <div class="middle">
         <div class="middlep" >
             {% block middle_content %}
-        {% endblock %}
+            {% endblock %}
         </div>
+
     </div>
-    <div class="tail">
-        {% block tail %}
-        <p>友情链接</p>
-        {% endblock %}
-    </div>
+    <i-button type="primary" size="large">Large</i-button>
+  <i-button type="primary" shape="circle" icon="ios-search"></i-button>
+    <i-button type="primary" icon="ios-search">Search</i-button>
+    <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>
+<Icon type="arrow-left-a"></Icon> <i class="ivu-icon ivu-icon-checkmark"></i>
+
+
+    {% include 'blogroll.html' %}
+    <i-button @click="show">Click me!</i-button>
+    <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            }
+        }
+    })
+  </script>
+
 </body>
 </html>

@@ -11,7 +11,9 @@
     <script src="/static/js/mainAlert1.js"></script>
     <p >今天上海的天气状况是{{ weatherStatus }}，最高气温{{ weatherMax }}℃,最低气温{{ weatherMin }}℃。</p>
     {% if role == 1  %}
-    <script src="/static/js/main_apps.js"></script>
+        <div class="func">
+            <script src="/static/js/main_apps.js"></script>
+        </div>
     {% else %}
         <p>您当前的用户身份是客人模式，只能访问这些信息，联系Alvin获取更多权限后才能访问更多内容。.</p>
     {% endif %}

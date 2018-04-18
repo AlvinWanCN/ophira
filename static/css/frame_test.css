@@ -1,0 +1,28 @@
+
+.top{
+    /*position: relative;*/
+    height: 85px;
+    border-style: dashed;
+    border-color: #2ab949;
+
+}
+
+.middle{
+    position: relative;
+    border-style: dashed;
+    height: 650px;
+    border-color: #b9699c;
+    /*position: absolute;*/
+    /*border-style: dashed;*/
+    /*height: 650px;*/
+    /*width: 100%;*/
+
+}
+
+.tail{
+    /*position: absolute;*/
+    border-style: dashed;
+    height: 180px;
+    width: 100%;
+
+}
