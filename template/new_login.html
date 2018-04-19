@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        登录
+    </title>
+    <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
+    <script type="text/javascript" src="/static/js/vue.js"></script>
+    <script type="text/javascript" src="/static/js/iview.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <i-form ref="formInline" :model="formInline" :rules="ruleInline" inline>
+        <form-item prop="user">
+            <i-input type="text" v-model="formInline.user" placeholder="Username">
+                <icon type="ios-person-outline" slot="prepend"></icon>
+            </i-input>
+        </form-item>
+        <form-item prop="password">
+            <i-input type="password" v-model="formInline.password" placeholder="Password">
+                <icon type="ios-locked-outline" slot="prepend"></icon>
+            </i-input>
+        </form-item>
+        <form-item>
+            <i-button type="primary" @click="handleSubmit('formInline')">Signin</i-button>
+        </form-item>
+    </i-form>
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            formInline: {
+                user: '',
+                password: ''
+            },
+        ruleInline: {
+            user: [
+                { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+            ],
+            password: [
+                { required: true, message: 'Please fill in the password.', trigger: 'blur' },
+                { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+            ]
+         }
+        },
+        methods: {
+            handleSubmit(name) {
+                 this.$refs[name].validate((valid) => {
+                     if (valid) {
+                         this.$Message.success('Success!');
+                     } else {
+                         this.$Message.error('Fail!');
+                     }
+                 })
+            }
+        }
+
+    })
+
+
+
+
+
+  </script>
+
+
+</body>
+</html>

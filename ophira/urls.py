@@ -26,9 +26,13 @@ urlpatterns = [
     url(r'^testcookie',testcookie),
     url(r'^testsission', testsission),
     url(r'^na',new_account),
-    url(r'login',login),
+    url(r'^login',login),
     url(r'logout',logout),
     url(r'blogroll',blogroll),
     url(r'frame_test', frame_test),
-    url(r'iview_test',iview_test)
+    url(r'iview_test',iview_test),
+    url(r'cp',change_password),
+    url(r'^new_login', new_login),
+    url(r'^jstest',jstest)
+
 ]

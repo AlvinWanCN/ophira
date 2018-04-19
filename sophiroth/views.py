@@ -11,7 +11,6 @@ from django.http import StreamingHttpResponse
 
 # Create your views here.
 
-
 def loginValid(fun):
     """
     进行session验证
@@ -23,7 +22,8 @@ def loginValid(fun):
     def inner(request,*args,**kwargs):
         if not request.session.get("user_id"):
             return HttpResponseRedirect("/login/")
-        return fun(request,*args,**kwargs)
+        return fun(request, *args, **kwargs)
+
     return inner
 
 
@@ -85,15 +85,17 @@ def login(request):
 
 @loginValid
 def index(request):
-    ip = client_ip(request)
-    nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
+
     weatherStatus = get_weather.get_status()
     weatherMax = get_weather.get_max_temperature()
     weatherMin = get_weather.get_min_temperature()
     role = User.objects.filter(id=request.session['user_id'])[0].role
-    #login = Login(request.POST)
+    ip = client_ip(request)
+    nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
     nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
+    cpassword='aaaa'
     return render_to_response('index.html', locals())
+
 
 
 @loginValid
@@ -175,3 +177,28 @@ def frame_test(request):
 
 def iview_test(request):
     return render_to_response('iview_test.html',locals())
+
+@loginValid
+def change_password(request):
+    nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
+    nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
+    return render_to_response('change_password.html',locals())
+
+def new_login(request):
+    # Login = loginForm()
+    # if request.method == "POST" and request.POST:
+    #     username = request.POST['username']  # username为我们前端html里面的name的值
+    #     password = hashpassword(request.POST['password'])
+    #     Login = loginForm(request.POST)
+    #     if Login.is_valid(): #判断是否校验是否成功
+    #         data = Login.cleaned_data #将校验成功的数据以字典的形式返回
+    #     if auth(username, password):
+    #         request.session['user_id'] = User.objects.filter(username=username)[0].id
+    #         return HttpResponseRedirect("/")
+    #     else:
+    #         return render_to_response('new_login.html', locals())
+    # else:
+        return render_to_response('new_login.html', locals())
+
+def jstest(request):
+    return render_to_response('jstest.html',locals())

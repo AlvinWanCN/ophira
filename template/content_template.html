@@ -8,9 +8,30 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="static/css/iview.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
     <script type="text/javascript" src="/static/js/vue.js"></script>
     <script type="text/javascript" src="/static/js/iview.js"></script>
+    <script type="text/javascript">
+        function login() {
+            $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/change_password" ,//url
+                data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.resultCode == 200) {
+                        alert("SUCCESS");
+                    }
+                    ;
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -22,36 +43,40 @@
             {% endblock %}
         </h1>
         <p>
-            <p class="topic" >个人主页</p>
+            <p class="topic" >
+            {% block topic %}
+                个人中心
+            {% endblock %}
+            </p>
             <div class="logout">
-                欢迎, {{ nickname }}，本次登录IP:{{ ip }},  <Icon type="clock"></Icon> 当前时间:{{ nowTime }}
+                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间:{{ nowTime }}
 
             </div>
         </p>
-        <a href="" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
+        <a href="/" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
      </div>
-<div class="personal_center">
-    <dropdown style="margin-left: 20px">
-    <i-button type="primary">
-    个人中心
-    <icon type="arrow-down-b"></icon>
-    </i-button>
-        <dropdown-menu slot="list">
-        <dropdown-item>修改资料</dropdown-item>
-        <dropdown-item>修改密码</dropdown-item>
-        <dropdown-item>应用中心</dropdown-item>
-        <dropdown-item disabled>冰糖葫芦</dropdown-item>
-        <dropdown-item divided><a href="/logout" >退出登录</a></dropdown-item>
-    </dropdown-menu>
-    </dropdown>
-</div>
+    <div class="personal_center">
+        <dropdown style="margin-left: 20px">
+    {#    <i-button type="primary">#}
+    {#    个人中心#}
+    {#    <icon type="arrow-down-b"></icon>#}
+    {#    </i-button>#}
+            <a><badge dot size="14" ><avatar src="/static/img/etlucency.png" size="large" /></badge></a>
+            <dropdown-menu slot="list">
+                <dropdown-item><a href="/">个人中心</a></dropdown-item>
+                <dropdown-item>修改资料</dropdown-item>
+                <dropdown-item><p @click="change_password">修改密码</p></dropdown-item>
+                <dropdown-item>应用中心</dropdown-item>
+                <dropdown-item disabled>冰糖葫芦</dropdown-item>
+                <dropdown-item divided><a href="/logout" >退出登录</a></dropdown-item>
+            </dropdown-menu>
+        </dropdown>
+    </div>
     <div class="middle">
         <div class="middlep" >
             {% block middle_content %}
             {% endblock %}
         </div>
-
-
     </div>
     <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>
 
@@ -68,6 +93,20 @@
     <i-button @click="show">Click me!</i-button>
     <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
 
+    <Modal v-model="change_password_y" title="修改密码"  ok-text="确认修改" @on-ok="login">
+        <i-form ref="formCustom" :model="formCustom" :label-width="80">
+            <form-item label="当前密码 " prop="passwd">
+                <i-input type="password" v-model="formCustom.oldpasswd"></i-input>
+            </form-item>
+            <form-item label="修改密码" prop="passwd">
+                <i-input type="password" v-model="formCustom.passwd"></i-input>
+            </form-item>
+            <form-item label=确认密码 prop="passwdCheck">
+                <i-input type="password" v-model="formCustom.passwdCheck"></i-input>
+            </form-item>
+        </i-form>
+    </Modal>
+
 
 </div>
 
@@ -75,15 +114,50 @@
     new Vue({
         el: '#app',
         data: {
-            visible: false
+            visible: false,
+            change_password_y:false,
+            cpassword:'',
+            mpassword:'',
+            fpassword:'',
+            formCustom: {
+                    oldpasswd: '',
+                passwd: '',
+                passwdCheck: '',
+            },
+
         },
         methods: {
             show: function () {
                 this.visible = true;
-            }
+            },
+            change_password:function () {
+                this.change_password_y = true
+            },
+            login:function () {
+            $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/users/login" ,//url
+                data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.resultCode == 200) {
+                        alert("SUCCESS");
+                    }
+                    ;
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
         }
+        }
+
     })
+
   </script>
+
 
 </body>
 </html>
