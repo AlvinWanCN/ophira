@@ -11,6 +11,17 @@
     <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
     <script type="text/javascript" src="/static/js/vue.js"></script>
     <script type="text/javascript" src="/static/js/iview.js"></script>
+    <script type="text/javascript">
+        function DefineDate() {
+            var now = new Date().toTimeString();
+            document.getElementById('clock').innerText=now
+        }
+        function tmp_now() {
+            var now = new Date().toTimeString();
+            document.write(now)
+        }
+        setInterval('DefineDate()',1000);
+    </script>
 
 </head>
 <body>
@@ -29,7 +40,7 @@
             {% endblock %}
             </p>
             <div class="logout">
-                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间 <script type="text/javascript" src="/static/js/template.js"></script>
+                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间 <label id="clock"><script>tmp_now()</script></label>
 
             </div>
         </p>

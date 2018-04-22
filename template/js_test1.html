@@ -86,8 +86,9 @@
 {#        alert(box[0].run()) //取9号索引的run()属性。#}
 {#        alert(box[1][2]) //取1号索引的值里面的2号索引#}
     </script>
-{#    js BOM#}
+        {#    js BOM#}
     <script type="text/javascript">
+        {#        js的三种弹窗，一个确认框，confirm,一个提示框prompt,还有一个用的最多的警告框。#}
         var w = window.innerWidth; //获取浏览器宽度
         var h = window.innerHeight; //获取浏览器高度
         {#        alert(w)#}
@@ -96,13 +97,53 @@
         {#        }else {#}
         {#            alert('No I do not like ')#}
         {#        }#}
-        var name = prompt('请输入你的名字');
+{#        var name = prompt('请输入你的名字');#}
         if(name){
-            alert('welcome'+name)
+{#            alert('welcome'+name)#}
         }
     </script>
+    {#    JavaScript 计时事件#}
+    <script type="text/javascript">
+        //语法，setInterval(函数体，执行时间）时间单位毫秒
+        {#        setInterval(function () {#}
+        {#            document.write(1);#}
+        {#        },1000)#}
+
+        {#        setInterval(function () {#}
+        {#            document.write('1')#}
+        {##}
+        {#        },1000)#}
+
+        function ad() {
+            var d = new Date();
+            var t = d.toTimeString() //获得时间
+            document.getElementById('clock').innerHTML="<h1>"+t+" </h1>";  //设置使用id为clock的标签，添加内部html "<h1>"+t+" </h1>"，也可以通过innerText设置文本
+{#            document.write('now time is '+d)#}
+            {#            alert(t);#}
+        }
+{#        setInterval('ad()',1000);#}
+        var time1 = new Date();
+    </script>
+    {#    页面延迟加载，document更多方法#}
+    <script type="text/javascript">
+        window.onload=function(){
+                    document.getElementById("betaa").setAttribute('style','font-size:20px;color:red');
+
+{#            var ad=document.getElementById("ad").getAttribute('name') ; //获取使用id为ad的表情的name属性的值，赋值给ad。#}
+{#            document.getElementById('alpha').setAttribute('style','color:red');#}
+{#            alert(ad)#}
+        }
+
+    </script>
+
 </head>
 <body>
+{#<input type="text " value="aaa" id="clock">#}
+
+
+<div id="betaa" >
+    666666
+</div>
 
 </body>
 </html>
