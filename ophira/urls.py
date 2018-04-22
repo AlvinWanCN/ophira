@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from sophiroth.views import *
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -33,6 +34,9 @@ urlpatterns = [
     url(r'iview_test',iview_test),
     url(r'cp',change_password),
     url(r'^new_login', new_login),
-    url(r'^jstest',jstest)
+    url(r'jstest$',jstest),
+    url(r'jstest1', jstest1),
+    url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/img/favicon.ico')),
+    url(r'^jqajax',jqajax_test),
 
 ]

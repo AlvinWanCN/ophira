@@ -202,3 +202,11 @@ def new_login(request):
 
 def jstest(request):
     return render_to_response('jstest.html',locals())
+def jstest1(request):
+    return render_to_response('js_test1.html',locals())
+
+def favicon(request):
+    return render_to_response('/static/img/favicon.ico')
+
+def jqajax_test(request):
+    return render_to_response('jqajax.html',locals())

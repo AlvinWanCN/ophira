@@ -11,27 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
     <script type="text/javascript" src="/static/js/vue.js"></script>
     <script type="text/javascript" src="/static/js/iview.js"></script>
-    <script type="text/javascript">
-        function login() {
-            $.ajax({
-            //几个参数需要注意一下
-                type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
-                url: "/change_password" ,//url
-                data: $('#form1').serialize(),
-                success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    if (result.resultCode == 200) {
-                        alert("SUCCESS");
-                    }
-                    ;
-                },
-                error : function() {
-                    alert("异常！");
-                }
-            });
-        }
-    </script>
+
 </head>
 <body>
 
@@ -49,7 +29,7 @@
             {% endblock %}
             </p>
             <div class="logout">
-                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间:{{ nowTime }}
+                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间 <script type="text/javascript" src="/static/js/template.js"></script>
 
             </div>
         </p>

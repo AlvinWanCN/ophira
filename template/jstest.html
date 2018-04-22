@@ -86,9 +86,54 @@
 
 
     </script>
+
+    {#    流程控制语句#}
+    <script>
+        //if(){}else{}
+        var c1 = Number(null)
+        if(c1==0){
+            {#            alert(0)#}
+        }else {
+            {#            alert(c1)#}
+        }
+        var c2 = 33;
+{#        if else的用法#}
+        if (c2 >=90){
+            alert('完美！')
+        }else if(c2>=80){
+            alert('优秀！')
+        }else if(c2>=60){
+            alert('及格！')
+        }else{
+        {#            alert('不及格!')#}
+        }
+        var c3 =1;
+        {#        case的用法，必须要加berak，如果不加，会在匹配一个case后，继续执行下面的内容，所以加berak防止语句穿透#}
+        switch (c3){
+            case 1:
+{#                alert('one');#}
+                break;
+            case 2:
+                alert('two')
+                break;
+            case 3:
+                alert('three')
+                break;
+        }
+        {#        while的用法#}
+        var c4 = 1;
+        while(c4<=5){
+        {#            alert(c4);#}
+            c4++
+        }
+
+        var myDate = new Date();//获取系统当前时间
+{#        var mytime=myDate.toLocaleTimeString();#}
+        alert(myDate)
+    </script>
 </head>
 <body>
-<p onclick="cc()">This is js test page</p>
+<p onclick="">This is js test page</p>
 
 </body>
 </html>
