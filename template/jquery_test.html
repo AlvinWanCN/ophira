@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery test</title>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+
+    <script type="text/javascript">
+        /*
+        var ad = document.getElementById('ad');
+        ad.onclick=function () {
+            alert(1);
+        }*/
+        $(function () {
+            $('#ad').css('color','red');
+            $('.ac').css('color','blue').css('font-size','80px');
+            $('#uname').val('alvin') //使用使用uname id的标签属性为'alvin'，
+            $('#uname').css('color','red')
+            var box = $('<div id="ac">节点</div>');//创建一个节点
+{#            $('body').append(box)#}
+            $('input').bind('click',fn1)
+            function fn1() {
+                alert('alvin')
+            }
+            $('input').unbind('click',fn1)
+        })
+    </script>
+    <style type="text/css">
+        .aa1{
+            width: 200px;
+            height: 200px;
+            border: 5px solid red;
+            margin: 80px;
+            padding:50px;
+            background: green;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+
+</head>
+<body>
+{#<script type="text/javascript">#}
+{#    $(function () {   //常规js里面这里要定义function name，然后下面执函数名()，然后函数里面的才会被执行，而这里我们使用这种方式，则会被直接执行，不需要再条用。#}
+{#        alert("hello jquery")#}
+{#    }) #}
+{#</script>#}
+{#<input type="button" class="aa1" value="绑定">#}
+
+<div>
+    div
+</div>
+<script type="text/javascript">
+    $(function () {
+{#        $('div').append('<strong>节点</strong>');     })#}
+</script>
+</body>
+</html>

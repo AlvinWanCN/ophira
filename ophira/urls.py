@@ -38,5 +38,8 @@ urlpatterns = [
     url(r'jstest1', jstest1),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/img/favicon.ico')),
     url(r'^jqajax',jqajax_test),
+    url(r'^jquery_test', jquery_test),
+    url(r'auth_pass',auth_pass)
+
 
 ]

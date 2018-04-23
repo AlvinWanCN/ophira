@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.shortcuts import render_to_response
+from django.shortcuts import render
 from sophiroth.models import *
 import hashlib
 import sophiroth.modules.get_weather as  get_weather
@@ -63,7 +64,16 @@ def auth(Username,Password):
     except:
         return False
 
-
+def auth_pass(request):
+    if request.method == "POST" and request.POST:
+        username = request.POST['username']  # username为我们前端html里面的name的值
+        password = hashpassword(request.POST['password'])
+        if auth(username,password):
+            return JsonResponse({'message': 'yes'})
+        else:
+            return JsonResponse({'message': 'no'})
+    else:
+        return JsonResponse({'message':'please enter you password'})
 
 def login(request):
     Login = loginForm()
@@ -210,3 +220,6 @@ def favicon(request):
 
 def jqajax_test(request):
     return render_to_response('jqajax.html',locals())
+
+def jquery_test(request):
+    return render_to_response('jquery_test.html',locals())
