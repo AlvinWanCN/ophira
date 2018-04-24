@@ -69,11 +69,23 @@ def auth_pass(request):
         username = request.POST['username']  # username为我们前端html里面的name的值
         password = hashpassword(request.POST['password'])
         if auth(username,password):
-            return JsonResponse({'message': 'yes'})
+            request.session['user_id'] = User.objects.filter(username=username)[0].id
+            return JsonResponse({'success':True,'code': 0,'message':'pass'})
         else:
-            return JsonResponse({'message': 'no'})
+            return JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
     else:
-        return JsonResponse({'message':'please enter you password'})
+        return JsonResponse({'success': False,'code':2,'message':'username and password can not bee null'})
+@loginValid
+def user_info(request):
+    userid=request.session['user_id']
+    user=User.objects.filter(id=userid)[0]
+    nickname = user.nickname
+    email= user.email
+    brithday = user.brithday
+    if user:
+        return JsonResponse({'code':0,'nickname':nickname,'email':email,'brithday':brithday})
+    else:
+        return JsonResponse({'code': 1, 'nickname': nickname, 'email': email, 'brithday': brithday})
 
 def login(request):
     Login = loginForm()
@@ -223,3 +235,7 @@ def jqajax_test(request):
 
 def jquery_test(request):
     return render_to_response('jquery_test.html',locals())
+
+def vuetest(request):
+    message='django message'
+    return render_to_response('vuetest.html',locals())

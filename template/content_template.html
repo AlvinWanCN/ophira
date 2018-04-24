@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/static/js/vue.js"></script>
     <script type="text/javascript" src="/static/js/iview.js"></script>
     <script type="text/javascript">
@@ -21,6 +22,21 @@
             document.write(now)
         }
         setInterval('DefineDate()',1000);
+
+        $(function() {
+            $.ajax(
+                {
+                    type:'GET',
+                    dataTtpe:'json',
+                    url:"/user_info",
+                    data:'',
+                    success: function (result) {
+                        $('#nickname').html(result['nickname'])
+
+                    },
+                }
+            )
+        })
     </script>
 
 </head>
@@ -40,7 +56,7 @@
             {% endblock %}
             </p>
             <div class="logout">
-                欢迎, {{ nickname }}， <Icon type="clock"></Icon> 当前时间 <label id="clock"><script>tmp_now()</script></label>
+                欢迎, <span id="nickname"></span>， <Icon type="clock"></Icon> 当前时间 <span id="clock"><script>tmp_now()</script></span>
 
             </div>
         </p>
@@ -117,6 +133,7 @@
             },
 
         },
+        delimiters:['${', '}'],
         methods: {
             show: function () {
                 this.visible = true;
@@ -125,24 +142,25 @@
                 this.change_password_y = true
             },
             login:function () {
-            $.ajax({
-            //几个参数需要注意一下
-                type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
-                url: "/users/login" ,//url
-                data: $('#form1').serialize(),
-                success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    if (result.resultCode == 200) {
-                        alert("SUCCESS");
+                $.ajax({
+                //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/users/login" ,//url
+                    data: $('#form1').serialize(),
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.resultCode == 200) {
+                            alert("SUCCESS");
+                        }
+                        ;
+                    },
+                    error : function() {
+                        alert("异常！");
                     }
-                    ;
-                },
-                error : function() {
-                    alert("异常！");
-                }
-            });
-        }
+                });
+            },
+
         }
 
     })

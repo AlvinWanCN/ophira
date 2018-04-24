@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^testcookie',testcookie),
     url(r'^testsission', testsission),
     url(r'^na',new_account),
-    url(r'^login',login),
+    url(r'^login',new_login),
     url(r'logout',logout),
     url(r'blogroll',blogroll),
     url(r'frame_test', frame_test),
@@ -39,7 +39,8 @@ urlpatterns = [
     url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/img/favicon.ico')),
     url(r'^jqajax',jqajax_test),
     url(r'^jquery_test', jquery_test),
-    url(r'auth_pass',auth_pass)
-
+    url(r'auth_pass',auth_pass),
+    url(r'vuetest', vuetest),
+    url(r'user_info',user_info),
 
 ]

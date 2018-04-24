@@ -3,7 +3,41 @@
     /*background-color: black;*/
     /*color: white;*/
 /*}*/
+#login{
+    /*border:dashed;*/
+    position: absolute;
+    top: 45%;
+    left: 63%;
 
+}
+#indexWelcome{
+    position: absolute;
+    color: #e62e00;
+    text-shadow:0 0 5px #CCCCCC, 0 0 10px #CCCCCC, 0 0 15px #CCCCCC, 0 0 20px #095816, 0 0 25px #095816, 0 0 30px #095816, 0 0 50px #095816, 0 0 80px #095816, 0 0 100px #095816, 0 0 150px;
+    top: 30%;
+    left: 56%;
+    font-family: Algerian;
+    font-weight: bold;
+    font-size: 27px;
+}
+#indeximage{
+    position: absolute;
+    top: 19%;
+    left: 12%;
+    width: 520px;
+}
+#indextitleimg{
+    position: absolute;
+    top: 14%;
+    left: 64%;
+    width: 165px;
+}
+.indexbutton{
+    width: 183px;
+}
+.indexalien {
+
+}
 .top{
     /*border-style: dashed;*/
     /*border-top-width: 15px;*/
