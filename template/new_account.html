@@ -7,17 +7,21 @@
 {% endblock %}
 
 {% block middle_content %}
-    <i-form :model="formLeft" label-position="left" :label-width="100">
-        <form-item label="Title">
-            <i-input v-model="formLeft.input1"></i-input>
+    <i-form :model="formLeft" label-position="left" :label-width="100" >
+        <form-item label="Application">
+            <i-input v-model="formLeft.input1" style="width: auto" ></i-input>
         </form-item>
-        <form-item label="Title name">
-            <i-input v-model="formLeft.input2"></i-input>
+        <form-item label="Username">
+            <i-input  v-model="formLeft.input2" style="width: auto"></i-input>
         </form-item>
-        <form-item label="Aligned title">
-            <i-input v-model="formLeft.input3"></i-input>
+        <form-item label="Password">
+            <i-input type='password' v-model="formLeft.input3" style="width: auto"></i-input>
+        </form-item>
+        <form-item label="Comment">
+            <i-input v-model="formLeft.input4" style="width: auto"></i-input>
         </form-item>
     </i-form>
+    <i-button type="success" style="width: 260px">SUBMIT</i-button>
 {% endblock %}
 
 {#{% block H1 %}#}

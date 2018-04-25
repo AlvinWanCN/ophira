@@ -14,14 +14,8 @@
     <script type="text/javascript" src="/static/js/iview.js"></script>
 </head>
 <body>
-
 <div id="app" >
     <div class="top" align="center">
-        <h1 >
-            {% block H1 %}
-
-            {% endblock %}
-        </h1>
         <p>
             <p class="topic" >
             {% block topic %}
@@ -30,7 +24,6 @@
             </p>
             <div class="logout">
                 欢迎, <span>${nickname}</span>， <Icon type="clock"></Icon> 当前时间 <span >${now}</span>
-
             </div>
         </p>
         <a href="/" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
@@ -58,9 +51,7 @@
             {% endblock %}
         </div>
     </div>
-    <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>
-
-
+{#    <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>#}
     <div class="tail">
         {% block tail %}
             <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
@@ -70,10 +61,8 @@
             <a href="https://www.iviewui.com/docs/guide/install" target="_blank">iView</a>
         {% endblock %}
     </div>
-    <i-button @click="show">Click me!</i-button> ${now}
-
-<Modal v-model="show_change_password" title="修改密码" width="40"  :closable='false' :mask-closable=false>
- <i-form ref="formPassword" :model="formPassword" :label-width="80">
+    <Modal v-model="show_change_password" title="修改密码" width="40"  :closable='false' :mask-closable=false>
+        <i-form ref="formPassword" :model="formPassword" :label-width="80">
             <form-item label="当前密码 " prop="passwd">
                 <i-input type="password" v-model="formPassword.oldpasswd"></i-input>
             </form-item>
@@ -84,16 +73,12 @@
                 <i-input type="password" v-model="formPassword.passwdCheck"></i-input>
             </form-item>
         </i-form>
-                <div slot="footer">
-                      <i-button type="text" @click="cancel_update_password">取消</i-button>
-                      <i-button type="primary" :loading="savePassLoading" @click="confirm_password(formPassword)">确认修改</i-button>
-                  </div>
-            </Modal>
-
-
-
+         <div slot="footer">
+             <i-button type="text" @click="cancel_update_password">取消</i-button>
+             <i-button type="primary" :loading="savePassLoading" @click="confirm_password(formPassword)">确认修改</i-button>
+         </div>
+    </Modal>
 </div>
-
 <script>
     var app=new Vue({
         el: '#app',
@@ -115,6 +100,7 @@
                 input1:'',
                 input2:'',
                 input3:'',
+                input4:'',
             },
 
         },
@@ -145,7 +131,6 @@
                         };
                     },
                     error : function() {
-{#                        alert("异常！");#}
                         lastUp.$Message.error('something is error')
                     }
                 });
@@ -155,19 +140,12 @@
             },
             now_time:function () {
                  this.now = new Date().toTimeString();
-
             }
-
-
-
         }
-
     })
 
     setInterval('app.now_time()',1000);
 
   </script>
-
-
 </body>
 </html>
