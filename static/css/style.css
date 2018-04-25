@@ -115,7 +115,7 @@
     /*height: 50px;*/
     margin:10px;    /*距离左边的距离*/
 }
-.middle p{
+.middle_p{
     position: relative;
     /*left:100px;*/
     top: 50px;
@@ -127,11 +127,11 @@
     position: absolute;
 }
 
-.middle input{
-    position: absolute;
-    left:107px;
-    height: 18px;
-}
+/*.middle input{*/
+    /*position: absolute;*/
+    /*left:107px;*/
+    /*height: 18px;*/
+/*}*/
 
 
 
