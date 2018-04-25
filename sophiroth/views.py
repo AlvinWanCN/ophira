@@ -215,18 +215,19 @@ def change_password(request):
                     return JsonResponse({'success': False, 'code': 4, 'message': '密码长度少于6'})
                 else:
                     if oldpasswd == user.password:
-                        u=User.objects.get(password=oldpasswd)
+                        u=User.objects.get(id=userid)
                         u.password=passwd
                         u.save()
                         return JsonResponse({'success': True,'code':0,'message':'success'})
+                        exit(0)
                     else:
                         return JsonResponse({'success': False,'code':1,'message':'authentication failed'})
             else:
                 return JsonResponse({'success': False, 'code': 3, 'message': '两次输入的密码不一样'})
         else:
             return JsonResponse({'success': False, 'code': 5, 'message': '只支持post请求'})
-    except:
-        return JsonResponse({'success': False,'code':2,'message':'Please use post request and give right parameters'})
+    except Exception as e:
+        return JsonResponse({'success': False,'code':2,'message':e})
 
 
 def new_login(request):
