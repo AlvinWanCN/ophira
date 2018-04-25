@@ -182,6 +182,7 @@ def testcookie(request):
     response = render_to_response('testCookie.html',locals())
     response.set_cookie("name","alvin",3600)
 
+
     return response
 
 
@@ -202,9 +203,31 @@ def iview_test(request):
 
 @loginValid
 def change_password(request):
-    nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
-    nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
-    return render_to_response('change_password.html',locals())
+    try:
+        userid = request.session['user_id']
+        user = User.objects.filter(id=userid)[0]
+        if request.method == 'POST' and request.POST:
+            oldpasswd = hashpassword(request.POST['oldpasswd'])
+            passwd = hashpassword(request.POST['passwd'])
+            passwdCheck = hashpassword(request.POST['passwdCheck'])
+            if passwd == passwdCheck:
+                if len(request.POST['passwd']) < 6:
+                    return JsonResponse({'success': False, 'code': 4, 'message': '密码长度少于6'})
+                else:
+                    if oldpasswd == user.password:
+                        u=User.objects.get(password=oldpasswd)
+                        u.password=passwd
+                        u.save()
+                        return JsonResponse({'success': True,'code':0,'message':'success'})
+                    else:
+                        return JsonResponse({'success': False,'code':1,'message':'authentication failed'})
+            else:
+                return JsonResponse({'success': False, 'code': 3, 'message': '两次输入的密码不一样'})
+        else:
+            return JsonResponse({'success': False, 'code': 5, 'message': '只支持post请求'})
+    except:
+        return JsonResponse({'success': False,'code':2,'message':'Please use post request and give right parameters'})
+
 
 def new_login(request):
     # Login = loginForm()

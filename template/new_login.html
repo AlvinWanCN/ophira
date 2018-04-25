@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vue test</title>
+    <title>Login Ophira System</title>
     <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <script type="text/javascript" src="/static/js/vue.js"></script>
@@ -33,7 +33,7 @@
                 </i-input>
             </form-item></br></br>
             <form-item  >
-                <i-button type="primary" @click="handleSubmit('formInline')" class="indexbutton">Login</i-button>
+                <i-button type="primary" @click="handleSubmit(formInline)" class="indexbutton">Login</i-button>
             </form-item></br>
              <form-item>
                  <i-button type="primary" @click="registerSubmit" class="indexbutton">Register</i-button>
@@ -70,24 +70,21 @@
                     {
                         type: "POST",
                         dataType: "json",
-                        url:"auth_pass",
-                        data:this.formInline,
+                        url:"/auth_pass",
+                        data:name,
                         success: function (result) {
-                            console.log(result.resultCode );//打印服务端返回的数据(调试用)
+                            console.log(result.code );//打印服务端返回的数据(调试用)
                             if (result.code == 0) {
-{#                                alert("SUCCESS");#}
-{#                                $('#form1').append('<p style=color:red>验证成功！</p>')#}
                                 window.location.href="/";
                             }else {
 {#                                alert("用户名或密码错误")#}
                                 $('#warning').html('Username or Password error,please try again.')
-
-                                $('#form1').append('<p style=color:red>用户名或密码错误！</p>')
                             }
                             ;
                         },
-                        error : function() {
+                        error : function(e) {
 {#                            alert("请输入用户名或密码！");#}
+                            console.log(e)
                             $('#warning').html('Username or Password error,please try again.')
                         }
                     })

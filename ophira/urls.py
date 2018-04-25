@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'blogroll',blogroll),
     url(r'frame_test', frame_test),
     url(r'iview_test',iview_test),
-    url(r'cp',change_password),
+    url(r'change_password',change_password),
     url(r'^new_login', new_login),
     url(r'jstest$',jstest),
     url(r'jstest1', jstest1),
