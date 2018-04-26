@@ -1,40 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>
-            {% block title %}
-            {% endblock %}
-    </title>
-
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="/static/js/vue.js"></script>
-    <script type="text/javascript" src="/static/js/iview.js"></script>
-</head>
-<body>
-
-<div id="app1" >
-    <div class="top" align="center">
-
-            <p class="topic" >
-            {% block topic %}
-                个人中心
-            {% endblock %}
-            </p>
+/**
+ * Created by Alvin Wan on 4/24/2018.
+ */
 
 
-        <a href="/" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
-     </div>
-    <div class="middle">
-        <div class="middle_p" >
-            {% block middle_content %}
-            {% endblock %}
-        </div>
-    </div>
-
-<script>
         function setCookie(name, value, iDay)
         {
             var oDate=new Date();
@@ -62,8 +30,8 @@
         {
             setCookie(name, '1', -1);
         }
-    var app1=new Vue({
-        el: '#app1',
+    var app=new Vue({
+        el: '#app',
         data: {
             visible: false,
             show_change_password:false,
@@ -99,7 +67,6 @@
                     type: "POST",//方法类型
                     dataType: "json",//预期服务器返回的数据类型
                     url: "/change_password" ,//url
-{#                    data: $('#form1').serialize(),#}
                     data:name,
                     success: function (result) {
                         console.log(result);//打印服务端返回的数据(调试用)
@@ -111,7 +78,6 @@
                         };
                     },
                     error : function() {
-{#                        alert("异常！");#}
                         lastUp.$Message.error('something is error')
                     }
                 });
@@ -127,15 +93,11 @@
             },
             load_account:function () {
                 $('#index_content').load('/na',function (response,status,xhr) {
-{#                    alert ('返回的值为:' +response + ',状态为：' + status + ',状态是：'+ xhr.statusText);#}
                 })
             }
         }
 
     })
 
-  </script>
-</div>
+    setInterval('app.now_time()',1000);
 
-</body>
-</html>

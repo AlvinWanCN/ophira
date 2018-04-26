@@ -22,13 +22,17 @@
 }
 
 .ophiraFont{
-    top: 10px;
+    position: absolute;
+    top: 2px;
     text-align: center;
     text-shadow:0 0 5px #CCCCCC, 0 0 10px #CCCCCC, 0 0 15px #CCCCCC, 0 0 20px #095816, 0 0 25px #095816, 0 0 30px #095816, 0 0 50px #095816, 0 0 80px #095816, 0 0 100px #095816, 0 0 150px #095816;
     font-weight: bold ;
     font-size: 20px;
     color: #8e1b1b;
     font-family: "Cambria Math";
+    margin:11px;
+    left: 160px;
+
 
 
 }
@@ -60,7 +64,7 @@
     height: 50px;
     /*width: 100%;*/
     color: white;
-    background-color: #417690;
+    background-color: #108a4d;
 
 }
 .top h1{
@@ -69,9 +73,10 @@
 }
 .titlealien{
     top:0px;
-    width: 50px;
+    width: 47px;
     position: absolute;
-    left: 20px;
+    left: 65px;
+
 }
 .headTitel{
     position: absolute;
@@ -93,13 +98,13 @@
 .personal_center {
     /*border-style: dashed;*/
     position: absolute;
-    top: 4px;
+    top: 6px;
     right: 32px;
 }
 .topic{
 
     position: absolute;
-    left: 85px;
+    left: 250px;
     top:15px;
     font-size:15px;
     text-align:left;
