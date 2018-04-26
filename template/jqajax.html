@@ -7,19 +7,19 @@
     <script type="text/javascript">
         $(function () {
             $('#user_commit').click(function () {
-{#                $('#ad').load('ip?url=alvin&password=aaa',function (response,status,xhr) {#}
+                $('#ad').load('login',function (response,status,xhr) {
 {#                    alert ('返回的值为:' +response + ',状态为：' + status + ',状态是：'+ xhr.statusText);#}
-{#                })#}
+                })
 {#                 $.post('auth_pass',{#}
 {#                    username:'alvin',#}
 {#                    password:'wankaihao'#}
 {#                },function (response,status,xhr) {#}
 {#                    if(status=='success'){#}
 {#                        $('#box').html(response);#}
-{#                        alert(response['message'])#}
+{#                        console.log(response['message'])#}
 {##}
 {#                    }#}
-{##}
+
 {#                    if (response == '127.0.0.1\n'){#}
 {#                        alert('Yes')#}
 {#                        window.location.href="ip";//#}
@@ -31,32 +31,32 @@
 
 {#                $('body').append(aaa)#}
 
-                $.ajax(
-                    {
-                        type: "POST",
-                        dataType: "json",
-                        url:"auth_pass",
+{#                $.ajax(#}
+{#                    {#}
+{#                        type: "POST",#}
+{#                        dataType: "json",#}
+{#                        url:"auth_pass",#}
 {#                        data: {#}
 {#                            username: 'alvin',#}
 {#                            password:'wankaihao',#}
 {#                        },#}
-                        data:$('#form1').serialize(),
-                        success: function (result) {
-                            console.log(result.resultCode );//打印服务端返回的数据(调试用)
-                            if (result.message == 'yes') {
-                                alert("SUCCESS");
-                                $('#form1').append('<p style=color:red>验证成功！</p>')
-                            }else {
+{#                        data:$('#form1').serialize(),#}
+{#                        success: function (result) {#}
+{#                            console.log(result.resultCode );//打印服务端返回的数据(调试用)#}
+{#                            if (result.message == 'yes') {#}
+{#                                alert("SUCCESS");#}
+{#                                $('#form1').append('<p style=color:red>验证成功！</p>')#}
+{#                            }else {#}
 {#                                alert("用户名或密码错误")#}
-                                $('#form1').append('<p style=color:red>用户名或密码错误！</p>')
-                            }
-                            ;
-                        },
-                        error : function() {
-                            alert("异常！");
-                        }
-                    }
-                )
+{#                                $('#form1').append('<p style=color:red>用户名或密码错误！</p>')#}
+{#                            }#}
+{#                            ;#}
+{#                        },#}
+{#                        error : function() {#}
+{#                            alert("异常！");#}
+{#                        }#}
+{#                    }#}
+{#                )#}
             })
 
         })
@@ -68,7 +68,8 @@
     <input type="text" name="password" >
     <input type="button" value="提交" id="user_commit">
     </form>
-    <div id="box">
+    <div id=ad>
+        你好啊
     </div>
 </body>
 </html>

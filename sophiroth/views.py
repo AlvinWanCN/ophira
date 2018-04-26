@@ -264,3 +264,6 @@ def jquery_test(request):
 def vuetest(request):
     message='django message'
     return render_to_response('vuetest.html',locals())
+
+def new_template1(request):
+    return render_to_response('content_template1.html', locals())

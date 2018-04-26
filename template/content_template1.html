@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+            {% block title %}
+            {% endblock %}
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="/static/js/vue.js"></script>
+    <script type="text/javascript" src="/static/js/iview.js"></script>
+</head>
+<body>
+<div id="app" >
+    <row type="flex" style="background-color: #417690;">
+        <i-col span="3" style="height: 50px" >
+            <i-col span="10" style="height: 50px"> <a href="/" ><img src="/static/img/etlucency.png" class="titlealien"> </a></i-col>
+            <i-col class="ophiraFont">Ophira</i-col>
+        </i-col>
+        <i-col span="7"><p style="height: 50px;background-color: black;">black</p></i-col>
+        <i-col span="14" style="height: 50px;">
+            <div class="logout">
+                欢迎, <span>${nickname}</span>， <Icon type="clock"></Icon> 当前时间 <span >${now}</span>
+            </div>
+            <div class="personal_center" >
+                <dropdown style="margin-left: 20px">
+                    <a><badge dot size="14" ><avatar src="/static/img/etlucency.png" size="large" /></badge></a>
+                    <dropdown-menu slot="list" style="width: 30px">
+                        <dropdown-item><a href="/">个人中心</a></dropdown-item>
+                        <dropdown-item>修改资料</dropdown-item>
+                        <dropdown-item><p @click="change_password">修改密码</p></dropdown-item>
+                        <dropdown-item>应用中心</dropdown-item>
+                        <dropdown-item disabled>冰糖葫芦</dropdown-item>
+                        <dropdown-item divided><a href="/logout" >退出登录</a></dropdown-item>
+                    </dropdown-menu>
+                </dropdown>
+            </div>
+        </i-col>
+    </row>
+    <row style="background-color: #2ab949;height: 760px">
+        <i-col span="3" >
+             <i-menu :theme="theme2" style="width: 170px;height: 760px">
+                <submenu name="1">
+                    <template slot="title">
+                        <icon type="ios-paper"></icon>
+                        个人中心
+                    </template>
+                    <menu-item name="1-1">文章管理</menu-item>
+                    <menu-item name="1-2">评论管理</menu-item>
+                    <menu-item name="1-3">举报管理</menu-item>
+                </submenu>
+                <submenu name="2">
+                    <template slot="title">
+                        <icon type="ios-people"></icon>
+                        应用中心
+                    </template>
+                    <menu-item name="2-1">新增用户</menu-item>
+                    <menu-item name="2-2">活跃用户</menu-item>
+                </submenu>
+                <submenu name="3">
+                    <template slot="title">
+                        <icon type="stats-bars"></icon>
+                        系统管理
+                    </template>
+                    <menu-group title="使用">
+                        <menu-item name="3-1">新增和启动</menu-item>
+                        <menu-item name="3-2">活跃分析</menu-item>
+                        <menu-item name="3-3">时段分析</menu-item>
+                        <menu-item name="3-1">新增和启动</menu-item>
+                        <menu-item name="3-2">活跃分析</menu-item>
+                        <menu-item name="3-3">时段分析</menu-item>
+                    </menu-group>
+                    <menu-group title="留存">
+                        <menu-item name="3-4">用户留存</menu-item>
+                        <menu-item name="3-5">流失用户</menu-item>
+                    </menu-group>
+                </submenu>
+            </i-menu>
+        </i-col>
+        <i-col span="18" push="1"><p style="height: 760px;background-color: cadetblue;">col-4 red</p></i-col>
+    </row>
+    <row type="flex" justify="end">
+        <i-col span="18" pull="2" style="height: 139px;background-color: purple;">
+    <div id="tail">
+        {% block tail %}
+            <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
+            <a href="https://github.com/alvinwancn" target="_blank">alvin的github</a>
+            <a href="https://www.elastic.co/" target="_blank">ELK Stack</a>
+            <a href="https://baidu.com" target="_blank">baidu.com</a>
+            <a href="https://www.iviewui.com/docs/guide/install" target="_blank">iView</a>
+        {% endblock %}
+    </div>
+        </i-col>
+    </row>
+
+
+</div>
+
+<script>
+    var app=new Vue({
+        el: '#app',
+        data: {
+            visible: false,
+            show_change_password:false,
+            savePassLoading:false,
+            cpassword:'',
+            mpassword:'',
+            fpassword:'',
+            now:'',
+            nickname:sessionStorage.getItem('nickname'),
+            formPassword: {
+                    oldpasswd: '',
+                passwd: '',
+                passwdCheck: '',
+            },
+            formLeft:{
+                input1:'',
+                input2:'',
+                input3:'',
+            },
+
+        },
+        delimiters:['${', '}'],
+
+        methods: {
+            show: function () {
+                this.visible = true;
+            },
+            change_password:function () {
+                this.show_change_password = true
+            },
+            confirm_password:function (name) {
+                var lastUp = this;
+                $.ajax({
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/change_password" ,//url
+{#                    data: $('#form1').serialize(),#}
+                    data:name,
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.code == 0) {
+                            lastUp.show_change_password=false
+                            lastUp.$Message.success(result.message)
+                        }else {
+                            lastUp.$Message.warning(result.message)
+                        };
+                    },
+                    error : function() {
+{#                        alert("异常！");#}
+                        lastUp.$Message.error('something is error')
+                    }
+                });
+            },
+            cancel_update_password:function () {
+             this.show_change_password=false
+            },
+            now_time:function () {
+                 this.now = new Date().toTimeString();
+
+            }
+
+
+
+        }
+
+    })
+
+    setInterval('app.now_time()',1000);
+
+  </script>
+
+
+</body>
+</html>

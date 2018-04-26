@@ -42,5 +42,6 @@ urlpatterns = [
     url(r'auth_pass',auth_pass),
     url(r'vuetest', vuetest),
     url(r'user_info',user_info),
+    url(r'^new_template1',new_template1)
 
 ]

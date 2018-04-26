@@ -20,6 +20,18 @@
     font-weight: bold;
     font-size: 27px;
 }
+
+.ophiraFont{
+    top: 10px;
+    text-align: center;
+    text-shadow:0 0 5px #CCCCCC, 0 0 10px #CCCCCC, 0 0 15px #CCCCCC, 0 0 20px #095816, 0 0 25px #095816, 0 0 30px #095816, 0 0 50px #095816, 0 0 80px #095816, 0 0 100px #095816, 0 0 150px #095816;
+    font-weight: bold ;
+    font-size: 20px;
+    color: #8e1b1b;
+    font-family: "Cambria Math";
+
+
+}
 #indeximage{
     position: absolute;
     top: 19%;
@@ -81,8 +93,8 @@
 .personal_center {
     /*border-style: dashed;*/
     position: absolute;
-    top: 7px;
-    right: 15px;
+    top: 4px;
+    right: 32px;
 }
 .topic{
 
@@ -99,22 +111,37 @@
 .middle{
     /*position: relative;*/
     border-style: groove;
-    height: 650px;
+    height: 736px;
     width: 100%;
 
 }
-.tail{
-    border-style: outset;
-    height: 163px;
-    width: 100%;
+#menu{
+    float: left;
+    border-style:dashed;
+    color: #2ab949;
+    background-color: #2cc64d;
+    width: 200px;
+    height: 729px;
 }
-.tail a{
+#middle_content{
+    float: right;
     position: relative;
-    left:100px;
-    top:20px;
-    /*height: 50px;*/
-    margin:10px;    /*距离左边的距离*/
+    border-style:double;
+    color: #2ab949;
+    background-color: #b979c6;
+    width: 200px;
+    height: 729px;
 }
+
+#tail a{
+    position: relative;
+    left: 100px;
+    top: 30px;
+    font-weight: bold;
+    /* height: 50px; */
+    margin: 10px;
+}
+
 .middle_p{
     position: relative;
     /*left:100px;*/
@@ -194,7 +221,7 @@
 
 a{
     color: #8e1b1b;
-    font-weight: bold ;    /*加粗*/
+    /*font-weight: bold ;    !*加粗*!*/
 
     font-family: "微软雅黑";
     /*border-style: groove;*/

@@ -5,20 +5,20 @@
 {% endblock %}
 
 {% block middle_content %}
-    <p style="color: #118b37"> Hello {{ nickname }} </p>
-    <p>本次登录IP： {{ ip }}</p>
-    <p>现在是北京时间 {{ nowTime }}。</p>
-    <p >今天上海的天气状况是{{ weatherStatus }}，最高气温{{ weatherMax }}℃,最低气温{{ weatherMin }}℃。</p>
-    {% if role == 1  %}
-        <div class="func ">
-            <p><a href="/na" target="_self"> <button> 添加新的账号信息。</button> </a> </p>
-            <p><a href="/security_port" target="_blank">  <button> 添加安全端口信息。</button></a> </p>
-            <p><a href="/change_vpn" target="_blank">  <button> 修改vpn类型。</button></a> </p>
-            <p><a href="/updateSophiroth" target="_blank"> <button> 更新线上的代码。</button> </a> </p>
-            <p><a href="/queryTianhong" target="_blank">  <button> 天弘基金收益模拟。</button></a> </p>
-        </div>
-    {% else %}
-        <p>您当前的用户身份是客人模式，只能访问这些信息，联系Alvin获取更多权限后才能访问更多内容。.</p>
-    {% endif %}
+{#    <p style="color: #118b37"> Hello {{ nickname }} </p>#}
+{#    <p>本次登录IP： {{ ip }}</p>#}
+{#    <p>现在是北京时间 {{ nowTime }}。</p>#}
+{#    <p >今天上海的天气状况是{{ weatherStatus }}，最高气温{{ weatherMax }}℃,最低气温{{ weatherMin }}℃。</p>#}
+{#    {% if role == 1  %}#}
+{#        <div class="func ">#}
+{#            <p><a href="/na" target="_self"> <button> 添加新的账号信息。</button> </a> </p>#}
+{#            <p><a href="/security_port" target="_blank">  <button> 添加安全端口信息。</button></a> </p>#}
+{#            <p><a href="/change_vpn" target="_blank">  <button> 修改vpn类型。</button></a> </p>#}
+{#            <p><a href="/updateSophiroth" target="_blank"> <button> 更新线上的代码。</button> </a> </p>#}
+{#            <p><a href="/queryTianhong" target="_blank">  <button> 天弘基金收益模拟。</button></a> </p>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <p>您当前的用户身份是客人模式，只能访问这些信息，联系Alvin获取更多权限后才能访问更多内容。.</p>#}
+{#    {% endif %}#}
 
 {% endblock %}

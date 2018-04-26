@@ -14,8 +14,14 @@
     <script type="text/javascript" src="/static/js/iview.js"></script>
 </head>
 <body>
+
 <div id="app" >
     <div class="top" align="center">
+        <h1 >
+            {% block H1 %}
+
+            {% endblock %}
+        </h1>
         <p>
             <p class="topic" >
             {% block topic %}
@@ -24,16 +30,14 @@
             </p>
             <div class="logout">
                 欢迎, <span>${nickname}</span>， <Icon type="clock"></Icon> 当前时间 <span >${now}</span>
+
             </div>
         </p>
         <a href="/" ><img src="/static/img/etlucency.png" class="titlealien"> </a>
      </div>
     <div class="personal_center">
         <dropdown style="margin-left: 20px">
-    {#    <i-button type="primary">#}
-    {#    个人中心#}
-    {#    <icon type="arrow-down-b"></icon>#}
-    {#    </i-button>#}
+
             <a><badge dot size="14" ><avatar src="/static/img/etlucency.png" size="large" /></badge></a>
             <dropdown-menu slot="list">
                 <dropdown-item><a href="/">个人中心</a></dropdown-item>
@@ -46,12 +50,16 @@
         </dropdown>
     </div>
     <div class="middle">
-        <div class="middle_p" >
+        <div id="menu">
+        </div>
+        <div id="middle_content">
+
+        </div>
+        <div class="middlep" >
             {% block middle_content %}
             {% endblock %}
         </div>
     </div>
-{#    <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>#}
     <div class="tail">
         {% block tail %}
             <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
@@ -73,12 +81,13 @@
                 <i-input type="password" v-model="formPassword.passwdCheck"></i-input>
             </form-item>
         </i-form>
-         <div slot="footer">
-             <i-button type="text" @click="cancel_update_password">取消</i-button>
-             <i-button type="primary" :loading="savePassLoading" @click="confirm_password(formPassword)">确认修改</i-button>
-         </div>
+        <div slot="footer">
+              <i-button type="text" @click="cancel_update_password">取消</i-button>
+              <i-button type="primary" :loading="savePassLoading" @click="confirm_password(formPassword)">确认修改</i-button>
+        </div>
     </Modal>
 </div>
+
 <script>
     var app=new Vue({
         el: '#app',
@@ -100,7 +109,6 @@
                 input1:'',
                 input2:'',
                 input3:'',
-                input4:'',
             },
 
         },
@@ -131,6 +139,7 @@
                         };
                     },
                     error : function() {
+{#                        alert("异常！");#}
                         lastUp.$Message.error('something is error')
                     }
                 });
@@ -140,12 +149,19 @@
             },
             now_time:function () {
                  this.now = new Date().toTimeString();
+
             }
+
+
+
         }
+
     })
 
     setInterval('app.now_time()',1000);
 
   </script>
+
+
 </body>
 </html>
