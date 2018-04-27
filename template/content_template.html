@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<div id="app1" >
+<div id="app" >
     <div class="top" align="center">
 
             <p class="topic" >
@@ -35,103 +35,63 @@
     </div>
 
 <script>
-        function setCookie(name, value, iDay)
-        {
-            var oDate=new Date();
-            oDate.setDate(oDate.getDate()+iDay);
-            document.cookie=name+'='+encodeURIComponent(value)+';expires='+oDate;
-        }
-        function getCookie(name)
-        {
-            var arr=document.cookie.split('; ');
-            var i=0;
-            for(i=0;i<arr.length;i++)
-            {
-                //arr2->['username', 'abc']
-                var arr2=arr[i].split('=');
+        var account_data = [];
+        {% for i in all_account %}
+            account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}"});
+        {% endfor %}
 
-                if(arr2[0]==name)
-                {
-                    var getC = decodeURIComponent(arr2[1]);
-                    return getC;
-                }
-            }
-            return '';
-        }
-        function removeCookie(name)
-        {
-            setCookie(name, '1', -1);
-        }
-    var app1=new Vue({
-        el: '#app1',
+    var app_content_template=new Vue({
+        el: '#app',
         data: {
-            visible: false,
-            show_change_password:false,
-            savePassLoading:false,
-            cpassword:'',
-            mpassword:'',
-            fpassword:'',
+            account_title:[
+                {
+                    title:'Application',
+                    key:'application'
+                },
+                {
+                    title:'Username',
+                    key:'username',
+                },
+                {
+                    title:'Password',
+                    key:'password'
+                },
+                {
+                    title:'Comment',
+                    key:'comment'
+                },
+                {
+                    title:'UpdateDate',
+                    key:"updateDate"
+                }
+            ],
+            account_data: account_data,
             now:'',
-            nickname:getCookie('nickname'),
-            formPassword: {
-                    oldpasswd: '',
-                passwd: '',
-                passwdCheck: '',
-            },
-            formLeft:{
-                input1:'',
-                input2:'',
-                input3:'',
+            new_account:{
+                application:'',
+                username:'',
+                password:'',
+                comment:'',
             },
         },
         delimiters:['${', '}'],
-
         methods: {
-            show: function () {
-                this.visible = true;
-            },
-            change_password:function () {
-                this.show_change_password = true
-            },
-            confirm_password:function (name) {
-                var lastUp = this;
+            submit_new_account:function (name) {
+                var lastLayer=this
                 $.ajax({
-                    type: "POST",//方法类型
-                    dataType: "json",//预期服务器返回的数据类型
-                    url: "/change_password" ,//url
-{#                    data: $('#form1').serialize(),#}
+                    type:"POST",
+                    dataType:"json",
+                    url:"/new_account_api",
                     data:name,
-                    success: function (result) {
-                        console.log(result);//打印服务端返回的数据(调试用)
-                        if (result.code == 0) {
-                            lastUp.show_change_password=false
-                            lastUp.$Message.success(result.message)
-                        }else {
-                            lastUp.$Message.warning(result.message)
-                        };
+                    success:function (result) {
+                        lastLayer.$Message.success(result.message)
                     },
-                    error : function() {
-{#                        alert("异常！");#}
-                        lastUp.$Message.error('something is error')
+                    error:function (result) {
+                        lastLayer.$Message.error(result.message())
                     }
-                });
-            },
-            cancel_update_password:function () {
-             this.show_change_password=false
-            },
-            now_time:function () {
-                 this.now = new Date().toTimeString();
-            },
-            to_index:function () {
-                window.location.href="/";
-            },
-            load_account:function () {
-                $('#index_content').load('/na',function (response,status,xhr) {
-{#                    alert ('返回的值为:' +response + ',状态为：' + status + ',状态是：'+ xhr.statusText);#}
                 })
             }
         }
-
     })
 
   </script>

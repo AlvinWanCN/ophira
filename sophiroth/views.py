@@ -81,12 +81,13 @@ def user_info(request):
     userid=request.session['user_id']
     user=User.objects.filter(id=userid)[0]
     nickname = user.nickname
+    username= user.username
     email= user.email
-    brithday = user.brithday
+    birthday = user.birthday
     if user:
-        return JsonResponse({'code':0,'nickname':nickname,'email':email,'brithday':brithday})
+        return JsonResponse({'code':0,'username':username,'nickname':nickname,'email':email,'birthday':birthday})
     else:
-        return JsonResponse({'code': 1, 'nickname': nickname, 'email': email, 'brithday': brithday})
+        return JsonResponse({'code': 1,'username':username, 'nickname': nickname, 'email': email, 'birthday': birthday})
 
 def login(request):
     Login = loginForm()
@@ -117,24 +118,31 @@ def index(request):
     nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
     nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
     cpassword='aaaa'
-    return render_to_response('index.html', locals())
+    return render_to_response('content_template1.html', locals())
 
 
 
 @loginValid
 def new_account(request):
-    if request.method == 'POST' and request.POST:
-        username = request.POST['username']  #username为我们前端html里面的name的值
-        password = request.POST['password']
-        application = request.POST['application']
-        comment = request.POST['comment']
-        u = Account()
-        u.username = username
-        u.password = password
-        u.application = application
-        u.comment = comment
-        u.save()
+    all_account = Account.objects.filter(uid=request.session['user_id'])
     return render_to_response("new_account.html", locals())
+
+@loginValid
+def new_account_api(request):
+    try:
+        if request.method == 'POST' and request.POST:
+            a = Account()
+            a.username = request.POST['username']
+            a.password = request.POST['password']
+            a.application = request.POST['application']
+            a.comment = request.POST['comment']
+            a.uid = request.session['user_id']
+            a.save()
+            return JsonResponse({'success': True,'code':0,'message':'保存成功。'})
+        else:
+            return JsonResponse({'success': False,'code':1,'message':'保存失败，仅支持post请求。'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
 
 
 def logout(request):
@@ -160,6 +168,24 @@ def ip(request):
     ip = client_ip(request)
     return render_to_response('ip.html',locals())
 
+
+def register_api(request):
+    try:
+        if request.method == 'POST' and request.POST:
+            u = User()
+            u.username = request.POST['username'].decode('utf-8')
+            u.password = hashpassword(request.POST['password']).decode('utf-8')
+            u.email = request.POST['email']
+            u.nickname = request.POST['nickname']
+            u.birthday = request.POST['birthday']
+            u.save()
+            return JsonResponse({'success': True, 'code': 0, 'message': '注册成功'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请正确填写全部信息'})
+            # return JsonResponse({'success': False, 'code': 1, 'message': request.POST})
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'code': 2, 'message': e})
 
 def register(request):
     if request.method == 'POST' and request.POST:

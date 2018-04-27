@@ -7,21 +7,38 @@
 {% endblock %}
 
 {% block middle_content %}
-
-    <i-form :model="formLeft" label-position="left" :label-width="100" ><form-item label="Application">
-            <i-input v-model="formLeft.input1" style="width: auto" ></i-input>
+    <row style="height: 60px" ></row>
+<row >
+   <i-col span="8" push="2"   >
+           <row style="height: 100px"></row>
+    <i-form :model="new_account" label-position="left" :label-width="100" >
+        <form-item label="Application">
+            <i-input v-model="new_account.application" style="width: auto" ></i-input>
         </form-item>
         <form-item label="Username">
-            <i-input  v-model="formLeft.input2" style="width: auto"></i-input>
+            <i-input  v-model="new_account.username" style="width: auto"></i-input>
         </form-item>
         <form-item label="Password">
-            <i-input type='password' v-model="formLeft.input3" style="width: auto"></i-input>
+            <i-input type='password' v-model="new_account.password" style="width: auto"></i-input>
         </form-item>
         <form-item label="Comment">
-            <i-input v-model="formLeft.input4" style="width: auto"></i-input>
+            <i-input v-model="new_account.comment" style="width: auto"></i-input>
         </form-item>
     </i-form>
-    <i-button type="success" style="width: 260px">SUBMIT</i-button>
+    <i-button type="success" style="width: 260px" @click="submit_new_account(new_account)">SUBMIT</i-button>
+   </i-col>
+    <i-col span="15" push="0" style="background-color: #088e36" >
+
+{#     <p>Application Account Information</p>#}
+
+        <i-table height="500" :columns="account_title" :data="account_data"></i-table>
+{#        {% for i in all_account  %}#}
+{#            <p>{{ i.keys }}</p>#}
+{#            <p>{{ i.application }} username: {{ i.username }} password:{{ i.password }}  comment:{{ i.comment }}</p>#}
+{#        {% endfor %}#}
+
+    </i-col>
+</row>
 {% endblock %}
 
 {#{% block H1 %}#}
