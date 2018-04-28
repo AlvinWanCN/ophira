@@ -43,8 +43,8 @@ DATABASES = {
 
 这里的数据库账号，根据实际情况设置
 ```
-CREATE DATABASE `ophira` /*!40100 DEFAULT CHARACTER SET utf8mb4 */
-grant all privileges on ophira.* to 'alvin'@'%' identified by 'sophiroth'
+CREATE DATABASE `ophira` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+grant all privileges on ophira.* to 'alvin'@'%' identified by 'sophiroth';
 ```
 
 ### 同步数据库
