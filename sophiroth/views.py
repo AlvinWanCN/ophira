@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from sophiroth.models import *
-import hashlib
+import hashlib,subprocess
 import sophiroth.modules.get_weather as  get_weather
 from django.http import JsonResponse
 from sophiroth.forms import *
@@ -145,6 +145,43 @@ def new_account_api(request):
         return  JsonResponse({'success': False,'code':2,'message':e})
 
 
+@loginValid
+def confirm_userinfo_change_api(request):
+    try:
+        if request.method == 'POST' and request.POST:
+            # t = User()
+            t = User.objects.get(id=request.session['user_id'])
+            t.username = request.POST['username']
+            t.nickname = request.POST['nickname']
+            t.email = request.POST['email']
+            # t.birthday = request.POST['birthday']
+            t.save()
+            return JsonResponse({'success': True,'code':0,'message':'保存成功。','nickname':request.POST['nickname']})
+        else:
+            return JsonResponse({'success': False,'code':1,'message':'保存失败，仅支持post请求。'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
+
+@loginValid
+def change_vpntype_api(request):
+    try:
+        if request.method == 'POST' and request.POST:
+            if request.POST['vpn_type']== 'ipsec':
+                subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
+                subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
+                return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
+            elif request.POST['vpn_type']== 'ikev2':
+                subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
+                subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
+                return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
+            else:
+                return JsonResponse({'success': True, 'code': 1, 'message': '没有做任何变更操作。'})
+        else:
+            return JsonResponse({'success': False,'code':1,'message':'仅支持post请求。'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
 def logout(request):
     try:
         del request.session['user_id']
@@ -208,10 +245,7 @@ def testcookie(request):
 
     response = render_to_response('testCookie.html',locals())
     response.set_cookie("name","alvin",3600)
-
-
     return response
-
 
 
 def testsission(request):

@@ -45,5 +45,7 @@ urlpatterns = [
     url(r'^new_template1',new_template1),
     url(r'^new_account_api',new_account_api),
     url(r'^api/register',register_api),
+    url(r'^api/confirm_userinfo_change_api',confirm_userinfo_change_api),
+    url(r'api/change_vpntype_api',change_vpntype_api),
 
 ]
