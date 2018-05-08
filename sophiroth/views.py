@@ -188,7 +188,7 @@ def update_code_api(request):
     try:
         if request.method == 'GET':
             os.chdir('/home/alvin/ophira')
-            subprocess.call('/usr/bin/git pull')
+            subprocess.call('/usr/bin/git pull', shell=True)
             return JsonResponse({'success': True,'code':0,'message':'已更新'})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
