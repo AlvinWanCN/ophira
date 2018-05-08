@@ -154,7 +154,7 @@
                         success: function (result) {
                             console.log(result.code );//打印服务端返回的数据(调试用)
                             if (result.code == 0) {
-                                setCookie('nickname',result.nickname);
+                                setCookie('nickname',result.nickname,3600);
                                 window.location.href="/";
                             }else {
 {#                                alert("用户名或密码错误")#}

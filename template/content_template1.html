@@ -318,7 +318,7 @@
                         if (result.code == 0) {
                             lastLayer.$Message.success(result.message)
                             lastLayer.show_userinfo_form=false
-                            setCookie('nickname',result.nickname)
+                            setCookie('nickname',result.nickname,3600)
                         }else {
                             lastLayer.$Message.warning(result.message)
                         }
