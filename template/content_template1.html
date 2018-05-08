@@ -173,7 +173,7 @@
         </div>
     </Modal>
 
-    <Modal v-model="show_users_role" title="用户权限管理" width="40"  :closable='false' :mask-closable=false>
+    <Modal v-model="show_users_role" title="用户管理" width="40"  :closable='false' :mask-closable=false>
         <i-table height="500" :columns="users_title" :data="users_role"></i-table>
         <div slot="footer">
             <i-button type="text" @click="cancel_show_users_role">取消</i-button>
