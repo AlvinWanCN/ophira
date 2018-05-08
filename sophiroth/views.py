@@ -117,7 +117,8 @@ def index(request):
     ip = client_ip(request)
     nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
     nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
-    cpassword='aaaa'
+    # cpassword='aaaa'
+    users_role=User.objects.all()
     return render_to_response('content_template1.html', locals())
 
 
