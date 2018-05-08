@@ -187,7 +187,7 @@ def change_vpntype_api(request):
 def update_code_api(request):
     try:
         if request.method == 'GET':
-            os.chdir('/home/alvin/ophira')
+            os.chdir('/home/alvin/python')
             subprocess.call('git pull')
             return JsonResponse({'success': True,'code':0,'message':'已更新'})
         else:
