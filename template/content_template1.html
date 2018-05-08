@@ -59,8 +59,14 @@
                         应用中心
                     </template>
                     <menu-item name="2-1" onclick="app_content_template1.load_account()">应用账号</menu-item>
-                    <menu-item name="2-2" onclick="app_content_template1.open_vpn_window()">VPN协议切换</menu-item>
-                    <menu-item name="2-3" onclick="">更新线上代码</menu-item>
+                    {% if  role  == 1  %}
+                        <menu-item name="2-2" onclick="app_content_template1.open_vpn_window()">VPN协议切换</menu-item>
+                        <menu-item name="2-3" onclick="app_content_template1.open_update_code()">更新线上代码</menu-item>
+                    {% else %}
+                        <menu-item name="2-2" title="普通账号不可使用该功能">VPN协议切换</menu-item>
+                        <menu-item name="2-3" title="普通账号不可使用该功能">更新线上代码</menu-item>
+                    {% endif %}
+
                 </submenu>
                 <submenu name="3">
                     <template slot="title">
@@ -136,7 +142,7 @@
         </i-form>
         <div slot="footer">
               <i-button type="text" @click="cancel_userinfo_form">取消</i-button>
-              <i-button type="primary" :loading="savePassLoading" @click="confirm_userinfo_change_api(userinfo_form)" get_date>确认修改</i-button>
+              <i-button type="primary" :loading="savePassLoading" @click="confirm_userinfo_change_api(userinfo_form)" >确认修改</i-button>
         </div>
     </Modal>
 
@@ -151,7 +157,12 @@
         </div>
     </Modal>
 
-
+    <Modal v-model="show_update_code" title="更新线上代码" width="40"  :closable='false' :mask-closable=false>确定要更新代码吗？
+        <div slot="footer">
+              <i-button type="text" @click="cancel_update_code">取消</i-button>
+              <i-button type="primary" :loading="savePassLoading" @click="update_code_api" >确认修改</i-button>
+        </div>
+    </Modal>
 </div>
 <script>
 
@@ -233,6 +244,7 @@
                      { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                 ]
             },
+            show_update_code: false,
 
         },
         delimiters:['${', '}'],
@@ -363,7 +375,36 @@
                         console.log(e)
                     },
                 })
-            }
+            },
+            update_code_api:function (name) {
+                var lastLayer = this
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url:"/api/update_code_api",
+                    data:{},
+                    success: function (result) {
+                        if (result.code == 0) {
+                            lastLayer.$Message.success(result.message)
+                            lastLayer.show_update_code=false
+
+                        }else {
+                            lastLayer.$Message.warning(result.message)
+                        }
+                        ;
+                    },
+                    error : function(e,result) {
+                        lastLayer.$Message.error(result.message)
+                        console.log(e)
+                    },
+                })
+            },
+            open_update_code:function () {
+                this.show_update_code=true
+            },
+            cancel_update_code:function () {
+                this.show_update_code=false
+            },
 
         }
 

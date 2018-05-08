@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from sophiroth.models import *
-import hashlib,subprocess
+import hashlib,subprocess,os
 import sophiroth.modules.get_weather as  get_weather
 from django.http import JsonResponse
 from sophiroth.forms import *
@@ -179,6 +179,19 @@ def change_vpntype_api(request):
                 return JsonResponse({'success': True, 'code': 1, 'message': '没有做任何变更操作。'})
         else:
             return JsonResponse({'success': False,'code':1,'message':'仅支持post请求。'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
+
+@loginValid
+def update_code_api(request):
+    try:
+        if request.method == 'GET':
+            os.chdir('/home/alvin/ophira')
+            subprocess.call('git pull')
+            return JsonResponse({'success': True,'code':0,'message':'已更新'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
