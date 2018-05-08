@@ -61,10 +61,12 @@
                         <menu-item name="2-2" onclick="app_content_template1.open_vpn_window()">VPN协议切换</menu-item>
                         <menu-item name="2-3" onclick="app_content_template1.open_update_code()">更新线上代码</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
+                        <menu-item name="2-4" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
                     {% else %}
                         <menu-item name="2-2" onclick="app_content_template1.open_no_permission()">VPN协议切换</menu-item>
                         <menu-item name="2-3" onclick="app_content_template1.open_no_permission()">更新线上代码</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
+                        <menu-item name="2-4" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
                     {% endif %}
                 </submenu>
                 <submenu name="3">
@@ -180,6 +182,24 @@
             <i-button type="primary" :loading="savePassLoading" @click="cancel_show_users_role" >确认</i-button>
         </div>
     </Modal>
+
+    <Modal v-model="show_file_upload" title="文件上传" width="40"  :closable='false' :mask-closable=false>
+    <upload
+        multiple
+        type="drag"
+        action="//jsonplaceholder.typicode.com/posts/">
+        <div style="padding: 20px 0">
+            <icon type="ios-cloud-upload" size="52" style="color: #3399ff"></icon>
+            <p>Click or drag files here to upload</p>
+        </div>
+    </upload>
+        <div slot="footer">
+            <i-button type="text" @click="cancel_show_file_upload">取消</i-button>
+            <i-button type="primary" :loading="savePassLoading" @click="cancel_show_file_upload" >确认</i-button>
+        </div>
+    </Modal>
+
+
 </div>
 <script>
         var users_role = [];
@@ -223,6 +243,9 @@
             savePassLoading:false,
             show_users_role:false,
             users_role:users_role,
+            show_file_upload:false,
+            file:null,
+            loadingStatus: false,
             users_title:[
                 {
                     title:"Nickname",
@@ -438,6 +461,18 @@
                     },
                 })
             },
+            upload_file:function (file) {
+                this.file=file;
+                return false
+            },
+            confirm_upload_file:function () {
+                this.loadingStatus=true
+                setTimeout(() => {
+                    this.file=null;
+                    this.loadingStatus =false;
+                    this.$Message.success('Success')
+                },1500);
+            },
             open_update_code:function () {
                 this.show_update_code=true
             },
@@ -461,7 +496,13 @@
             },
             cancel_show_users_role:function () {
                 this.show_users_role=false
-            }
+            },
+            open_show_file_upload:function () {
+                this.show_file_upload=true
+            },
+            cancel_show_file_upload:function () {
+                this.show_file_upload=false
+            },
 
         }
 
