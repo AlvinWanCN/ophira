@@ -199,8 +199,9 @@ def update_code_api(request):
 def upload_ajax_api(request):
     try:
         if request.method == 'POST':
+            username = User.objects.filter(id=request.session['user_id'])[0].username
             file_obj = request.FILES.get('file')
-            file_dir=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),'ophira_files')
+            file_dir=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),'ophira_'+username+'_files')
             if os.path.exists(file_dir):
                 pass
             else:
