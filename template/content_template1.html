@@ -308,7 +308,6 @@
                                         console.log(params.row.filename)
                                         app_content_template1.delete_user_file(params.row.filename)
                                         app_content_template1.remove(params.index)
-
                                     }
                                 }
                             }, '删除')
@@ -544,14 +543,6 @@
             upload_file:function (file) {
                 this.file=file;
                 return false
-            },
-            confirm_upload_file:function () {
-                this.loadingStatus=true
-                setTimeout(() => {
-                    this.file=null;
-                    this.loadingStatus =false;
-                    this.$Message.success('Success')
-                },1500);
             },
             remove: function (index) {
                 this.userfiles.splice(index, 1);
