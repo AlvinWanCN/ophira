@@ -61,12 +61,12 @@
                         <menu-item name="2-2" onclick="app_content_template1.open_vpn_window()">VPN协议切换</menu-item>
                         <menu-item name="2-3" onclick="app_content_template1.open_update_code()">更新线上代码</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
-                        <menu-item name="2-4" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
+                        <menu-item name="2-4" onclick="app_content_template1.open_show_file_upload()">文件管理</menu-item>
                     {% else %}
                         <menu-item name="2-2" onclick="app_content_template1.open_no_permission()">VPN协议切换</menu-item>
                         <menu-item name="2-3" onclick="app_content_template1.open_no_permission()">更新线上代码</menu-item>
-                        <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
-                        <menu-item name="2-5" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
+                        <menu-item name="2-4" onclick="app_content_template1.open_no_permission()">用户管理</menu-item>
+                        <menu-item name="2-5" onclick="app_content_template1.open_show_file_upload()">文件管理</menu-item>
                     {% endif %}
                 </submenu>
                 <submenu name="3">
@@ -184,7 +184,7 @@
         </div>
     </Modal>
 
-    <Modal v-model="show_file_upload" title="文件上传" width="40"  :closable='false' :mask-closable=false>
+    <Modal v-model="show_file_upload" title="文件管理" width="40"  :closable='false' :mask-closable=false>
     <upload
         multiple
         type="drag"
@@ -194,9 +194,12 @@
             <p>Click or drag files here to upload</p>
         </div>
     </upload>
+
+    <i-table  border :columns="userfiles_title" :data="userfiles" height="300" ></i-table>
+
         <div slot="footer">
             <i-button type="text" @click="cancel_show_file_upload">取消</i-button>
-            <i-button type="primary" :loading="savePassLoading" @click="cancel_show_file_upload" >确认</i-button>
+            <i-button type="primary" :loading="savePassLoading" @click="to_index" >确认</i-button>
         </div>
     </Modal>
 
@@ -207,7 +210,10 @@
         {% for i in users_role %}
             users_role.push({"nickname":"{{ i.nickname }}","role":"{{ i.role }}","registerDate":"{{ i.createDate }}"});
         {% endfor %}
-
+        var userfiles = [];
+        {% for filename in userfiles %}
+            userfiles.push({"filename":"{{ filename }}"})
+        {% endfor %}
         function setCookie(name, value, iDay)
         {
             var oDate=new Date();
@@ -245,6 +251,7 @@
             show_users_role:false,
             users_role:users_role,
             show_file_upload:false,
+            userfiles:userfiles,
             show_restart_ophira:false,
             file:null,
             loadingStatus: false,
@@ -261,6 +268,54 @@
                     title:"Register Date",
                     key:"registerDate"
                 }
+            ],
+            userfiles_title:[
+                {
+                    title:"文件名",
+                    key:"filename"
+                },
+                {
+                    title: '动作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: function(h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click:function()  {
+{#                                        this.show(params.index)#}
+{#                                        app_content_template1.open_show_users_role()#}
+                                        app_content_template1.download_user_file(params.row.filename)
+                                    }
+                                }
+                            }, '下载'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click:function() {
+{#                                        this.remove(params.index)#}
+                                        console.log(params.row.filename)
+                                        app_content_template1.delete_user_file(params.row.filename)
+                                        app_content_template1.remove(params.index)
+
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                    }
+                },
+
             ],
             cpassword:'',
             mpassword:'',
@@ -463,6 +518,29 @@
                     },
                 })
             },
+            delete_user_file:function (filename) {
+                var lastLayer = this
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url:"/api/delete_user_files",
+                    data:{'filename':filename},
+                    success: function (result) {
+                        if (result.code == 0) {
+                            lastLayer.$Message.success(result.message)
+{#                            lastLayer.show_update_code=false#}
+
+                        }else {
+                            lastLayer.$Message.warning(result.message)
+                        }
+                        ;
+                    },
+                    error : function(e,result) {
+                        lastLayer.$Message.error(result.message)
+                        console.log(e)
+                    },
+                })
+            },
             upload_file:function (file) {
                 this.file=file;
                 return false
@@ -474,6 +552,9 @@
                     this.loadingStatus =false;
                     this.$Message.success('Success')
                 },1500);
+            },
+            remove: function (index) {
+                this.userfiles.splice(index, 1);
             },
             open_update_code:function () {
                 this.show_update_code=true
@@ -505,6 +586,9 @@
             cancel_show_file_upload:function () {
                 this.show_file_upload=false
             },
+            download_user_file:function (filename) {
+                window.open("/static/files/{{ username }}/"+filename);
+            }
         }
 
     })

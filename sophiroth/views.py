@@ -117,6 +117,13 @@ def index(request):
     ip = client_ip(request)
     nowTime = time.strftime('%Y-%m-%d %H:%M:%S')
     nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
+    username = User.objects.filter(id=request.session['user_id'])[0].username
+    file_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'files', username)
+    if os.path.exists(file_dir):
+        pass
+    else:
+        os.mkdir(file_dir)
+    userfiles = os.listdir(file_dir)
     # cpassword='aaaa'
     users_role=User.objects.all()
     return render_to_response('content_template1.html', locals())
@@ -195,17 +202,14 @@ def update_code_api(request):
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
-
+@loginValid
 def upload_ajax_api(request):
     try:
         if request.method == 'POST':
             username = User.objects.filter(id=request.session['user_id'])[0].username
             file_obj = request.FILES.get('file')
             file_dir=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static','files',username)
-            if os.path.exists(file_dir):
-                pass
-            else:
-                os.mkdir(file_dir)
+
             f = open(os.path.join(file_dir,file_obj.name), 'wb')
             # print(file_obj,type(file_obj))
             for chunk in file_obj.chunks():
@@ -213,6 +217,27 @@ def upload_ajax_api(request):
             f.close()
             # print('11111')
             return JsonResponse({'success': False, 'code': 0, 'message': '上传成功'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
+@loginValid
+def delete_user_files(request):
+    try:
+        if request.method == 'POST':
+            username = User.objects.filter(id=request.session['user_id'])[0].username
+            filename = request.POST['filename']
+            file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'files', username,filename)
+
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                if os.path.exists(file_path):
+                    return JsonResponse({'success': False, 'code': 1, 'message': '删除失败'})
+                else:
+                    return JsonResponse({'success': False, 'code': 0, 'message': '删除成功'})
+            else:
+                return JsonResponse({'success': False, 'code': 1, 'message': '文件不存在。'})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
     except Exception as e:

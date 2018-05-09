@@ -49,5 +49,5 @@ urlpatterns = [
     url(r'^api/change_vpntype_api',change_vpntype_api),
     url(r'^api/update_code_api',update_code_api),
     url(r'^api/upload_ajax_api',upload_ajax_api),
-
+    url(r'^api/delete_user_files',delete_user_files),
 ]
