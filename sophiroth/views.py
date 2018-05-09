@@ -183,16 +183,27 @@ def change_vpntype_api(request):
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
-
 @loginValid
-def update_code_api(request):
+def restart_ophira_api(request):
     try:
         if request.method == 'GET':
             os.chdir('/home/alvin/ophira')
             subprocess.call('/usr/bin/git pull', shell=True)
             return JsonResponse({'success': True,'code':0,'message':'已更新'})
         else:
-            return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
+@loginValid
+def update_code_api(request):
+    try:
+        if request.method == 'GET':
+            os.chdir('/home/alvin/ophira')
+            subprocess.call("kill -9 `lsof -i|tail -1|awk {'print $2'}` && nohup python manage.py runserver 0.0.0.0:8003 &>/tmp/8003.log &", shell=True)
+            return JsonResponse({'success': True,'code':0,'message':'已重启'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
