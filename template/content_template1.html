@@ -62,13 +62,11 @@
                         <menu-item name="2-3" onclick="app_content_template1.open_update_code()">更新线上代码</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
-                        <menu-item name="2-6" onclick="app_content_template1.open_show_restart_ophira()">重启Ophira</menu-item>
                     {% else %}
                         <menu-item name="2-2" onclick="app_content_template1.open_no_permission()">VPN协议切换</menu-item>
                         <menu-item name="2-3" onclick="app_content_template1.open_no_permission()">更新线上代码</menu-item>
                         <menu-item name="2-4" onclick="app_content_template1.open_show_users_role()">用户管理</menu-item>
                         <menu-item name="2-5" onclick="app_content_template1.open_show_file_upload()">文件上传</menu-item>
-                        <menu-item name="2-6" onclick="app_content_template1.open_no_permission()">重启Ophira</menu-item>
                     {% endif %}
                 </submenu>
                 <submenu name="3">
@@ -163,13 +161,6 @@
         <div slot="footer">
               <i-button type="text" @click="cancel_update_code">取消</i-button>
               <i-button type="primary" :loading="savePassLoading" @click="update_code_api" >确认更新</i-button>
-        </div>
-    </Modal>
-
-    <Modal v-model="show_restart_ophira" title="重启ophira" width="40"  :closable='false' :mask-closable=false>确定要重启ophira么？
-        <div slot="footer">
-              <i-button type="text" @click="cancel_show_restart_ophira">取消</i-button>
-              <i-button type="primary" :loading="savePassLoading" @click="restart_ophira" >确认更新</i-button>
         </div>
     </Modal>
 
@@ -472,28 +463,6 @@
                     },
                 })
             },
-            restart_ophira:function () {
-                var lastLayer = this
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url:"/api/restart_ophira_api",
-                    data:{},
-                    success: function (result) {
-                        if (result.code == 0) {
-                            lastLayer.$Message.success(result.message)
-                            lastLayer.show_restart_ophira=false
-                        }else {
-                            lastLayer.$Message.warning(result.message)
-                        }
-                        ;
-                    },
-                    error : function(e,result) {
-                        lastLayer.$Message.error(result.message)
-                        console.log(e)
-                    },
-                })
-            },
             upload_file:function (file) {
                 this.file=file;
                 return false
@@ -536,13 +505,6 @@
             cancel_show_file_upload:function () {
                 this.show_file_upload=false
             },
-            open_show_restart_ophira:function () {
-                this.show_restart_ophira=true
-            },
-            cancel_show_restart_ophira:function () {
-                this.show_restart_ophira=false
-            },
-
         }
 
     })

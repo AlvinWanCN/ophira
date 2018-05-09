@@ -195,17 +195,7 @@ def update_code_api(request):
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
-@loginValid
-def restart_ophira_api(request):
-    try:
-        if request.method == 'GET':
-            os.chdir(os.path.dirname(os.path.dirname(__file__)))
-            subprocess.call(os.path.dirname(__file__)+'/modules/restart_ophira.py', shell=True)
-            return JsonResponse({'success': True,'code':0,'message':'已重启'})
-        else:
-            return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
-    except Exception as e:
-        return  JsonResponse({'success': False,'code':2,'message':e})
+
 
 def logout(request):
     try:
