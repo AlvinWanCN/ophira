@@ -482,7 +482,7 @@
                     success: function (result) {
                         if (result.code == 0) {
                             lastLayer.$Message.success(result.message)
-                            lastLayer.show_update_code=false
+                            lastLayer.show_restart_ophira=false
                         }else {
                             lastLayer.$Message.warning(result.message)
                         }
