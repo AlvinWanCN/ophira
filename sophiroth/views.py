@@ -196,6 +196,26 @@ def update_code_api(request):
         return  JsonResponse({'success': False,'code':2,'message':e})
 
 
+def upload_ajax_api(request):
+    try:
+        if request.method == 'POST':
+            file_obj = request.FILES.get('file')
+            file_dir=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),'ophira_files')
+            if os.path.exists(file_dir):
+                pass
+            else:
+                os.mkdir(file_dir)
+            f = open(os.path.join(file_dir,file_obj.name), 'wb')
+            # print(file_obj,type(file_obj))
+            for chunk in file_obj.chunks():
+                f.write(chunk)
+            f.close()
+            # print('11111')
+            return JsonResponse({'success': False, 'code': 0, 'message': '上传成功'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
 
 def logout(request):
     try:
