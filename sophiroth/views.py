@@ -199,7 +199,7 @@ def update_code_api(request):
 def restart_ophira_api(request):
     try:
         if request.method == 'GET':
-            os.chdir('/home/alvin/ophira')
+            os.chdir(os.path.dirname(os.path.dirname(__file__)))
             subprocess.call(os.path.dirname(__file__)+'/modules/restart_ophira.py', shell=True)
             return JsonResponse({'success': True,'code':0,'message':'已重启'})
         else:
