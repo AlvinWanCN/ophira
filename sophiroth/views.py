@@ -200,7 +200,7 @@ def restart_ophira_api(request):
     try:
         if request.method == 'GET':
             os.chdir('/home/alvin/ophira')
-            subprocess.call("kill -9 `lsof -i|tail -1|awk {'print $2'}` && nohup python manage.py runserver 0.0.0.0:8003 &>/tmp/8003.log &", shell=True)
+            subprocess.call("kill -9 `lsof -i:8003|tail -1|awk {'print $2'}` && nohup python manage.py runserver 0.0.0.0:8003 &>/tmp/8003.log &", shell=True)
             return JsonResponse({'success': True,'code':0,'message':'已重启'})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
