@@ -184,7 +184,7 @@ def change_vpntype_api(request):
         return  JsonResponse({'success': False,'code':2,'message':e})
 
 @loginValid
-def restart_ophira_api(request):
+def update_code_api(request):
     try:
         if request.method == 'GET':
             os.chdir('/home/alvin/ophira')
@@ -196,7 +196,7 @@ def restart_ophira_api(request):
         return  JsonResponse({'success': False,'code':2,'message':e})
 
 @loginValid
-def update_code_api(request):
+def restart_ophira_api(request):
     try:
         if request.method == 'GET':
             os.chdir('/home/alvin/ophira')
