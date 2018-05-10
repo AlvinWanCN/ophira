@@ -244,6 +244,27 @@ def delete_user_files(request):
     except Exception as e:
         return  JsonResponse({'success': False,'code':2,'message':e})
 
+
+@loginValid
+def delete_user_accounts_api(request):
+    try:
+        if request.method == 'POST':
+            if request.POST['id'] == '000000':
+                return JsonResponse({'success': False, 'code': 1, 'message': '新添加的账号请刷新当前页面后再删除。'})
+            a = Account.objects.filter(uid=request.session['user_id'],id=request.POST['id'])
+            if len(a) == 0:
+                return JsonResponse({'success': False, 'code': 1, 'message': '该记录已不存在'})
+            else:
+                a.delete()
+                if len(a) == 0:
+                    return JsonResponse({'success': False, 'code': 0, 'message': '删除成功'})
+                else:
+                    return JsonResponse({'success': False, 'code': 1, 'message': '删除失败。'})
+        else:
+            return JsonResponse({'success': False, 'code': 1, 'message': '请使用POST请求'})
+    except Exception as e:
+        return  JsonResponse({'success': False,'code':2,'message':e})
+
 def logout(request):
     try:
         del request.session['user_id']

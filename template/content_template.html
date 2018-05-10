@@ -34,7 +34,7 @@
 <script>
         var account_data = [];
         {% for i in all_account %}
-            account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}"});
+            account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}","id":"{{ i.id }}"});
         {% endfor %}
 
     var app_content_template=new Vue({
@@ -60,7 +60,32 @@
                 {
                     title:'UpdateDate',
                     key:"updateDate"
-                }
+                },
+                {
+                    title: '动作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: function(h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click:function() {
+{#                                        this.remove(params.index)#}
+                                        app_content_template.delete_user_account(params.row.id)
+                                        if (params.row.id != '000000') {
+                                            app_content_template.remove_account(params.index)
+                                        };
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                    }
+                },
             ],
             account_data: account_data,
             now:'',
@@ -86,8 +111,43 @@
                     error:function (result) {
                         lastLayer.$Message.error(result.message())
                     }
+                });
+                name['id']='000000'
+                nowDate = new this.Date().format("yyyy-MM-dd hh:mm:ss");
+
+                name['updateDate']=nowDate
+                account_data.push(name)
+            },
+            exportData:function (type) {
+                this.$refs.table.exportCsv({
+                    filename: 'Ophira存储的账号信息'
+                });
+
+            },
+              delete_user_account:function (id) {
+                var lastLayer = this
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url:"/api/delete_user_accounts_api",
+                    data:{'id':id},
+                    success: function (result) {
+                        if (result.code == 0) {
+                            lastLayer.$Message.success(result.message)
+                        }else {
+                            lastLayer.$Message.warning(result.message)
+                        }
+                        ;
+                    },
+                    error : function(e,result) {
+                        lastLayer.$Message.error(result.message)
+                        console.log(e)
+                    },
                 })
-            }
+            },
+            remove_account: function (index) {
+                this.account_data.splice(index, 1);
+            },
         }
     })
   </script>

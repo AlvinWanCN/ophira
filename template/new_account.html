@@ -9,11 +9,11 @@
 {% block middle_content %}
     <row style="height: 60px" ></row>
 <row >
-   <i-col span="8" push="2"   >
+   <i-col span="8" push="2" >
            <row style="height: 100px"></row>
     <i-form :model="new_account" label-position="left" :label-width="100" >
         <form-item label="Application">
-            <i-input v-model="new_account.application" style="width: auto" ></i-input>
+            <i-input v-model="new_account.application" style="width: auto"  ></i-input>
         </form-item>
         <form-item label="Username">
             <i-input  v-model="new_account.username" style="width: auto"></i-input>
@@ -27,11 +27,12 @@
     </i-form>
     <i-button type="success" style="width: 260px" @click="submit_new_account(new_account)">SUBMIT</i-button>
    </i-col>
-    <i-col span="15" push="0" style="background-color: #088e36" >
+    <i-col span="15" push="0"  >
 
 {#     <p>Application Account Information</p>#}
 
-        <i-table height="500" :columns="account_title" :data="account_data"></i-table>
+        <i-table height="500" :columns="account_title" :data="account_data" ref="table"></i-table>
+        <i-button type="primary" size="large" @click="exportData()"><icon type="ios-download-outline"></icon>导出数据到Excel</i-button>
 {#        {% for i in all_account  %}#}
 {#            <p>{{ i.keys }}</p>#}
 {#            <p>{{ i.application }} username: {{ i.username }} password:{{ i.password }}  comment:{{ i.comment }}</p>#}
