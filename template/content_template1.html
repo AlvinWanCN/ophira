@@ -33,7 +33,7 @@
                         <dropdown-item onclick="app_content_template1.open_userinfo_form() " >修改资料</dropdown-item>
                         <dropdown-item><p @click="change_password">修改密码</p></dropdown-item>
                         <dropdown-item disabled>冰糖葫芦</dropdown-item>
-                        <dropdown-item divided><a href="/logout" >退出登录</a></dropdown-item>
+                        <dropdown-item divided onclick="app_content_template1.logout()">退出登录</dropdown-item>
                     </dropdown-menu>
                 </dropdown>
             </div>
@@ -540,6 +540,10 @@
                         console.log(e)
                     },
                 })
+            },
+            logout:function () {
+                removeCookie('nickname')
+                window.location.href="/logout";
             },
             upload_file:function (file) {
                 this.file=file;

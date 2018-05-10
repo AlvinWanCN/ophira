@@ -247,6 +247,7 @@ def delete_user_files(request):
 def logout(request):
     try:
         del request.session['user_id']
+        del request.COOKIES['nickname']
     except:
         pass
     return HttpResponseRedirect("/login")
