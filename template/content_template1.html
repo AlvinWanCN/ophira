@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="/static/js/vue.js"></script>
-    <script type="text/javascript" src="/static/js/iview.js"></script>
+    <script type="text/javascript" src="/static/js/vue.min.js"></script>
+    <script type="text/javascript" src="/static/js/iview.min.js"></script>
 </head>
 <body>
 <div id="app1" >
@@ -42,7 +42,7 @@
     {#    菜单管理#}
     <row style="height: 760px">
         <i-col span="3" >
-             <i-menu :theme="theme2" style="width: 170px;height: 0px">
+             <i-menu  style="width: 170px;height: 0px">
                 <submenu name="1">
                     <template slot="title">
                         <icon type="ios-paper"></icon>
@@ -170,7 +170,7 @@
         </div>
     </Modal>
 
-    <Modal v-model="no_develop" title="功能暂未开发" width="40"  :closable='false' :mask-closable=false>功能暂未开发
+    <Modal v-model="show_no_develop" title="功能暂未开发" width="40"  :closable='false' :mask-closable=false>功能暂未开发
         <div slot="footer">
               <i-button type="primary" :loading="savePassLoading" @click="cancel_no_develop" >确认</i-button>
         </div>
@@ -330,7 +330,8 @@
                 birthday:'',
 
             },
-            no_permission_window:false,
+            no_permission:false,
+
            userinfo_rule:{
                 username:[
                   { required: true, message: 'Please fill in the user name', trigger: 'blur' },
