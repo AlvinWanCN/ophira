@@ -70,7 +70,8 @@ def auth_pass(request):
         password = hashpassword(request.POST['password'])
         if auth(username,password):
             request.session['user_id'] = User.objects.filter(username=username)[0].id
-            nickname=User.objects.filter(username=username)[0].nickname
+            # nickname=User.objects.filter(username=username)[0].nickname
+            nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
             return JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname})
         else:
             return JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
