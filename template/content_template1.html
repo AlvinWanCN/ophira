@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
+    <script type="text/javascript" src="../static/js/template.js"></script>
 </head>
 <body>
 <div id="app1" >
@@ -354,11 +355,11 @@
                      { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                 ],
                 passwd:[
-                     { required: true, message: 'Please fill in the old password.', trigger: 'blur' },
+                     { required: true, message: 'Please fill in the password.', trigger: 'blur' },
                      { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                 ],
                 passwdCheck:[
-                     { required: true, message: 'Please fill in the old password.', trigger: 'blur' },
+                     { required: true, message: 'Please confirm your new password.', trigger: 'blur' },
                      { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
                 ]
             },
@@ -453,7 +454,7 @@
              this.show_userinfo_form=false
             },
             now_time:function () {
-                 this.now = new Date().toTimeString();
+                 this.now = new Date().format('h:m:s');
             },
             to_index:function () {
                 window.location.href="/";
@@ -542,7 +543,7 @@
                 })
             },
             logout:function () {
-{#                removeCookie('nickname')#}
+                removeCookie('nickname')
                 window.location.href="/logout";
             },
             upload_file:function (file) {
