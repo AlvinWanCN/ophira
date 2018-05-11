@@ -321,7 +321,7 @@
             mpassword:'',
             fpassword:'',
             show_vpn:false,
-            now:'',
+            now:new Date().format('h:m:s'),
             nickname:getCookie('nickname'),
             vpn_type:'',
             userinfo_form:{
@@ -439,6 +439,7 @@
                             lastLayer.$Message.success(result.message)
                             lastLayer.show_userinfo_form=false
                             setCookie('nickname',result.nickname,3600)
+                            lastLayer.nickname=getCookie('nickname')
                         }else {
                             lastLayer.$Message.warning(result.message)
                         }
