@@ -14,7 +14,7 @@
 
 </head>
 <body style="background: black">
-<p id="indexWelcome"> Welcome 11 to login ophira system </p>
+<p id="indexWelcome"> Welcome to login ophira system </p>
  <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/etlucency.png " id="indeximage"></a>
  <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/blue_tie.ico " class="indexalien" id="indextitleimg"></a>
 
@@ -28,7 +28,7 @@
                 </i-input>
             </form-item></br>
             <form-item prop="password" >
-                <i-input type="password" v-model="formInline.password" placeholder="Password">
+                <i-input type="password" v-model="formInline.password" placeholder="Password" @on-enter="handleSubmit(formInline)">
                     <icon type="ios-locked-outline" slot="prepend"></icon>
                 </i-input>
             </form-item></br></br>
@@ -205,8 +205,7 @@
             },
             get_date:function (date) {
                 this.register_form.birthday=date
-            }
-
+            },
         }
 
     })

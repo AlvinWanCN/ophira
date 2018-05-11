@@ -22,7 +22,7 @@
             <i-input type='password' v-model="new_account.password" style="width: auto"></i-input>
         </form-item>
         <form-item label="Comment">
-            <i-input v-model="new_account.comment" style="width: auto"></i-input>
+            <i-input v-model="new_account.comment" style="width: auto" @on-enter="submit_new_account(new_account)"></i-input>
         </form-item>
     </i-form>
     <i-button type="success" style="width: 260px" @click="submit_new_account(new_account)">SUBMIT</i-button>

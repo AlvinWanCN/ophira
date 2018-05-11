@@ -298,8 +298,8 @@ def register_api(request):
     try:
         if request.method == 'POST' and request.POST:
             u = User()
-            u.username = request.POST['username'].decode('utf-8')
-            u.password = hashpassword(request.POST['password']).decode('utf-8')
+            u.username = request.POST['username']
+            u.password = hashpassword(request.POST['password'])
             u.email = request.POST['email']
             u.nickname = request.POST['nickname']
             u.birthday = request.POST['birthday']
