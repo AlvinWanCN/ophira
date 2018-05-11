@@ -9,6 +9,7 @@ from sophiroth.forms import *
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import StreamingHttpResponse
+import uuid
 
 # Create your views here.
 
@@ -299,6 +300,7 @@ def register_api(request):
             u.email = request.POST['email']
             u.nickname = request.POST['nickname']
             u.birthday = request.POST['birthday']
+            u.id=uuid.uuid1()
             u.save()
             return JsonResponse({'success': True, 'code': 0, 'message': '注册成功'})
         else:

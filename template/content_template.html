@@ -32,11 +32,30 @@
     </div>
 
 <script>
-        var account_data = [];
-        {% for i in all_account %}
-            account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}","id":"{{ i.id }}"});
-        {% endfor %}
-
+    var account_data = [];
+    {% for i in all_account %}
+        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}","id":"{{ i.id }}"});
+    {% endfor %}
+    {#    为Date对象添加一个方法#}
+    Date.prototype.format = function(format)
+    {
+     var o = {
+     "M+" : this.getMonth()+1, //month
+     "d+" : this.getDate(),    //day
+     "h+" : this.getHours(),   //hour
+     "m+" : this.getMinutes(), //minute
+     "s+" : this.getSeconds(), //second
+     "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+     "S" : this.getMilliseconds() //millisecond
+     }
+     if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+     (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+     for(var k in o)if(new RegExp("("+ k +")").test(format))
+     format = format.replace(RegExp.$1,
+     RegExp.$1.length==1 ? o[k] :
+     ("00"+ o[k]).substr((""+ o[k]).length));
+     return format;
+    }
     var app_content_template=new Vue({
         el: '#app',
         data: {
@@ -99,12 +118,19 @@
         delimiters:['${', '}'],
         methods: {
             submit_new_account:function (name) {
+                var new_account = new Object()
+                new_account={
+                    username:name.username,
+                    password:name.password,
+                    application:name.application,
+                    comment:name.comment
+                }
                 var lastLayer=this
                 $.ajax({
                     type:"POST",
                     dataType:"json",
                     url:"/new_account_api",
-                    data:name,
+                    data:new_account,
                     success:function (result) {
                         lastLayer.$Message.success(result.message)
                     },
@@ -112,16 +138,18 @@
                         lastLayer.$Message.error(result.message())
                     }
                 });
-                name['id']='000000'
+                new_account['id']='000000'
 
-                name['updateDate']='新账号刷新后显示'
-                account_data.push(name)
+                new_account['updateDate']=new Date().format('yyyy年MM月dd日 h:m')
+                console.log(new_account)
+
+                account_data.push(new_account)
+                console.log(account_data)
             },
             exportData:function (type) {
                 this.$refs.table.exportCsv({
                     filename: 'Ophira存储的账号信息'
                 });
-
             },
               delete_user_account:function (id) {
                 var lastLayer = this
