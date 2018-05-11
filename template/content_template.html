@@ -34,7 +34,7 @@
 <script>
     var account_data = [];
     {% for i in all_account %}
-        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate }}","id":"{{ i.id }}"});
+        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate|date:"Y-m-d H:i:s" }}","id":"{{ i.id }}"});
     {% endfor %}
     {#    为Date对象添加一个方法#}
     Date.prototype.format = function(format)
@@ -133,17 +133,18 @@
                     data:new_account,
                     success:function (result) {
                         lastLayer.$Message.success(result.message)
+                        new_account.id=result.id
+                        new_account.updateDate=result.updateDate
+                        account_data.push(new_account)
                     },
                     error:function (result) {
                         lastLayer.$Message.error(result.message())
                     }
                 });
-                new_account['id']='000000'
+{#                new_account['id']='000000'#}
 
-                new_account['updateDate']=new Date().format('yyyy年MM月dd日 h:m')
+{#                new_account['updateDate']=new Date().format('yyyy年MM月dd日 h:m')#}
                 console.log(new_account)
-
-                account_data.push(new_account)
                 console.log(account_data)
             },
             exportData:function (type) {

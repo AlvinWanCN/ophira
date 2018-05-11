@@ -142,13 +142,16 @@ def new_account_api(request):
     try:
         if request.method == 'POST' and request.POST:
             a = Account()
+            id = uuid.uuid1()
+            a.id = id
             a.username = request.POST['username']
             a.password = request.POST['password']
             a.application = request.POST['application']
             a.comment = request.POST['comment']
             a.uid = request.session['user_id']
             a.save()
-            return JsonResponse({'success': True,'code':0,'message':'保存成功。'})
+            updateDate = Account.objects.get(id=id).updateDate.strftime('%Y-%m-%d %H:%M:%S')
+            return JsonResponse({'success': True,'code':0,'message':'保存成功。','updateDate':updateDate,'id':str(id)})
         else:
             return JsonResponse({'success': False,'code':1,'message':'保存失败，仅支持post请求。'})
     except Exception as e:
