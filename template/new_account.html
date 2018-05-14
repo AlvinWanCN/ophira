@@ -1,7 +1,6 @@
 
 {% extends 'content_template.html' %}
 
-
 {% block title %}
          New Acount addition.
 {% endblock %}
@@ -33,18 +32,11 @@
 
         <i-table height="500" :columns="account_title" :data="account_data" ref="table"></i-table>
         <i-button type="primary" size="large" @click="exportData()"><icon type="ios-download-outline"></icon>导出数据到Excel</i-button>
-{#        {% for i in all_account  %}#}
-{#            <p>{{ i.keys }}</p>#}
-{#            <p>{{ i.application }} username: {{ i.username }} password:{{ i.password }}  comment:{{ i.comment }}</p>#}
-{#        {% endfor %}#}
 
     </i-col>
 </row>
 {% endblock %}
 
-{#{% block H1 %}#}
-{#Welcome to account addition center#}
-{#{% endblock %}#}
 {% block topic %}
 应用中心 / 账号记录
 {% endblock %}

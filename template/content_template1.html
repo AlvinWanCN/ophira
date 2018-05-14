@@ -13,6 +13,7 @@
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
     <script type="text/javascript" src="../static/js/template.js"></script>
+    <script type="text/javascript" src="../static/js/echarts.js"></script>
 </head>
 <body>
 <div id="app1" >
@@ -94,7 +95,7 @@
                     <p style="color: #118b37"> Hello {{ nickname }} </p>
                     <p>本次登录IP： {{ ip }}</p>
                     <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>
-
+                    <div id="system" style="width: 600px;height:400px;"> sscssss</div>
                 </div>
             </div>
         </i-col>
@@ -327,6 +328,9 @@
             now:new Date().format('h:m:s'),
             nickname:getCookie('nickname'),
             vpn_type:'',
+            available_mem:'200',
+            used_mem:'100',
+            total_mem:'300',
             userinfo_form:{
                 username:'',
                 nickname:'',
@@ -610,11 +614,68 @@
                         console.log(e)
                     },
                 })
-            }
+            },
+            get_system_mem:function () {
+                var lastLayer = this
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url:"/api/get_mem_state",
+                    data:{},
+                    success: function (result) {
+
+                        lastLayer.used_mem = result.used_mem;
+                        lastLayer.total_mem = result.total_mem;
+                        lastLayer.available_mem = result.available_mem;
+                        var myChart = echarts.init(document.getElementById('system'));
+                        option = {
+                            title : {
+                                text: '系统内存使用状况',
+                                subtext: 'sophiroth server',
+                                x:'center'
+                            },
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['已用内存','剩余内存']
+                            },
+                            series : [
+                                {
+                                    name: '内存状况',
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    data:[
+                                        {value:lastLayer.used_mem, name:'已用内存'},
+                                        {value:lastLayer.available_mem, name:'剩余内存'},
+
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        myChart.setOption(option);
+                    },
+                    error : function(e,result) {
+                        console.log(e)
+                    },
+                })
+            },
         }
     })
     setInterval('app_content_template1.now_time()',1000);
         app_content_template1.get_weather()
+    setInterval('app_content_template1.get_system_mem()',1000);
 
   </script>
 </body>

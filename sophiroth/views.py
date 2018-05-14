@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.http import StreamingHttpResponse
 import uuid
 from sophiroth.modules.sysinfo_api import *
+from sophiroth.modules.pages import *
 # Create your views here.
 
 def loginValid(fun):

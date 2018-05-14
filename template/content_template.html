@@ -11,6 +11,8 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
+
+
 </head>
 <body>
 <div id="app" >
@@ -30,8 +32,11 @@
             {% endblock %}
         </div>
     </div>
+    <script type="text/javascript" src="../static/js/echarts.js"></script>
 
 <script>
+
+
     var account_data = [];
     {% for i in all_account %}
         account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate|date:"Y-m-d H:i:s" }}","id":"{{ i.id }}"});
@@ -108,6 +113,9 @@
             ],
             account_data: account_data,
             now:'',
+            available_mem:'200',
+            used_mem:'100',
+            total_mem:'300',
             new_account:{
                 application:'',
                 username:'',
@@ -141,9 +149,6 @@
                         lastLayer.$Message.error(result.message())
                     }
                 });
-{#                new_account['id']='000000'#}
-
-{#                new_account['updateDate']=new Date().format('yyyy年MM月dd日 h:m')#}
                 console.log(new_account)
                 console.log(account_data)
             },
@@ -176,10 +181,79 @@
             remove_account: function (index) {
                 this.account_data.splice(index, 1);
             },
+            get_system_mem:function () {
+                var lastLayer = this
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url:"/api/get_mem_state",
+                    data:{},
+                    success: function (result) {
+
+                        app_content_template.used_mem = result.used_mem;
+                        app_content_template.total_mem = result.total_mem;
+                        app_content_template.available_mem = result.available_mem;
+                        var myChart = echarts.init(document.getElementById('system'));
+                        option = {
+                            title : {
+                                text: '系统内存使用状况',
+                                subtext: 'sophiroth server',
+                                x:'center'
+                            },
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['已用内存','剩余内存']
+                            },
+                            series : [
+                                {
+                                    name: '内存状况',
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    data:[
+                                        {value:app_content_template.used_mem, name:'已用内存'},
+                                        {value:app_content_template.available_mem, name:'剩余内存'},
+
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        myChart.setOption(option);
+
+
+
+                    },
+                    error : function(e,result) {
+                        console.log(e)
+                    },
+                })
+            },
         }
     })
+
+    setInterval('app_content_template.get_system_mem()',1000);
+
   </script>
 </div>
 
 </body>
+
+    <script type="text/javascript">
+
+
+
+
+       </script>
 </html>

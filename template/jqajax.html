@@ -31,32 +31,22 @@
 
 {#                $('body').append(aaa)#}
 
-{#                $.ajax(#}
-{#                    {#}
-{#                        type: "POST",#}
-{#                        dataType: "json",#}
-{#                        url:"auth_pass",#}
-{#                        data: {#}
-{#                            username: 'alvin',#}
-{#                            password:'wankaihao',#}
-{#                        },#}
-{#                        data:$('#form1').serialize(),#}
-{#                        success: function (result) {#}
-{#                            console.log(result.resultCode );//打印服务端返回的数据(调试用)#}
-{#                            if (result.message == 'yes') {#}
-{#                                alert("SUCCESS");#}
-{#                                $('#form1').append('<p style=color:red>验证成功！</p>')#}
-{#                            }else {#}
-{#                                alert("用户名或密码错误")#}
-{#                                $('#form1').append('<p style=color:red>用户名或密码错误！</p>')#}
-{#                            }#}
-{#                            ;#}
-{#                        },#}
-{#                        error : function() {#}
-{#                            alert("异常！");#}
-{#                        }#}
-{#                    }#}
-{#                )#}
+                 $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url:"/api/get_mem_state",
+                    data:{},
+                    success: function (result) {
+                        app_content_template.used_mem = result.used_mem;
+                        app_content_template.total_mem = result.total_mem;
+                        app_content_template.available_mem = result.available_mem;
+                        console.log(app_content_template.available_mem)
+                        console.log('aa')
+                    },
+                    error : function(e,result) {
+                        console.log(e)
+                    },
+                })
             })
 
         })
