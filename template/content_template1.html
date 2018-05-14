@@ -545,7 +545,8 @@
                 })
             },
             logout:function () {
-                removeCookie('nickname')
+{#                removeCookie('nickname')#}
+                setCookie('nickname', '1', -1);
                 window.location.href="/logout";
             },
             upload_file:function (file) {
