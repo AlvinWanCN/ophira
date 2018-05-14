@@ -3,14 +3,14 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render
 from sophiroth.models import *
 import hashlib,subprocess,os
-import sophiroth.modules.get_weather as  get_weather
+import sophiroth.modules.get_weather as get_weather
 from django.http import JsonResponse
 from sophiroth.forms import *
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import StreamingHttpResponse
 import uuid
-
+from sophiroth.modules.sysinfo_api import *
 # Create your views here.
 
 def loginValid(fun):

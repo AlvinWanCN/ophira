@@ -51,4 +51,5 @@ urlpatterns = [
     url(r'^api/delete_user_files',delete_user_files),
     url(r'^api/delete_user_accounts_api',delete_user_accounts_api),
     url(r'^api/get_weather_api',get_weather_api),
+    url(r'^api/get_mem_state',get_mem_available)
 ]
