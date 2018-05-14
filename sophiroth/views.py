@@ -130,6 +130,13 @@ def index(request):
     users_role=User.objects.all()
     return render_to_response('content_template1.html', locals())
 
+@loginValid
+def get_weather_api(request):
+    weatherStatus = get_weather.get_status()
+    weatherMax = get_weather.get_max_temperature()
+    weatherMin = get_weather.get_min_temperature()
+    return JsonResponse({'success': True,'code':0,'weatherMin':weatherMin,'weatherMax':weatherMax,'weatherStatus':weatherStatus,'city':'上海'})
+
 
 
 @loginValid
@@ -272,7 +279,6 @@ def delete_user_accounts_api(request):
 def logout(request):
     try:
         del request.session['user_id']
-        del request.COOKIES['nickname']
     except:
         pass
     return HttpResponseRedirect("/login")
@@ -381,19 +387,6 @@ def change_password(request):
 
 
 def new_login(request):
-    # Login = loginForm()
-    # if request.method == "POST" and request.POST:
-    #     username = request.POST['username']  # username为我们前端html里面的name的值
-    #     password = hashpassword(request.POST['password'])
-    #     Login = loginForm(request.POST)
-    #     if Login.is_valid(): #判断是否校验是否成功
-    #         data = Login.cleaned_data #将校验成功的数据以字典的形式返回
-    #     if auth(username, password):
-    #         request.session['user_id'] = User.objects.filter(username=username)[0].id
-    #         return HttpResponseRedirect("/")
-    #     else:
-    #         return render_to_response('new_login.html', locals())
-    # else:
         return render_to_response('new_login.html', locals())
 
 def jstest(request):

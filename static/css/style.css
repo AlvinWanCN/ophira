@@ -165,7 +165,11 @@
     /*height: 18px;*/
 /*}*/
 
-
+#loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
 
 
 .green_btn {

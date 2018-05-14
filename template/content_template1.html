@@ -16,6 +16,7 @@
 </head>
 <body>
 <div id="app1" >
+<div v-if="weather.code == 0">
     <row type="flex" style="background-color: #417690;">
         <i-col span="3" style="height: 50px;" >
             <img src="/static/img/red_circle.ico" class="titlealien" @click="to_index">
@@ -92,7 +93,8 @@
                 <div class="middle_p">
                     <p style="color: #118b37"> Hello {{ nickname }} </p>
                     <p>本次登录IP： {{ ip }}</p>
-                    <p >今天上海的天气状况是{{ weatherStatus }}，最高气温{{ weatherMax }}℃,最低气温{{ weatherMin }}℃。</p>
+                    <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>
+
                 </div>
             </div>
         </i-col>
@@ -203,7 +205,8 @@
             <i-button type="primary" :loading="savePassLoading" @click="to_index" >确认</i-button>
         </div>
     </Modal>
-
+</div>
+<div v-else id="loading"> <spin size="large"></spin> </div>
 
 </div>
 <script>
@@ -256,6 +259,7 @@
             show_restart_ophira:false,
             file:null,
             loadingStatus: false,
+            weather:{},
             users_title:[
                 {
                     title:"Nickname",
@@ -583,10 +587,34 @@
             },
             download_user_file:function (filename) {
                 window.open("/static/files/{{ username }}/"+filename);
+            },
+            get_weather:function () {
+                lastLayer = this
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url:"/api/get_weather_api",
+                    data:{},
+                    success: function (result) {
+                        if (result.code == 0) {
+                            console.log(result)
+                            app_content_template1.weather = result
+                            console.log(lastLayer.weather)
+
+                        }else {
+                            console.log(e)
+                        }
+                        ;
+                    },
+                    error : function(e,result) {
+                        console.log(e)
+                    },
+                })
             }
         }
     })
     setInterval('app_content_template1.now_time()',1000);
+        app_content_template1.get_weather()
 
   </script>
 </body>
