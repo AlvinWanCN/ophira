@@ -181,69 +181,9 @@
             remove_account: function (index) {
                 this.account_data.splice(index, 1);
             },
-            get_system_mem:function () {
-                var lastLayer = this
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url:"/api/get_mem_state",
-                    data:{},
-                    success: function (result) {
-
-                        app_content_template.used_mem = result.used_mem;
-                        app_content_template.total_mem = result.total_mem;
-                        app_content_template.available_mem = result.available_mem;
-                        var myChart = echarts.init(document.getElementById('system'));
-                        option = {
-                            title : {
-                                text: '系统内存使用状况',
-                                subtext: 'sophiroth server',
-                                x:'center'
-                            },
-                            tooltip : {
-                                trigger: 'item',
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            legend: {
-                                orient: 'vertical',
-                                left: 'left',
-                                data: ['已用内存','剩余内存']
-                            },
-                            series : [
-                                {
-                                    name: '内存状况',
-                                    type: 'pie',
-                                    radius : '55%',
-                                    center: ['50%', '60%'],
-                                    data:[
-                                        {value:app_content_template.used_mem, name:'已用内存'},
-                                        {value:app_content_template.available_mem, name:'剩余内存'},
-
-                                    ],
-                                    itemStyle: {
-                                        emphasis: {
-                                            shadowBlur: 10,
-                                            shadowOffsetX: 0,
-                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                        }
-                                    }
-                                }
-                            ]
-                        };
-                        myChart.setOption(option);
-
-
-
-                    },
-                    error : function(e,result) {
-                        console.log(e)
-                    },
-                })
-            },
         }
     })
 
-    setInterval('app_content_template.get_system_mem()',1000);
 
   </script>
 </div>

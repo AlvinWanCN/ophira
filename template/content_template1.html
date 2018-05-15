@@ -89,26 +89,33 @@
                 </submenu>
             </i-menu>
         </i-col>
-        <i-col span="19"  style="height: 760px;">
+        <i-col span="19"  style="height: 760px;" >
             <div id="index_content" >
                 <div class="middle_p">
                     <p style="color: #118b37"> Hello {{ nickname }} </p>
                     <p>本次登录IP： {{ ip }}</p>
                     <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>
-                    <div id="system" style="width: 600px;height:400px;"> sscssss</div>
+                    <row>
+                        <i-col span="12"><div id="system" style="width: 600px;height:400px;"><spin></spin></div></i-col>
+
+                        <i-col span="12"><div id="system_cpu" style="width: 600px;height:400px;"><spin></spin></div></i-col>
+                    </row>
+
+
                 </div>
             </div>
         </i-col>
     </row>
     <row type="flex" justify="end">
         <i-col span="19" pull="2" style="height: 139px;background-color: purple;">
-    <div id="tail">
+    <div id="tail" >
         {% block tail %}
             <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
             <a href="https://github.com/alvinwancn" target="_blank">alvin的github</a>
             <a href="https://www.elastic.co/" target="_blank">ELK Stack</a>
             <a href="https://baidu.com" target="_blank">baidu.com</a>
             <a href="https://www.iviewui.com/docs/guide/install" target="_blank">iView</a>
+            <a href="http://echarts.baidu.com/" target="_blank">echarts</a>
         {% endblock %}
     </div>
         </i-col>
@@ -211,6 +218,7 @@
 
 </div>
 <script>
+        var aaa='ccccc'
         var users_role = [];
         {% for i in users_role %}
             users_role.push({"nickname":"{{ i.nickname }}","role":"{{ i.role }}","registerDate":"{{ i.createDate }}"});
@@ -245,7 +253,8 @@
         function removeCookie(name)
         {
             setCookie(name, '1', -1);
-        }
+        };
+
     var app_content_template1=new Vue({
         el: '#app1',
         data: {
@@ -325,6 +334,7 @@
             mpassword:'',
             fpassword:'',
             show_vpn:false,
+            echart_num:0,
             now:new Date().format('h:m:s'),
             nickname:getCookie('nickname'),
             vpn_type:'',
@@ -601,9 +611,9 @@
                     data:{},
                     success: function (result) {
                         if (result.code == 0) {
-                            console.log(result)
+{#                            console.log(result)#}
                             app_content_template1.weather = result
-                            console.log(lastLayer.weather)
+{#                            console.log(lastLayer.weather)#}
 
                         }else {
                             console.log(e)
@@ -615,19 +625,19 @@
                     },
                 })
             },
+
             get_system_mem:function () {
                 var lastLayer = this
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url:"/api/get_mem_state",
+                    url:"/api/get_sys_state",
                     data:{},
                     success: function (result) {
-
                         lastLayer.used_mem = result.used_mem;
                         lastLayer.total_mem = result.total_mem;
                         lastLayer.available_mem = result.available_mem;
-                        var myChart = echarts.init(document.getElementById('system'));
+                        cpu_used = result.cpu_used
                         option = {
                             title : {
                                 text: '系统内存使用状况',
@@ -652,7 +662,6 @@
                                     data:[
                                         {value:lastLayer.used_mem, name:'已用内存:'+lastLayer.used_mem+'MB'},
                                         {value:lastLayer.available_mem, name:'剩余内存:'+lastLayer.available_mem+'MB'},
-
                                     ],
                                     itemStyle: {
                                         emphasis: {
@@ -664,7 +673,32 @@
                                 }
                             ]
                         };
-                        myChart.setOption(option);
+                        option_cpu = {
+                            tooltip : {
+                                formatter: "{a} <br/>{b} : {c}%"
+                            },
+                            toolbox: {
+                                feature: {
+                                    restore: {},
+                                    saveAsImage: {}
+                                }
+                            },
+                            series: [
+                                {
+                                    name: 'CPU使用率',
+                                    type: 'gauge',
+                                    detail: {formatter:'{value}%'},
+                                    data: [{value: cpu_used, name: 'CPU使用率'}]
+                                }
+                            ]
+                        };
+                        if (typeof(myChart_mem) == 'undefined'){
+                            myChart_mem = echarts.init(document.getElementById('system'));
+                            myChart_cpu = echarts.init(document.getElementById('system_cpu'));
+                        }
+                        myChart_mem.setOption(option);
+                        myChart_cpu.setOption(option_cpu)
+
                     },
                     error : function(e,result) {
                         console.log(e)
@@ -672,10 +706,11 @@
                 })
             },
         }
-    })
-    setInterval('app_content_template1.now_time()',1000);
+    });
+        setInterval('app_content_template1.now_time()',1000);
         app_content_template1.get_weather()
-    setInterval('app_content_template1.get_system_mem()',1000);
+{#        app_content_template1.get_system_mem();#}
+        setInterval('app_content_template1.get_system_mem()',3000);
 
   </script>
 </body>

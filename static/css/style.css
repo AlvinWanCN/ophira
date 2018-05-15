@@ -171,6 +171,11 @@
     left: 50%;
 }
 
+.center_position{
+    position: absolute;
+    left: 240px;
+}
+
 
 .green_btn {
     height: 23px;
