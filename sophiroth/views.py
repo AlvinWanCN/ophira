@@ -212,9 +212,11 @@ def update_code_api(request):
                 os.chdir('/home/alvin/ophira')
                 subprocess.call('/usr/bin/git pull', shell=True)
                 message = '已更新'
+                code=0
             else:
+                code=1
                 message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
-            return JsonResponse({'success': True,'code':0,'message':message})
+            return JsonResponse({'success': True,'code':code,'message':message})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
     except Exception as e:
