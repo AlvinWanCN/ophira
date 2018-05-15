@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login  Ophira System</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/iview.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <script type="text/javascript" src="/static/js/vue.min.js"></script>
-    <script type="text/javascript" src="/static/js/iview.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/iview.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script type="text/javascript" src="../static/js/vue.min.js"></script>
+    <script type="text/javascript" src="../static/js/iview.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
 
 
 
@@ -16,9 +16,10 @@
 <body style="background: black">
 <p id="indexWelcome"> Welcome to login ophira system </p>
  <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/etlucency.png " id="indeximage"></a>
- <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/blue_tie.ico " class="indexalien" id="indextitleimg"></a>
+
 
 <div id="app">
+     <template v-if="v_height.h > 800"> <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/blue_tie.ico " class="indexalien" id="indextitleimg"></a></template>
     <div id="login">
         <i-form ref="formInline" :model="formInline" :rules="ruleInline" inline>
             <p style="color: red;" id="warning"></p>
@@ -70,6 +71,7 @@
 </div>
 </body>
 <script type="text/javascript">
+    j_height=window.innerHeight
     function setCookie(name, value, iDay)
     {
         var oDate=new Date();
@@ -100,6 +102,9 @@
         }
     var exampleData={
         message:'vue massage',
+        v_height:{
+            h:window.innerHeight
+        },
         value:'',
         savePassLoading:false,
         formInline: {
@@ -140,7 +145,7 @@
         },
         register:false
     }
-    new Vue({
+    var login_vue = new Vue({
         el:'#app',
         data:exampleData,
         delimiters:['${', '}'],
@@ -208,7 +213,8 @@
             },
         }
 
-    })
+    });
+
 
 </script>
 </html>
