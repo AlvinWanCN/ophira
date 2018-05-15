@@ -29,7 +29,7 @@ def get_sys_state(request):
             available_mem=int(subprocess.check_output('zabbix_get -s localhost -k vm.memory.size[available]', shell=True).split('\n')[0])/1024/1024
             total_mem=int(subprocess.check_output('zabbix_get -s localhost -k vm.memory.size[total]', shell=True).split('\n')[0])/1024/1024
             used_mem=total_mem-available_mem
-            cpu_used=100-float(subprocess.check_output('zabbix_get -s localhost -k system.cpu.util[,idle]', shell=True).split('\n')[0])
+            cpu_used=float('%.2f' % float(100-float(subprocess.check_output('zabbix_get -s localhost -k system.cpu.util[,idle]', shell=True).split('\n')[0])))
         else:
             available_mem = random.randint(100, 600)
             total_mem = 900
