@@ -170,6 +170,7 @@ def new_account_api(request):
 def confirm_userinfo_change_api(request):
     try:
         if request.method == 'POST' and request.POST:
+
             # t = User()
             t = User.objects.get(id=request.session['user_id'])
             t.username = request.POST['username']
@@ -188,16 +189,22 @@ def confirm_userinfo_change_api(request):
 def change_vpntype_api(request):
     try:
         if request.method == 'POST' and request.POST:
-            if request.POST['vpn_type']== 'ipsec':
-                subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
-                subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
-                return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
-            elif request.POST['vpn_type']== 'ikev2':
-                subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
-                subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
-                return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
+            role = User.objects.get(id=request.session['user_id']).role
+            if role == 1:
+                if request.POST['vpn_type']== 'ipsec':
+                    subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
+                    subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
+                    return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
+                elif request.POST['vpn_type']== 'ikev2':
+                    subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
+                    subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
+                    return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
+                else:
+                    return JsonResponse({'success': True, 'code': 1, 'message': '没有做任何变更操作。'})
             else:
-                return JsonResponse({'success': True, 'code': 1, 'message': '没有做任何变更操作。'})
+                code=1
+                message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
+                return JsonResponse({'success': False, 'code': code, 'message': message})
         else:
             return JsonResponse({'success': False,'code':1,'message':'仅支持post请求。'})
     except Exception as e:
@@ -216,7 +223,7 @@ def update_code_api(request):
             else:
                 code=1
                 message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
-            return JsonResponse({'success': True,'code':code,'message':message})
+            return JsonResponse({'success': False,'code':code,'message':message})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
     except Exception as e:
@@ -311,15 +318,26 @@ def ip(request):
 def register_api(request):
     try:
         if request.method == 'POST' and request.POST:
-            u = User()
-            u.username = request.POST['username']
-            u.password = hashpassword(request.POST['password'])
-            u.email = request.POST['email']
-            u.nickname = request.POST['nickname']
-            u.birthday = request.POST['birthday']
-            u.id=uuid.uuid1()
-            u.save()
-            return JsonResponse({'success': True, 'code': 0, 'message': '注册成功'})
+            try:
+                if User.objects.get(username=request.POST['username']):
+                    return JsonResponse({'code': 1, 'message': '注册失败，用户名已存在，请使用其他用户名。'})
+            except:
+                import re
+                if re.match(r'^[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){0,4}@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){0,4}$',request.POST['email']):
+                    if request.POST['birthday'] != '':
+                        u = User()
+                        u.username = request.POST['username']
+                        u.password = hashpassword(request.POST['password'])
+                        u.email = request.POST['email']
+                        u.nickname = request.POST['nickname']
+                        u.birthday = request.POST['birthday']
+                        u.id = uuid.uuid1()
+                        u.save()
+                        return JsonResponse({'success': True, 'code': 0, 'message': '注册成功'})
+                    else:
+                        return JsonResponse({'success': True, 'code': 1, 'message': '请选择日期'})
+                else:
+                    return JsonResponse({'code': 1, 'message': '请正确的填写邮箱。'})
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请正确填写全部信息'})
             # return JsonResponse({'success': False, 'code': 1, 'message': request.POST})
