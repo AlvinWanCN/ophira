@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
     <script type="text/javascript" src="../static/js/template.js"></script>
-    <script type="text/javascript" src="../static/js/echarts.js"></script>
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
 </head>
 <body>
 <div id="app1" >
@@ -711,6 +711,9 @@
         setInterval('app_content_template1.now_time()',1000);
         app_content_template1.get_weather()
 {#        app_content_template1.get_system_mem();#}
+        var interval;
+        app_content_template1.get_system_mem()
+        clearInterval(interval)
         setInterval('app_content_template1.get_system_mem()',5000);
 
   </script>
