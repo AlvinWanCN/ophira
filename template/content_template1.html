@@ -94,13 +94,12 @@
                 <div class="middle_p">
                     <p style="color: #118b37"> Hello {{ nickname }} </p>
                     <p>本次登录IP： {{ ip }}</p>
-                    <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>
+{#                    <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>#}
                     <row>
                         <i-col span="12"><div id="system" style="width: 600px;height:400px;"><spin></spin></div></i-col>
 
                         <i-col span="12"><div id="system_cpu" style="width: 600px;height:400px;"><spin></spin></div></i-col>
                     </row>
-
 
                 </div>
             </div>
