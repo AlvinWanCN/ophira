@@ -77,10 +77,13 @@ def auth_pass(request):
             nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
             id=request.session['user_id']
             print(session_key)
+
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
-            response["Access-Control-Allow-Origin"] = "http://*.alv.pub"
+            response["Access-Control-Allow-Origin"] = "http://.alv.pub"
             response["Access-Control-Allow-Headers"] = "*"
+            response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
             response["Access-Control-Allow-Credentials"] = 'true'
+
             return response
         else:
             response =  JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
@@ -324,7 +327,12 @@ def reqTest(request):
         id=request.session['id']
     except:
         pass
-    return render_to_response('reqTest.html',locals())
+    response =  render_to_response('reqTest.html',locals())
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Headers"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+    response["Access-Control-Allow-Credentials"] = 'true'
+    return response
 
 
 def ip(request):
