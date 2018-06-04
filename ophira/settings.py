@@ -142,3 +142,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static').replace('\\', '/'),
 )
 
+
+SESSION_COOKIE_DOMAIN = '.alv.pub'
