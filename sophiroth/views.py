@@ -198,11 +198,18 @@ def change_vpntype_api(request):
                 if request.POST['vpn_type']== 'ipsec':
                     subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
                     subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
-                    return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
+                    response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
+                    response["Access-Control-Allow-Origin"] = "*"
+                    response["Access-Control-Allow-Headers"] = "*"
+                    return response
                 elif request.POST['vpn_type']== 'ikev2':
                     subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
                     subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
-                    return JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
+                    response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
+                    response["Access-Control-Allow-Origin"] = "*"
+                    response["Access-Control-Allow-Headers"] = "*"
+                    return response
+
                 else:
                     return JsonResponse({'success': True, 'code': 1, 'message': '没有做任何变更操作。'})
             else:
