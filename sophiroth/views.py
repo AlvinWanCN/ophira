@@ -79,7 +79,7 @@ def auth_pass(request):
             print(session_key)
 
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
-            response["Access-Control-Allow-Origin"] = "http://.alv.pub"
+            response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
             response["Access-Control-Allow-Headers"] = "*"
             response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
             response["Access-Control-Allow-Credentials"] = 'true'
