@@ -80,7 +80,10 @@ def auth_pass(request):
             response["Access-Control-Allow-Headers"] = "*"
             return response
         else:
-            return JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
+            response =  JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
+            response["Access-Control-Allow-Origin"] = "*"
+            response["Access-Control-Allow-Headers"] = "*"
+            return response
     else:
         return JsonResponse({'success': False,'code':2,'message':'username and password can not bee null'})
 @loginValid
