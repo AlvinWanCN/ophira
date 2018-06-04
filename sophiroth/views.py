@@ -80,6 +80,7 @@ def auth_pass(request):
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Headers"] = "*"
+            response["Access-Control-ALLOW-Credentials"] = True
             return response
         else:
             response =  JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
@@ -386,8 +387,11 @@ def testcookie(request):
 
 
 def testsission(request):
-    last_name=request.session['name']
-    last_password=request.session['password']
+    try:
+        last_name=request.session['name']
+        last_password=request.session['password']
+    except:
+        pass
     now=time.strftime('%Y-%m-%d %H:%M:%S')
     request.session['name'] = 'diana'+now
     request.session['password'] = 'wankaihao'+now
