@@ -143,4 +143,4 @@ STATICFILES_DIRS = (
 )
 
 
-SESSION_COOKIE_DOMAIN = '.alv.pub'
+SESSION_COOKIE_DOMAIN = 'git.alv.pub'
