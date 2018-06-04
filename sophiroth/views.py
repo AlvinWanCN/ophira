@@ -80,7 +80,7 @@ def auth_pass(request):
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Headers"] = "*"
-            response["Access-Control-AllOW-Credentials"] = True
+            response["Access-Control-Allow-Credentials"] = True
             return response
         else:
             response =  JsonResponse({'success': False,'code':1,'message':'Username or password error.'})
