@@ -75,7 +75,8 @@ def auth_pass(request):
             session_key=request.session.session_key
             # nickname=User.objects.filter(username=username)[0].nickname
             nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
-            response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key})
+            id=request.session['user_id']
+            response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Headers"] = "*"
             return response
