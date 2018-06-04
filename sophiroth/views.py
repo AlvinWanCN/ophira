@@ -14,6 +14,8 @@ from sophiroth.modules.sysinfo_api import *
 from sophiroth.modules.pages import *
 # Create your views here.
 
+H5Server="http://git.alv.pub"
+
 def loginValid(fun):
     """
     进行session验证
@@ -79,7 +81,7 @@ def auth_pass(request):
             print(session_key)
 
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
-            response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
+            response["Access-Control-Allow-Origin"] = H5Server
             response["Access-Control-Allow-Headers"] = "*"
             response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
             response["Access-Control-Allow-Credentials"] = 'true'
@@ -208,7 +210,7 @@ def change_vpntype_api(request):
                     subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
                     subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
                     response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
-                    response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
+                    response["Access-Control-Allow-Origin"] = H5Server
                     response["Access-Control-Allow-Headers"] = "*"
                     response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
                     response["Access-Control-Allow-Credentials"] = 'true'
@@ -217,7 +219,7 @@ def change_vpntype_api(request):
                     subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
                     subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
                     response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
-                    response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
+                    response["Access-Control-Allow-Origin"] = H5Server
                     response["Access-Control-Allow-Headers"] = "*"
                     response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
                     response["Access-Control-Allow-Credentials"] = 'true'
@@ -248,7 +250,7 @@ def update_code_api(request):
                 code=1
                 message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
             response = JsonResponse({'success': False,'code':code,'message':message})
-            response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
+            response["Access-Control-Allow-Origin"] = H5Server
             response["Access-Control-Allow-Headers"] = "*"
             response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
             response["Access-Control-Allow-Credentials"] = 'true'
