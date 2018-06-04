@@ -424,8 +424,12 @@ def testsission(request):
     key=request.session.session_key
     # key=type(t1_key)
 
-    return render_to_response('testSession.html',locals())
-
+    response =  render_to_response('testSession.html',locals())
+    response["Access-Control-Allow-Origin"] = H5Server
+    response["Access-Control-Allow-Headers"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+    response["Access-Control-Allow-Credentials"] = 'true'
+    return  response
 
 def blogroll(request):
     return render_to_response('blogroll.html',locals())
