@@ -250,7 +250,7 @@ def update_code_api(request):
                 code=1
                 message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
             response = JsonResponse({'success': False,'code':code,'message':message})
-            response["Access-Control-Allow-Origin"] = H5Server
+            response["Access-Control-Allow-Origin"] = '*'
             response["Access-Control-Allow-Headers"] = "*"
             response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
             response["Access-Control-Allow-Credentials"] = 'true'
