@@ -208,15 +208,19 @@ def change_vpntype_api(request):
                     subprocess.call('sudo docker stop ikev2-vpn-server', shell=True)
                     subprocess.call('sudo docker start ipsec-vpn-server', shell=True)
                     response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ipsec/l2tp vpn' })
-                    response["Access-Control-Allow-Origin"] = "*"
+                    response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
                     response["Access-Control-Allow-Headers"] = "*"
+                    response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+                    response["Access-Control-Allow-Credentials"] = 'true'
                     return response
                 elif request.POST['vpn_type']== 'ikev2':
                     subprocess.call('sudo docker stop ipsec-vpn-server', shell=True)
                     subprocess.call('sudo docker start ikev2-vpn-server', shell=True)
                     response = JsonResponse({'success': True, 'code': 0, 'message': '现在开始使用ikev2 vpn'})
-                    response["Access-Control-Allow-Origin"] = "*"
+                    response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
                     response["Access-Control-Allow-Headers"] = "*"
+                    response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+                    response["Access-Control-Allow-Credentials"] = 'true'
                     return response
 
                 else:
