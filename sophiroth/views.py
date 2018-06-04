@@ -72,7 +72,7 @@ def auth_pass(request):
         password = hashpassword(request.POST['password'])
         if auth(username,password):
             request.session['user_id'] = User.objects.filter(username=username)[0].id
-            session_key=request.session._get_session_key
+            session_key=request.session._session_key
             # nickname=User.objects.filter(username=username)[0].nickname
             nickname = User.objects.filter(id=request.session['user_id'])[0].nickname
             response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key})
@@ -392,7 +392,8 @@ def testsission(request):
     new_name=request.session['name']
     new_password=request.session['password']
 
-    key=request.session._get_session_key
+    t1_key=request.session._session_key
+    key=type(t1_key)
 
     return render_to_response('testSession.html',locals())
 
