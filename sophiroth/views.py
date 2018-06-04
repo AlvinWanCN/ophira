@@ -315,7 +315,7 @@ def delete_user_accounts_api(request):
             else:
                 a.delete()
                 if len(a) == 0:
-                    return JsonResponse({'success': False, 'code': 0, 'message': '删除成功'})
+                    return JsonResponse({'success': True, 'code': 0, 'message': '删除成功'})
                 else:
                     return JsonResponse({'success': False, 'code': 1, 'message': '删除失败。'})
         else:
@@ -328,7 +328,8 @@ def logout(request):
         del request.session['user_id']
     except:
         pass
-    return HttpResponseRedirect("/login")
+    # return HttpResponseRedirect("/login")
+    return JsonResponse({'code': 0})
 
 def reqTest(request):
     try:
