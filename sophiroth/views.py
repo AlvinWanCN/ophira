@@ -406,22 +406,22 @@ def testcookie(request):
 
 
 def testsission(request):
-    try:
-        last_name=request.session['name']
-        last_password=request.session['password']
-    except:
-        pass
+    # try:
+    #     last_name=request.session['name']
+    #     last_password=request.session['password']
+    # except:
+    #     pass
     try:
         userid=request.session['user_id']
     except:
         pass
-    now=time.strftime('%Y-%m-%d %H:%M:%S')
-    request.session['name'] = 'diana'+now
-    request.session['password'] = 'wankaihao'+now
-    new_name=request.session['name']
-    new_password=request.session['password']
-
-    key=request.session.session_key
+    # now=time.strftime('%Y-%m-%d %H:%M:%S')
+    # request.session['name'] = 'diana'+now
+    # request.session['password'] = 'wankaihao'+now
+    # new_name=request.session['name']
+    # new_password=request.session['password']
+    #
+    # key=request.session.session_key
     # key=type(t1_key)
 
     response =  render_to_response('testSession.html',locals())
@@ -429,7 +429,7 @@ def testsission(request):
     response["Access-Control-Allow-Headers"] = "*"
     response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
     response["Access-Control-Allow-Credentials"] = 'true'
-    return  response
+    return response
 
 def blogroll(request):
     return render_to_response('blogroll.html',locals())
