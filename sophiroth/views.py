@@ -411,6 +411,10 @@ def testsission(request):
         last_password=request.session['password']
     except:
         pass
+    try:
+        userid=request.session['user_id']
+    except:
+        pass
     now=time.strftime('%Y-%m-%d %H:%M:%S')
     request.session['name'] = 'diana'+now
     request.session['password'] = 'wankaihao'+now
