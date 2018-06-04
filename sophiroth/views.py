@@ -247,7 +247,12 @@ def update_code_api(request):
             else:
                 code=1
                 message = 'what? 小伙子你没有权限访问这个的，我在后端还会再校验的，你别瞎搞。'
-            return JsonResponse({'success': False,'code':code,'message':message})
+            response = JsonResponse({'success': False,'code':code,'message':message})
+            response["Access-Control-Allow-Origin"] = "http://git.alv.pub"
+            response["Access-Control-Allow-Headers"] = "*"
+            response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+            response["Access-Control-Allow-Credentials"] = 'true'
+            return response
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
     except Exception as e:
