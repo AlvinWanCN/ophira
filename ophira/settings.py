@@ -144,3 +144,13 @@ STATICFILES_DIRS = (
 
 
 SESSION_COOKIE_DOMAIN = '.alv.pub'
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': [
+#             'memcached.alv.pub:11211',
+#         ]
+#     }
+# }
+

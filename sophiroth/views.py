@@ -12,6 +12,8 @@ from django.http import StreamingHttpResponse
 import uuid
 from sophiroth.modules.sysinfo_api import *
 from sophiroth.modules.pages import *
+from django.views.decorators.cache import cache_page
+
 # Create your views here.
 
 H5Server="http://git.alv.pub"
@@ -125,9 +127,10 @@ def login(request):
         return render_to_response('login.html', locals())
 
 
-
+# @cache_page(60 * 15)
 @loginValid
 def index(request):
+
 
     weatherStatus = get_weather.get_status()
     weatherMax = get_weather.get_max_temperature()
