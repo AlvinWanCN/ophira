@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
     <script type="text/javascript" src="../static/js/template.js"></script>
     <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
 <div id="app1" >
@@ -92,7 +93,7 @@
         <i-col span="19"  style="height: 760px;" >
             <div id="index_content" >
                 <div class="middle_p">
-                    <p style="color: #118b37"> Hello {{ nickname }} </p>
+                    <p style="color: #118b37"> Hello <span  class="animated infinite bounceInRight">{{ nickname }} </span></p>
                     <p>本次登录IP： {{ ip }}</p>
 {#                    <p >今天上海的天气状况是<template v-if="weather.weatherStatus">${weather.weatherStatus}</template><template v-else> <spin></spin></template>，最高气温${ weather.weatherMax }℃,最低气温${ weather.weatherMin }℃。</p>#}
                     <row>
@@ -107,9 +108,9 @@
     </row>
     <row type="flex" justify="end">
         <i-col span="19" pull="2" style="height: 139px;background-color: purple;">
-    <div id="tail" >
+    <div id="tail" class="animated  rotateInDownLeft">
         {% block tail %}
-            <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
+            <a class="animated infinite bounceInRight" href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a>
             <a href="https://github.com/alvinwancn" target="_blank">alvin的github</a>
             <a href="https://www.elastic.co/" target="_blank">ELK Stack</a>
             <a href="https://baidu.com" target="_blank">baidu.com</a>
@@ -118,7 +119,7 @@
             <a href="https://www.openstack.org" target="_blank">openstack</a>
             <a href="https://pypi.org/" target="_blank">python package</a>
             <a href="https://hub.docker.com" target="_blank">Docker Hub</a>
-            <a href="https://daneden.github.io/animate.css/" target="_blank">Animate.css</a>
+            <a href="https://daneden.github.io/animate.css/" target="_blank" class="animated infinite bounceInRight" >Animate.css</a>
         {% endblock %}
     </div>
         </i-col>
