@@ -331,7 +331,7 @@ def logout(request):
         del request.session['user_id']
     except:
         pass
-    # return HttpResponseRedirect("/login")
+    #return HttpResponseRedirect("/login")
     return JsonResponse({'code': 0})
 
 def reqTest(request):
