@@ -8,19 +8,20 @@
     <script type="text/javascript" src="../static/js/vue.min.js"></script>
     <script type="text/javascript" src="../static/js/iview.min.js"></script>
     <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 
 
 
 </head>
-<body style="background: black">
+<body style="background: black" >
 <p id="indexWelcome"> Welcome to login ophira system </p>
- <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/etlucency.png " id="indeximage"></a>
+ <div class="animated  bounceInLeft"><a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/etlucency.png " id="indeximage"></a></div>
 
 
-<div id="app">
-     <template v-if="v_height.h > 800"> <a href="https://github.com/AlvinWanCN" target="_blank"><img src="/static/img/blue_tie.ico " class="indexalien" id="indextitleimg"></a></template>
-    <div id="login">
+<div id="app" >
+     <template v-if="v_height.h > 800"> <a href="https://github.com/AlvinWanCN" target="_blank"><div class="animated  zoomInRight"><img src="/static/img/blue_tie.ico " class="indexalien" id="indextitleimg"></div></a></template>
+    <div id="login" class="animated  bounceInUp">
         <i-form ref="formInline" :model="formInline" :rules="ruleInline" inline>
             <p style="color: red;" id="warning"></p>
             <form-item prop="user">
