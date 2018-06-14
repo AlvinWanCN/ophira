@@ -37,4 +37,7 @@ def get_min_temperature():  # 获取最低气温
         print(e)
         return "unknow"
 
-print (get_max_temperature())
+
+
+if __name__ == '__main__':
+    print(get_max_temperature())
