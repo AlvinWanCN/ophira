@@ -17,6 +17,8 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
 ### 下载ophira
 ```
 # git clone https://github.com/AlvinWanCN/ophira.git
+# cd ophira
+
 ```
 
 ### 配置数据
