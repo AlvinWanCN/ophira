@@ -16,6 +16,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
 
 ### 下载ophira
 ```
+# cd /opt/
 # git clone https://github.com/AlvinWanCN/ophira.git
 # cd ophira
 
@@ -49,6 +50,15 @@ CREATE DATABASE `ophira` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 grant all privileges on ophira.* to 'alvin'@'%' identified by 'sophiroth';
 ```
 
+### 安装依赖包
+
+sudo yum install mysql-devel
+sudo yum install python-devel
+sudo pip install django=1.8.2
+sudo pip install django-cors-headers
+sudo pip install pymysql
+sudo pip install MySQL-python
+
 ### 同步数据库
 
 ```
@@ -62,7 +72,26 @@ python  manage.py  syncdb   同步或者映射数据库
 ### 启动服务
 
 ```
-python manage.py runserver 0.0.0.0:80
+echo '
+[Unit]
+Description=The Sophiroth Service
+After=syslog.target network.target salt-master.service
+
+[Service]
+Type=simple
+User=alvin
+WorkingDirectory=/opt/ophira
+ExecStart=/usr/bin/python2 manage.py runserver 0.0.0.0:8001
+KillMode=process
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target graphic.target
+' > /usr/lib/systemd/system/ophira.service
+
+systemctl start ophira
+systemctl enable ophira
 
 ```
 
