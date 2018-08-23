@@ -246,7 +246,8 @@ def update_code_api(request):
         if request.method == 'GET':
             role = User.objects.get(id=request.session['user_id']).role
             if role == 1:
-                os.chdir('/home/alvin/ophira')
+                #os.chdir('/home/alvin/ophira')
+                os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
                 subprocess.call('/usr/bin/git pull', shell=True)
                 message = '已更新'
                 code=0
