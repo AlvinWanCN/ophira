@@ -420,6 +420,7 @@ def ip_forward_weather(request):
     weather_dict0['aqi'] = forecast[0]['aqi']
     weather_dict0['month'] = month
     weather_dict0['city'] = city
+    weather_dict0['ganmao'] = dicinfo['data']['ganmao']
 
     weather_dict1 = {}
     weather_dict1['high'] = forecast[1]['high']
@@ -465,11 +466,11 @@ def ip_forward_weather(request):
     weather_dict4['date'] = forecast[4]['date']
     weather_dict4['city'] = city
 
-    response=('今天是{month}月{date}, {city}的天气是{type}, 空气质量指数(AQI)是{aqi}, 湿度:{shidu}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict0) + '\n' \
-    +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict1) + '\n' \
-    +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict2) + '\n' \
-    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict3) + '\n' \
-    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict4) + '\n'
+    response=('今天是{month}月{date}, {city}的天气是{type}, 空气质量指数(AQI)是{aqi}, 湿度:{shidu}, {high}, {low}, {fx}{fl}, {ganmao},{notice}。</br>\n').format(**weather_dict0)  \
+    +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict1)  \
+    +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict2)  \
+    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict3) \
+    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict4)
 
     return HttpResponse(response)
 
