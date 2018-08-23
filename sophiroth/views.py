@@ -378,6 +378,8 @@ def ip_forward_weather(request):
     city = str(citydict['data']['city'])
     if re.search('省', city):
         city=(re.findall(r'省(.*)', city)[0])
+    if city == 'XX':
+        city = str(citydict['data']['region'])
     #print(city)
     # 打印城市地址
 
