@@ -466,7 +466,7 @@ def ip_forward_weather(request):
     weather_dict4['date'] = forecast[4]['date']
     weather_dict4['city'] = city
 
-    response=('今天是{month}月{date}, {city}的天气是{type}, 空气质量指数(AQI)是{aqi}, 湿度:{shidu}, {high}, {low}, {fx}{fl}, {ganmao},{notice}。</br>\n').format(**weather_dict0)  \
+    response=('今天是{month}月{date}, {city}的天气是{type}, 空气质量指数(AQI)是{aqi}, 湿度:{shidu}, {high}, {low}, {fx}{fl}, {ganmao},{notice}。</br></br>\n\n').format(**weather_dict0)  \
     +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict1)  \
     +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict2)  \
     + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。</br>\n').format(**weather_dict3) \
