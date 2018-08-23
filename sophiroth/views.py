@@ -366,16 +366,16 @@ def ip_forward_weather(request):
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
-    response = urllib2.urlopen("http://www.114best.com/ip/114.aspx?w=%s" % ip)
+    response = urllib2.urlopen("http://ip.taobao.com/service/getIpInfo.php?ip=%s" % ip)
     # read response and decode
     content = response.read().decode('utf-8')
 
     html = etree.HTML(content)
     # 用xpath去找指定内容，xpath地址可以用谷歌浏览器按f12后找到。
-    content_list = html.xpath('//*[@id="output"]/b[2]')
+    citydict = json.loads(content)
 
     # 获取最终城市地址
-    city = str(content_list[0].text)
+    city = str(citydict['data']['city'])
     if re.search('省', city):
         city=(re.findall(r'省(.*)', city)[0])
     #print(city)
