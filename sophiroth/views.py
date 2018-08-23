@@ -400,7 +400,7 @@ def ip_forward_weather(request):
     type = forecast[0]['type']
     notice = forecast[0]['notice']
     # print(forecast)
-    today_weather='今天' + city + '的天气是' + type + ', 湿度:' + shidu + ',' + high + ', ' + low + ', ' + fx + fl + ', ' + notice
+    today_weather='今天' + city + '的天气是' + type + ', 湿度:' + shidu + ',' + high + ', ' + low + ', ' + fx + fl + ', ' + notice +'.'
     return render_to_response('weather.html', locals())
 
 
