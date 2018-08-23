@@ -390,7 +390,7 @@ def ip_forward_weather(request):
     try:
         city = dicinfo['city']
     except Exception as e:
-        return HttpResponse('对不起，获取不到您当前地区的天气。')
+        return HttpResponse('对不起，获取不到您当前地区的天气。'+'\n')
     shidu = dicinfo['data']['shidu']
     forecast = dicinfo['data']['forecast']
     high = forecast[0]['high']
@@ -401,7 +401,7 @@ def ip_forward_weather(request):
     notice = forecast[0]['notice']
     # print(forecast)
     today_weather='今天' + city + '的天气是' + type + ', 湿度:' + shidu + ',' + high + ', ' + low + ', ' + fx + fl + ', ' + notice +'.'
-    return HttpResponse(today_weather)
+    return HttpResponse(today_weather+'\n')
 
 
 def register_api(request):
