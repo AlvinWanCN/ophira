@@ -469,7 +469,7 @@ def ip_forward_weather(request):
     +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict1) + '\n' \
     +  ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict2) + '\n' \
     + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict3) + '\n' \
-    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict4)
+    + ('{date}, 天气是{type}, 空气质量指数(AQI)是{aqi}, {high}, {low}, {fx}{fl}, {notice}。').format(**weather_dict4) + '\n'
 
     return HttpResponse(response)
 
