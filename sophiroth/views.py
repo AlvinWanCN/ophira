@@ -355,6 +355,47 @@ def ip(request):
     ip = client_ip(request)
     return render_to_response('ip.html',locals())
 
+def ip_forward_weather(request):
+    ip = client_ip(request)
+    import urllib.request, json
+    from lxml import etree
+    # response = urllib2.urlopen("http://www.baidu.com")
+
+    # get response
+    response = urllib.request.urlopen("http://www.114best.com/ip/114.aspx?w=%s" % ip)
+    # read response and decode
+    content = response.read().decode('utf-8')
+
+    html = etree.HTML(content)
+    # 用xpath去找指定内容，xpath地址可以用谷歌浏览器按f12后找到。
+    content_list = html.xpath('//*[@id="output"]/b[2]')
+
+    # 获取最终城市地址
+    city = content_list[0].text
+
+    weather_url = urllib.parse.quote('https://www.sojson.com/open/api/weather/json.shtml?city=%s' % city, safe='/:?=.')
+    # weather_response=urllib.request.urlopen('https://www.sojson.com/open/api/weather/json.shtml?city=上海市')
+    weather_response = urllib.request.urlopen(weather_url)
+    weather_content = weather_response.read().decode('utf-8')
+
+    dicinfo = json.loads(weather_content)
+    try:
+        city = dicinfo['city']
+    except Exception as e:
+        print('对不起，获取不到您当前地区的天气。')
+        exit(1)
+    shidu = dicinfo['data']['shidu']
+    forecast = dicinfo['data']['forecast']
+    high = forecast[0]['high']
+    low = forecast[0]['low']
+    fx = forecast[0]['fx']
+    fl = forecast[0]['fl']
+    type = forecast[0]['type']
+    notice = forecast[0]['notice']
+    # print(forecast)
+    today_weather='今天' + city + '的天气是' + type + ', 湿度:' + shidu + ',' + high + ', ' + low + ', ' + fx + fl + ', ' + notice
+    return render_to_response('weather.html', locals())
+
 
 def register_api(request):
     try:
