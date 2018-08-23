@@ -359,7 +359,7 @@ def ip(request):
 def ip_forward_weather(request):
     ip = client_ip(request)
     import json
-    import urllib2
+    import urllib2,re
     from lxml import etree
     # response = urllib2.urlopen("http://www.baidu.com")
     import sys
@@ -375,9 +375,10 @@ def ip_forward_weather(request):
     content_list = html.xpath('//*[@id="output"]/b[2]')
 
     # 获取最终城市地址
-    city = content_list[0].text
-
-    print(city)
+    city = str(content_list[0].text)
+    if re.search('省', city):
+        city=(re.findall(r'省(.*)', city)[0])
+    #print(city)
     # 打印城市地址
 
     weather_url = 'https://www.sojson.com/open/api/weather/json.shtml?city=%s' % city
