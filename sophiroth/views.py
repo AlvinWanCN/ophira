@@ -357,12 +357,15 @@ def ip(request):
 
 def ip_forward_weather(request):
     ip = client_ip(request)
-    import urllib.request, json
+    import json
+    import urllib2
     from lxml import etree
     # response = urllib2.urlopen("http://www.baidu.com")
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
-    # get response
-    response = urllib.request.urlopen("http://www.114best.com/ip/114.aspx?w=%s" % ip)
+    response = urllib2.urlopen("http://www.114best.com/ip/114.aspx?w=%s" % ip)
     # read response and decode
     content = response.read().decode('utf-8')
 
@@ -373,17 +376,21 @@ def ip_forward_weather(request):
     # 获取最终城市地址
     city = content_list[0].text
 
-    weather_url = urllib.parse.quote('https://www.sojson.com/open/api/weather/json.shtml?city=%s' % city, safe='/:?=.')
+    print(city)
+    # 打印城市地址
+
+    weather_url = 'https://www.sojson.com/open/api/weather/json.shtml?city=%s' % city
+    # weather_url=urlparse.urlparse('https://www.sojson.com/open/api/weather/json.shtml?city=%s'%city,safe='/:?=.')
     # weather_response=urllib.request.urlopen('https://www.sojson.com/open/api/weather/json.shtml?city=上海市')
-    weather_response = urllib.request.urlopen(weather_url)
+    weather_response = urllib2.urlopen(weather_url)
     weather_content = weather_response.read().decode('utf-8')
 
     dicinfo = json.loads(weather_content)
     try:
         city = dicinfo['city']
     except Exception as e:
-        print('对不起，获取不到您当前地区的天气。')
-        exit(1)
+        today_weather='对不起，获取不到您当前地区的天气。'
+        return render_to_response('weather.html', locals())
     shidu = dicinfo['data']['shidu']
     forecast = dicinfo['data']['forecast']
     high = forecast[0]['high']

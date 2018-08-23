@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^reqTest/',reqTest),
     url(r'^ip', ip),
+    url(r'^weather', ip_forward_weather),
     url(r'^register',register),
     url(r'^testcookie',testcookie),
     url(r'^testsission', testsission),
