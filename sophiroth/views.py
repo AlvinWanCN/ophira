@@ -353,7 +353,8 @@ def reqTest(request):
 
 def ip(request):
     ip = client_ip(request)
-    return render_to_response('ip.html',locals())
+    #return render_to_response('ip.html',locals())
+    return HttpResponse(ip+'\n')
 
 def ip_forward_weather(request):
     ip = client_ip(request)
@@ -389,8 +390,7 @@ def ip_forward_weather(request):
     try:
         city = dicinfo['city']
     except Exception as e:
-        today_weather='对不起，获取不到您当前地区的天气。'
-        return render_to_response('weather.html', locals())
+        return HttpResponse('对不起，获取不到您当前地区的天气。')
     shidu = dicinfo['data']['shidu']
     forecast = dicinfo['data']['forecast']
     high = forecast[0]['high']
@@ -401,7 +401,7 @@ def ip_forward_weather(request):
     notice = forecast[0]['notice']
     # print(forecast)
     today_weather='今天' + city + '的天气是' + type + ', 湿度:' + shidu + ',' + high + ', ' + low + ', ' + fx + fl + ', ' + notice +'.'
-    return render_to_response('weather.html', locals())
+    return HttpResponse(today_weather)
 
 
 def register_api(request):
