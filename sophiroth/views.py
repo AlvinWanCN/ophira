@@ -263,7 +263,7 @@ def update_code_api(request):
         else:
             return JsonResponse({'success': False, 'code': 1, 'message': '请使用GET请求'})
     except Exception as e:
-        return  JsonResponse({'success': False,'code':2,'message':e})
+        return  JsonResponse({'success': False,'code':2,'message':str(e)})
 
 @loginValid
 def upload_ajax_api(request):
