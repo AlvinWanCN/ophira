@@ -13,7 +13,7 @@ import uuid
 from sophiroth.modules.sysinfo_api import *
 from sophiroth.modules.pages import *
 from django.views.decorators.cache import cache_page
-
+import urllib2
 # Create your views here.
 
 H5Server="http://git.alv.pub"
@@ -617,3 +617,8 @@ def vuetest(request):
 
 def new_template1(request):
     return render_to_response('content_template1.html', locals())
+
+def xaas_script_sshslow(request):
+    response = urllib2.urlopen('https://raw.githubusercontent.com/AlvinWanCN/poppy/master/code/common_tools/sshslowly.sh')
+    content = response.read().decode('utf-8')
+    return HttpResponse(content)
