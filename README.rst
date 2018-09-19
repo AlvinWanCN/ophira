@@ -13,6 +13,8 @@ Ophira 项目是一个django+html+css+js+jquery+iView结合运用的项目，目
 
 ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql数据库。
 
+本次部署演示我们所在的主机名叫poppy.alv.pub， 可以通过主机名访问，能解析成该主机IP。
+
 下载ophira
 -------------------
 
@@ -101,7 +103,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     /opt/ophira
     [root@poppy ~]# vim /etc/httpd/conf/httpd.conf
     <VirtualHost *:80>
-        ServerName poppy1.alv.pub
+        ServerName poppy.alv.pub
         alias /static /opt/ophira/static
         WSGIScriptAlias / /opt/ophira/ophira/wsgi.py
     </VirtualHost>
