@@ -105,6 +105,10 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
         alias /static /opt/ophira/static
         WSGIScriptAlias / /opt/ophira/ophira/wsgi.py
     </VirtualHost>
+    <Directory /opt/ophira>
+        AllowOverride none
+        Require all granted
+    </Directory>
     [root@poppy ~]# vim /opt/ophira/ophira/settings.py
     DEBUG = False
     ALLOWED_HOSTS = ['poppy.alv.pub']
