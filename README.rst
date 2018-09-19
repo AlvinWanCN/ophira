@@ -73,6 +73,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     sudo pip install django-cors-headers
     sudo pip install pymysql
     sudo pip install MySQL-python
+    sudo pip install lxml
 
 
 同步数据库
@@ -114,6 +115,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     [root@poppy ~]# vim /opt/ophira/ophira/settings.py
     DEBUG = False
     ALLOWED_HOSTS = ['poppy.alv.pub']
+    [root@poppy ~]# chown apache /opt/ophira/ -R
     [root@poppy ~]# systemctl restart httpd
 
 
