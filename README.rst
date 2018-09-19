@@ -1,0 +1,149 @@
+ophira
+###################
+Ophira 项目是一个django+html+css+js+jquery+iView结合运用的项目，目前正在开发中。
+
+
+已开发的代码已部署在https://alv.pub 上。
+
+安装部署ophira
+========================
+
+依赖环境
+------------------
+
+ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql数据库。
+
+下载ophira
+-------------------
+
+.. code-block:: bash
+
+    # /opt/
+    # git clone https://github.com/AlvinWanCN/ophira.git
+    # cd ophira
+
+
+修改数据库地址或设置本地解析
+-----------------------------------
+
+源代码中设置的连接数据库的地址是maxsclae.alv.pub,配置在ophira/ophira/settings.py里面。
+我们可以修改数据库地址，或设置一个本地解析将maxscale.alv.pub 解析为我们自己的数据库ip。
+
+
+.. code-block:: bash
+
+    # vim ophira/settings.py
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ophira',
+            'HOST': 'maxscale.alv.pub',
+            'USER': 'alvin',
+            'PASSWORD': 'sophiroth',
+            'PORT': 4006
+
+        }
+    }
+
+
+创建数据库
+----------------------
+
+这里的数据库账号，根据实际情况设置
+
+.. code-block:: sql
+
+    CREATE DATABASE `ophira` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+    grant all privileges on ophira.* to 'alvin'@'%' identified by 'sophiroth';
+
+
+安装依赖包
+------------------
+
+
+.. code-block:: bash
+
+    sudo yum install mysql-devel -y
+    sudo yum install python-devel -y
+    sudo yum install python2-pip -y
+    sudo pip install -U pip
+    sudo pip install django==1.8.2
+    sudo pip install django-cors-headers
+    sudo pip install pymysql
+    sudo pip install MySQL-python
+
+
+同步数据库
+------------------
+
+.. code-block:: bash
+
+    python  manage.py  validate/check  #检测数据库配置是否有错 旧版本是vilidate,新新版是check
+
+    python  manage.py  makemigrations  #创建对应数据库的映射语句
+
+    python  manage.py  syncdb   同步或者映射数据库
+
+
+启动服务
+-----------------
+
+这里我们有两种方式，一种是用python启动，让systemd服务托管我们的服务，另一种是配置apache httpd服务，让httpd来管理我们的django。
+
+部署到apache httpd 服务
+++++++++++++++++++++++++++++++++
+
+
+.. code-block:: bash
+
+    [root@poppy ~]# yum install mod_wsgi -y
+    [root@poppy ~]# vim /usr/lib64/python2.7/site-packages/ophira.pth
+    /opt/ophira
+    [root@poppy ~]# vim /etc/httpd/conf/httpd.conf
+    <VirtualHost *:80>
+        ServerName poppy1.alv.pub
+        alias /static /opt/ophira/static
+        WSGIScriptAlias / /ophira/ophira/wsgi.py
+    </VirtualHost>
+    [root@poppy ~]# vim /opt/ophira/ophira/settings.py
+    DEBUG = False
+    ALLOWED_HOSTS = ['poppy.alv.pub']
+    [root@poppy ~]# systemctl restart httpd
+
+
+创建systemd服务
++++++++++++++++++++++++
+
+.. code-block:: bash
+
+    echo '
+    [Unit]
+    Description=The Sophiroth Service
+    After=syslog.target network.target salt-master.service
+
+    [Service]
+    Type=simple
+    User=alvin
+    WorkingDirectory=/opt/ophira
+    ExecStart=/usr/bin/python2 manage.py runserver 0.0.0.0:8001
+    KillMode=process
+    Restart=on-failure
+    RestartSec=3s
+
+    [Install]
+    WantedBy=multi-user.target graphic.target
+    ' > /usr/lib/systemd/system/ophira.service
+
+    systemctl start ophira
+    systemctl enable ophira
+
+```
+
+- 访问
+
+这里我们部署在poppy.alv.pub上，所以访问该域名就好了，该域名能解析到服务器所在IP.
+
+http://poppy.vl.pub
+
+
+
