@@ -152,7 +152,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
 - 访问
 
 
-http://poppy.vl.pub
+http://poppy.alv.pub
 
 
 
