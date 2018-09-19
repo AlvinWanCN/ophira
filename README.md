@@ -52,12 +52,14 @@ grant all privileges on ophira.* to 'alvin'@'%' identified by 'sophiroth';
 
 ### 安装依赖包
 
+```
 sudo yum install mysql-devel
 sudo yum install python-devel
 sudo pip install django=1.8.2
 sudo pip install django-cors-headers
 sudo pip install pymysql
 sudo pip install MySQL-python
+```
 
 ### 同步数据库
 

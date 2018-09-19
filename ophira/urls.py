@@ -55,5 +55,6 @@ urlpatterns = [
     url(r'^api/get_weather_api',get_weather_api),
     url(r'^api/get_sys_state',get_sys_state),
     url(r'^system_state',system_state),
-    url(r'^sshslow',xaas_script_sshslow)
+    url(r'^sshslow',xaas_script_sshslow),
+    url(r'^testobject',object_test)
 ]

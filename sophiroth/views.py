@@ -564,6 +564,9 @@ def frame_test(request):
 
 def iview_test(request):
     return render_to_response('iview_test.html',locals())
+def object_test(request):
+    t1 = User.objects.raw('select * from sophiroth_user')[0]
+    return HttpResponse(t1.username)
 
 @loginValid
 def change_password(request):
