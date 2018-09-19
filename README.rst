@@ -117,8 +117,10 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     [root@poppy ~]# systemctl restart httpd
 
 
-创建systemd服务
+部署为systemd服务
 +++++++++++++++++++++++
+
+如果不用上面的启动方式，也可以通过systemd来管理。
 
 .. code-block:: bash
 
@@ -143,11 +145,10 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     systemctl start ophira
     systemctl enable ophira
 
-```
+
 
 - 访问
 
-这里我们部署在poppy.alv.pub上，所以访问该域名就好了，该域名能解析到服务器所在IP.
 
 http://poppy.vl.pub
 
