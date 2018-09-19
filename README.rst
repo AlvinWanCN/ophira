@@ -103,7 +103,7 @@ ophira使用的python版本为python2.7，django版本是1.8.2.， 使用mysql�
     <VirtualHost *:80>
         ServerName poppy1.alv.pub
         alias /static /opt/ophira/static
-        WSGIScriptAlias / /ophira/ophira/wsgi.py
+        WSGIScriptAlias / /opt/ophira/ophira/wsgi.py
     </VirtualHost>
     [root@poppy ~]# vim /opt/ophira/ophira/settings.py
     DEBUG = False
