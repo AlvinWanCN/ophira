@@ -26,8 +26,8 @@ def loginValid(fun):
 def get_sys_state(request):
     try:
         if platform.system() == 'Linux':
-            available_mem=int(subprocess.check_output('zabbix_get -s localhost -k vm.memory.size[available]', shell=True).split('\n')[0])/1024/1024
-            total_mem=int(subprocess.check_output('zabbix_get -s localhost -k vm.memory.size[total]', shell=True).split('\n')[0])/1024/1024
+            available_mem=int(subprocess.check_output("free -b|grep Mem|awk  '{print $NF}'", shell=True).split('\n')[0])/1024/1024
+            total_mem=int(subprocess.check_output("free -b|grep Mem|awk  '{print $2}'", shell=True).split('\n')[0])/1024/1024
             used_mem=total_mem-available_mem
             cpu_used=float('%.2f' % float(100-float(subprocess.check_output('zabbix_get -s localhost -k system.cpu.util[,idle]', shell=True).split('\n')[0])))
         else:

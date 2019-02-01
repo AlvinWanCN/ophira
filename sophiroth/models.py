@@ -18,7 +18,7 @@ class User(models.Model):
 
 class Account(models.Model):
     id = models.CharField(max_length=40, null=False,primary_key=True)
-    username = models.CharField(max_length=50,null=False)
+    username = models.CharField(max_length=50,null=False).
     password = models.CharField(max_length=50,null=False)
     application = models.CharField(max_length=50,null=False)
     comment = models.CharField(max_length=254)
