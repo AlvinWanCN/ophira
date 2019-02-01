@@ -29,7 +29,7 @@ def get_sys_state(request):
             available_mem=int(subprocess.check_output("free -b|grep Mem|awk  '{print $NF}'", shell=True).split('\n')[0])/1024/1024
             total_mem=int(subprocess.check_output("free -b|grep Mem|awk  '{print $2}'", shell=True).split('\n')[0])/1024/1024
             used_mem=total_mem-available_mem
-            cpu_used=float('%.2f' % float(100-float(subprocess.check_output("top -n 1|grep id|awk '{print $8}'", shell=True).split('\n')[0])))
+            cpu_used=float('%.2f' % float(100-float(subprocess.check_output("top -b -n 1|grep id|awk '{print $8}'|head -1", shell=True).split('\n')[0])))
         else:
             available_mem = random.randint(100, 600)
             total_mem = 900
