@@ -59,6 +59,8 @@
 
 
     var account_data = {{ account_data|safe }};
+    var policy_group_data = {{ TABLE_GROUP_DATA|safe }};
+    {#var uniq_policy_group = {{ UNIQ_TABLE_GROUP|safe }}#}
 {#    {% for i in all_account %}#}
 {#        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate|date:"Y-m-d H:i:s" }}","id":"{{ i.id }}"});#}
 {#    {% endfor %}#}
@@ -86,6 +88,16 @@
         el: '#app',
         data: {
             account_title:[
+                {
+                    title:'Group',
+                    key:'group',
+                    {#width:120,#}
+                    filters: policy_group_data,
+                    fixed:'left',
+                    filterMethod (value, row) {
+                        return row.group === value
+                    }
+                },
                 {
                     title:'Application',
                     key:'application'

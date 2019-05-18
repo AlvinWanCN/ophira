@@ -12,6 +12,8 @@ logger = logging.getLogger('ophira')
 def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
     start = time.clock()
     account_data=[];
+    UNIQ_TABLE_GROUP={}
+    TABLE_GROUP_DATA = [];
     try:
         if cache.has_key(HTML_KEY):
             response=cache.get(HTML_KEY)
@@ -35,8 +37,14 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
                     account = Account.objects.filter(uid=request.session['user_id'])
 
             for i in cache.get(DATA_TABLE):
+                if UNIQ_TABLE_GROUP.has_key(i.group.encode("utf-8")):
+                    pass
+                else:
+                    GROUP_NAME = i.group.encode("utf-8")
+                    TABLE_GROUP_DATA.append({'label': GROUP_NAME, 'value': GROUP_NAME})
+                    UNIQ_TABLE_GROUP[GROUP_NAME] = GROUP_NAME
                 try:
-                    account_data.append({"application":i.application.encode("utf-8"),"username":i.username.encode("utf-8"),"password":i.password.encode("utf-8"),"comment":i.comment.encode("utf-8"),"id":i.id.encode("utf-8") })
+                    account_data.append({"group":i.group.encode("utf-8"),"application":i.application.encode("utf-8"),"username":i.username.encode("utf-8"),"password":i.password.encode("utf-8"),"comment":i.comment.encode("utf-8"),"id":i.id.encode("utf-8") })
                     #"updateDate":i.updateDate,
                 except Exception as e:
                     logger.error('We have exception:' + str(e))
@@ -48,11 +56,16 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
         account = Account.objects.filter(uid=request.session['user_id'])
         cache.set(DATA_TABLE, account, 365 * 24 * 60 * 60)
         for i in cache.get(DATA_TABLE):
+            if UNIQ_TABLE_GROUP.has_key(i.group.encode("utf-8")):
+                pass
+            else:
+                GROUP_NAME = i.group.encode("utf-8")
+                TABLE_GROUP_DATA.append({'label': GROUP_NAME, 'value': GROUP_NAME})
+                UNIQ_TABLE_GROUP[GROUP_NAME] = GROUP_NAME
             try:
                 account_data.append(
-                    {"application": i.application.encode("utf-8"), "username": i.username.encode("utf-8"),
-                     "password": i.password.encode("utf-8"), "comment": i.comment.encode("utf-8"),
-                     "updateDate": i.updateDate, "id": i.id.encode("utf-8")})
+                    {"group":i.group.encode("utf-8"),"application": i.application.encode("utf-8"), "username": i.username.encode("utf-8"),
+                     "password": i.password.encode("utf-8"), "comment": i.comment.encode("utf-8"), "id": i.id.encode("utf-8")})
             except Exception as e:
                 logger.error('We have exception:' + str(e))
                 break
