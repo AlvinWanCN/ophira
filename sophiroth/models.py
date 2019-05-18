@@ -18,6 +18,7 @@ class User(models.Model):
 
 class Account(models.Model):
     id = models.CharField(max_length=40, null=False,primary_key=True)
+    group = models.CharField(max_length=50,null=False,default='Default')
     username = models.CharField(max_length=50,null=False)
     password = models.CharField(max_length=50,null=False)
     application = models.CharField(max_length=50,null=False)
