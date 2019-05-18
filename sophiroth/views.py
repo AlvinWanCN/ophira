@@ -169,7 +169,7 @@ def get_weather_api(request):
 def new_account(request):
     all_account = Account.objects.filter(uid=request.session['user_id'])
     #return render_to_response("new_account.html", locals())
-    return use_redis('account','account_response','new_account.html',request)
+    return use_redis('account','account_response'+request.session['user_id'],'new_account.html',request)
 
 @loginValid
 def new_account_api(request):
@@ -182,10 +182,11 @@ def new_account_api(request):
             a.password = request.POST['password']
             a.application = request.POST['application']
             a.comment = request.POST['comment']
+            a.group = request.POST['group']
             a.uid = request.session['user_id']
             a.save()
-            cache.delete('account')
-            cache.delete('account_response')
+            cache.delete(str('account'+request.session['user_id']))
+            cache.delete(str('account_response'+request.session['user_id']))
             updateDate = Account.objects.get(id=id).updateDate.strftime('%Y-%m-%d %H:%M:%S')
             return JsonResponse({'success': True,'code':0,'message':'保存成功。','updateDate':updateDate,'id':str(id)})
         else:

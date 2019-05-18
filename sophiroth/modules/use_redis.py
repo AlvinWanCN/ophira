@@ -23,20 +23,20 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
         else:
             logger.info(HTML_KEY + ' have not response cache in redis.')
             try:
-                if cache.has_key(DATA_TABLE): #判断是否有关于数据的缓存，有则直接从redis缓存里读取，没有则去mysql数据库查询。
+                if cache.has_key(DATA_TABLE+request.session['user_id']): #判断是否有关于数据的缓存，有则直接从redis缓存里读取，没有则去mysql数据库查询。
                     logger.info(DATA_TABLE + ' have data cache in redis')
                     if DATA_TABLE == 'account':
-                        account=cache.get(DATA_TABLE)
+                        account=cache.get(DATA_TABLE+request.session['user_id'])
                 else:
                     if DATA_TABLE == 'account':
                         account=Account.objects.filter(uid=request.session['user_id'])
-                        cache.set(DATA_TABLE, account, 365 * 24 * 60 * 60)
+                        cache.set(DATA_TABLE+request.session['user_id'], account, 365 * 24 * 60 * 60)
             except Exception as e: #如果查询或设置缓存的过程中出现异常，则直接从mysql数据库里获取数据传给前端。
                 logger.error('Get or set redis cache get exception,Now query direct. Exception content:' + e)
                 if DATA_TABLE == 'account':
                     account = Account.objects.filter(uid=request.session['user_id'])
 
-            for i in cache.get(DATA_TABLE):
+            for i in cache.get(DATA_TABLE+request.session['user_id']):
                 if UNIQ_TABLE_GROUP.has_key(i.group.encode("utf-8")):
                     pass
                 else:
@@ -54,8 +54,8 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
     except Exception as e:
         logger.error('Exception for use reids:' + str(e))
         account = Account.objects.filter(uid=request.session['user_id'])
-        cache.set(DATA_TABLE, account, 365 * 24 * 60 * 60)
-        for i in cache.get(DATA_TABLE):
+        cache.set(DATA_TABLE+request.session['user_id'], account, 365 * 24 * 60 * 60)
+        for i in cache.get(DATA_TABLE+request.session['user_id']):
             if UNIQ_TABLE_GROUP.has_key(i.group.encode("utf-8")):
                 pass
             else:
