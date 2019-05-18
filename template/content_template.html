@@ -176,6 +176,7 @@
             used_mem:'100',
             total_mem:'300',
             new_account:{
+                group:'',
                 application:'',
                 username:'',
                 password:'',
@@ -187,6 +188,7 @@
             submit_new_account:function (name) {
                 var new_account = new Object()
                 new_account={
+                    group:name.group,
                     username:name.username,
                     password:name.password,
                     application:name.application,

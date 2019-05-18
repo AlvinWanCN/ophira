@@ -11,6 +11,9 @@
    <i-col span="8" push="2" >
            <row style="height: 100px"></row>
     <i-form :model="new_account" label-position="left" :label-width="100" >
+        <form-item label="Group">
+            <i-input v-model="new_account.Group" style="width: auto"  ></i-input>
+        </form-item>
         <form-item label="Application">
             <i-input v-model="new_account.application" style="width: auto"  ></i-input>
         </form-item>
