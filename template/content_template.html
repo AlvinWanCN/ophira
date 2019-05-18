@@ -11,10 +11,31 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <script type="text/javascript" src="/static/js/iview.min.js"></script>
+    <script type="text/javascript" src="/static/js/clipboard.min.js"></script>
 
 
 </head>
 <body>
+<input name="" id="alvin" type="text"  value=password hidden="hidden"/>
+<script language="javascript">
+    function copyUrl()
+    {
+    var clipBoardContent=this.location.href;
+    window.clipboardData.setData("Text",clipBoardContent);
+    alert("复制成功!");
+    }
+    function copyPassword(password){
+        document.getElementById("alvin").setAttribute("value",password)
+        document.getElementById("alvin").removeAttribute('hidden')
+        var password = document.getElementById("alvin");
+        password.select();
+        document.execCommand("Copy");
+        document.getElementById("alvin").setAttribute('hidden','hidden')
+        console.log('success')
+    }
+</script>
+
+
 <div id="app" >
     <div class="top" align="center">
 
@@ -73,10 +94,10 @@
                     title:'Username',
                     key:'username',
                 },
-                {
-                    title:'Password',
-                    key:'password'
-                },
+                {#{#}
+                {#    title:'Password',#}
+                {#    key:'password'#}
+                {#},#}
                 {
                     title:'Comment',
                     key:'comment'
@@ -107,6 +128,66 @@
                                     }
                                 }
                             }, '删除')
+                        ]);
+                    }
+                },
+                {#{#}
+                {#    title: '隐藏密码',#}
+                {#    key: 'hidepassword',#}
+                {#    width: 150,#}
+                {#    align: 'center',#}
+                {#    render: function(h, params) {#}
+                {#        return h('div', [#}
+                {#            h('Input', {#}
+                {#                props: {#}
+                {#                    type: 'password',#}
+                {#                    size: 'small',#}
+                {#                    value: params.row.password#}
+                {#                },#}
+                {#                on: {#}
+                {#                    click:function() {#}
+                                        {#app_content_template.delete_user_account(params.row.id)#}
+                {#                        console.log('a1')#}
+                {#                        if (params.row.id != '000000') {#}
+                {#                            /*app_content_template.remove_account(params.index)#}
+                {##}
+                {#                             */#}
+                {#                            console.log('aa')#}
+                {#                        };#}
+                {#                    }#}
+                {#                }#}
+                {#            }, '删除')#}
+                {#        ]);#}
+                {#    }#}
+                {#},#}
+                {
+                    title: '获取密码',
+                    key: 'copy_password',
+                    width: 150,
+                    align: 'center',
+                    render: function(h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'success',
+                                    size: 'small',
+                                },
+                                on: {
+                                    lastLayer:this,
+                                    click:function() {
+                                        {#app_content_template.delete_user_account(params.row.id)#}
+                                        copyPassword(params.row.password)
+                                        lastLayer.$Message.success('密码已获取到剪切板,在本文区右键粘贴可显示密码')
+                                        console.log('a1')
+                                        if (params.row.id != '000000') {
+                                            /*app_content_template.remove_account(params.index)
+
+                                             */
+                                            console.log('aa')
+                                        };
+                                    }
+                                }
+                            }, '获取密码')
                         ]);
                     }
                 },
@@ -186,14 +267,12 @@
 
 
   </script>
+
 </div>
 
 </body>
 
     <script type="text/javascript">
-
-
-
 
        </script>
 </html>

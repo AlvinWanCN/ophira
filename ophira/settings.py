@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 Django settings for ophira project.
 
@@ -143,7 +144,9 @@ STATICFILES_DIRS = (
 )
 
 
-SESSION_COOKIE_DOMAIN = '.alv.pub'
+#SESSION_COOKIE_DOMAIN = '.alv.pub'
+
+#设置上面这个SESSION_COOKIE_DOMAIN='.alv.pub'的话，如果不是通过.alv.pub的域名去访问，就无法使用session_cookie，比如通过localhost去访问，就会有一次，比如无法登录。
 
 # CACHES = {
 #     'default': {
