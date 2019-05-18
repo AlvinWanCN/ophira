@@ -58,10 +58,10 @@
 <script>
 
 
-    var account_data = [];
-    {% for i in all_account %}
-        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate|date:"Y-m-d H:i:s" }}","id":"{{ i.id }}"});
-    {% endfor %}
+    var account_data = {{ account_data|safe }};
+{#    {% for i in all_account %}#}
+{#        account_data.push({"application":"{{ i.application }}","username":"{{ i.username }}","password":"{{ i.password }}","comment":"{{ i.comment }}","updateDate":"{{ i.updateDate|date:"Y-m-d H:i:s" }}","id":"{{ i.id }}"});#}
+{#    {% endfor %}#}
     {#    为Date对象添加一个方法#}
     Date.prototype.format = function(format)
     {
@@ -93,73 +93,8 @@
                 {
                     title:'Username',
                     key:'username',
+                    type:'html',
                 },
-                {#{#}
-                {#    title:'Password',#}
-                {#    key:'password'#}
-                {#},#}
-                {
-                    title:'Comment',
-                    key:'comment'
-                },
-                {
-                    title:'UpdateDate',
-                    key:"updateDate"
-                },
-                {
-                    title: '动作',
-                    key: 'action',
-                    width: 150,
-                    align: 'center',
-                    render: function(h, params) {
-                        return h('div', [
-                            h('Button', {
-                                props: {
-                                    type: 'error',
-                                    size: 'small'
-                                },
-                                on: {
-                                    click:function() {
-{#                                        this.remove(params.index)#}
-                                        app_content_template.delete_user_account(params.row.id)
-                                        if (params.row.id != '000000') {
-                                            app_content_template.remove_account(params.index)
-                                        };
-                                    }
-                                }
-                            }, '删除')
-                        ]);
-                    }
-                },
-                {#{#}
-                {#    title: '隐藏密码',#}
-                {#    key: 'hidepassword',#}
-                {#    width: 150,#}
-                {#    align: 'center',#}
-                {#    render: function(h, params) {#}
-                {#        return h('div', [#}
-                {#            h('Input', {#}
-                {#                props: {#}
-                {#                    type: 'password',#}
-                {#                    size: 'small',#}
-                {#                    value: params.row.password#}
-                {#                },#}
-                {#                on: {#}
-                {#                    click:function() {#}
-                                        {#app_content_template.delete_user_account(params.row.id)#}
-                {#                        console.log('a1')#}
-                {#                        if (params.row.id != '000000') {#}
-                {#                            /*app_content_template.remove_account(params.index)#}
-                {##}
-                {#                             */#}
-                {#                            console.log('aa')#}
-                {#                        };#}
-                {#                    }#}
-                {#                }#}
-                {#            }, '删除')#}
-                {#        ]);#}
-                {#    }#}
-                {#},#}
                 {
                     title: '获取密码',
                     key: 'copy_password',
@@ -191,6 +126,37 @@
                         ]);
                     }
                 },
+                {
+                    title:'Comment',
+                    key:'comment',
+                    type:'html',
+                },
+{#                {#}
+{#                    title: '动作',#}
+{#                    key: 'action',#}
+{#                    width: 150,#}
+{#                    align: 'center',#}
+{#                    render: function(h, params) {#}
+{#                        return h('div', [#}
+{#                            h('Button', {#}
+{#                                props: {#}
+{#                                    type: 'error',#}
+{#                                    size: 'small'#}
+{#                                },#}
+{#                                on: {#}
+{#                                    click:function() {#}
+{#                                        this.remove(params.index)#}
+{#                                        app_content_template.delete_user_account(params.row.id)#}
+{#                                        if (params.row.id != '000000') {#}
+{#                                            app_content_template.remove_account(params.index)#}
+{#                                        };#}
+{#                                    }#}
+{#                                }#}
+{#                            }, '删除')#}
+{#                        ]);#}
+{#                    }#}
+{#                },#}
+
             ],
             account_data: account_data,
             now:'',

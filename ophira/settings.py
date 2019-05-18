@@ -123,8 +123,8 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-#LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'zh-Hans'
 
 #TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'
@@ -157,3 +157,15 @@ STATICFILES_DIRS = (
 #     }
 # }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+}
+REDIS_TIMEOUT=7*24*60*60
+CUBES_REDIS_TIMEOUT=60*60
+NEVER_REDIS_TIMEOUT=365*24*60*60

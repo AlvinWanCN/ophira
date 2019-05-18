@@ -15,6 +15,12 @@ from sophiroth.modules.pages import *
 from django.views.decorators.cache import cache_page
 import urllib2
 # Create your views here.
+from django.core.cache import cache
+from .modules.use_redis import use_redis
+# import thread
+import logging
+logging.basicConfig(level = logging.INFO,format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',filename='../logs/ophira.log')
+logger = logging.getLogger('OPHIRA')
 
 H5Server="http://git.alv.pub"
 
@@ -162,7 +168,8 @@ def get_weather_api(request):
 @loginValid
 def new_account(request):
     all_account = Account.objects.filter(uid=request.session['user_id'])
-    return render_to_response("new_account.html", locals())
+    #return render_to_response("new_account.html", locals())
+    return use_redis('account','account_response','new_account.html',request)
 
 @loginValid
 def new_account_api(request):
@@ -177,6 +184,8 @@ def new_account_api(request):
             a.comment = request.POST['comment']
             a.uid = request.session['user_id']
             a.save()
+            cache.delete('account')
+            cache.delete('account_response')
             updateDate = Account.objects.get(id=id).updateDate.strftime('%Y-%m-%d %H:%M:%S')
             return JsonResponse({'success': True,'code':0,'message':'保存成功。','updateDate':updateDate,'id':str(id)})
         else:
