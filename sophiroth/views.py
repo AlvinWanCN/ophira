@@ -89,7 +89,7 @@ def auth_pass(request):
             id=request.session['user_id']
             # print(session_key)
 
-            response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'sessionid':session_key,'id':id})
+            response = JsonResponse({'success':True,'code': 0,'message':'pass','nickname':nickname,'id':id})
             # response["Access-Control-Allow-Origin"] = H5Server
             # response["Access-Control-Allow-Headers"] = "*"
             # response["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
