@@ -35,14 +35,15 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
                 logger.error('Get or set redis cache get exception,Now query direct. Exception content:' + e)
                 if DATA_TABLE == 'account':
                     account = Account.objects.filter(uid=request.session['user_id'])
-
+            USER_NAME_LIST=[]
             for i in cache.get(DATA_TABLE+request.session['user_id']):
                 if UNIQ_TABLE_GROUP.has_key(i.group.encode("utf-8")):
                     pass
                 else:
                     GROUP_NAME = i.group.encode("utf-8")
                     TABLE_GROUP_DATA.append({'label': GROUP_NAME, 'value': GROUP_NAME})
-                    UNIQ_TABLE_GROUP[GROUP_NAME] = GROUP_NAME
+                    USER_NAME_LIST.append({'label': i.username, 'value': i.username})
+                    UNIQ_TABLE_GROUP[GROUP_NAME] = i
                 try:
                     account_data.append({"group":i.group.encode("utf-8"),"application":i.application.encode("utf-8"),"username":i.username.encode("utf-8"),"password":i.password.encode("utf-8"),"comment":i.comment.encode("utf-8"),"id":i.id.encode("utf-8") })
                     #"updateDate":i.updateDate,
@@ -61,6 +62,7 @@ def use_redis(DATA_TABLE,HTML_KEY,HTML_NAME,request):
             else:
                 GROUP_NAME = i.group.encode("utf-8")
                 TABLE_GROUP_DATA.append({'label': GROUP_NAME, 'value': GROUP_NAME})
+
                 UNIQ_TABLE_GROUP[GROUP_NAME] = GROUP_NAME
             try:
                 account_data.append(

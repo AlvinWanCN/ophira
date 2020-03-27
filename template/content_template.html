@@ -59,6 +59,7 @@
 
 
     var account_data = {{ account_data|safe }};
+    var user_name_list = {{ USER_NAME_LIST|safe }}
     var policy_group_data = {{ TABLE_GROUP_DATA|safe }};
     {#var uniq_policy_group = {{ UNIQ_TABLE_GROUP|safe }}#}
 {#    {% for i in all_account %}#}
@@ -106,7 +107,7 @@
                     title:'Username',
                     key:'username',
                     fixed:'left',
-                    filters: ['admin','root','alvin'],
+                    filters: user_name_list,
                     filterMethod (value, row) {
                         return row.username === value
                     }
