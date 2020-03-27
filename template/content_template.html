@@ -105,7 +105,11 @@
                 {
                     title:'Username',
                     key:'username',
+                    filters: ['admin','root','alvin'],
                     type:'html',
+                    filterMethod (value, row) {
+                        return row.username === value
+                    }
                 },
                 {
                     title: '获取密码',
