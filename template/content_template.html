@@ -107,16 +107,7 @@
                     title:'Username',
                     key:'username',
                     fixed:'left',
-                    filters: [
-                            {
-                                label: 'Greater than 25',
-                                value: 1
-                            },
-                            {
-                                label: 'Less than 25',
-                                value: 2
-                            }
-                        ],,
+                    filters: user_name_list,
                     filterMethod (value, row) {
                         return row.username === value
                     }
